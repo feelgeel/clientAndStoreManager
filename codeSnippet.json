@@ -1,0 +1,84 @@
+{
+	"Function Component": {
+		"prefix": "rnfc",
+		"body": [
+			"import React from 'react';",
+			"import { StyleSheet, View } from 'react-native';",
+			"",
+			"function ${TM_FILENAME_BASE}({children,style}) {",
+			"return (",
+			"<View style={styles.container}>",
+			"$0",
+			"</View>",
+			" );",
+			"}",
+			"const styles = StyleSheet.create({",
+			"container:{",
+			"",
+			"}",
+			"})",
+			"export default ${TM_FILENAME_BASE};"
+		]
+	},
+	"function": {
+		"prefix": "func",
+		"body": [
+			"const $0=()=>{",
+			"",
+			"}",
+		]
+	},
+	"function brackets": {
+		"prefix": "funcb",
+		"body": [
+			"const $0=()=>(",
+			"",
+			")",
+		]
+	},
+	"onPress": {
+		"prefix": "onpress",
+		"body": [
+			"onPress={()=>$0}",
+		]
+	},
+	"NavonPress": {
+		"prefix": "Navonpress",
+		"body": [
+			"onPress={()=>navigation.navigate($0)}",
+		]
+	},
+	"rnButton": {
+		"prefix": "rnBut",
+		"body": [
+			"<Button",
+			"title=$0",
+			"onPress={()=>} />",
+		]
+	},
+	"rnnav": {
+		"prefix": "rnnav",
+		"body": [
+			"navigation.navigate($0)",
+		]
+	},
+	"stacknav": {
+		"prefix": "stacknav",
+		"body": [
+			"<Stack.Navigator>",
+			"<Stack.Screen name='' component={$0} />",
+			"</Stack.Navigator>",
+		]
+	},
+	"export defaukt": {
+		"prefix": "expdef",
+		"body": [
+			"export default $0",
+		]
+	},	"console log": {
+		"prefix": "clog",
+		"body": [
+			"console.log({$0})",
+		]
+	}
+}
