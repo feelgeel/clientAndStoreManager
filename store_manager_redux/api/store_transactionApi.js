@@ -10,7 +10,7 @@ export function addtransaction(data) {
     return Client.post("/st_trans",newData,{ headers: {"Content-Type": "application/x-www-form-urlencoded" }});
   }
   export function updatest_trans(item) {
-    
+    //play around with git 
     // return http.get("https://evening-plateau-98989.herokuapp.com/api/"+item+"/categ");
     return Client.put("st_trans/"+item);
   }
