@@ -5,9 +5,11 @@ npm-debug.*
 *.p8
 *.p12
 *.key
+*.txt
 *.mobileprovision
 *.orig.*
 web-build/
+assets/
 
 # macOS
 .DS_Store
