@@ -4,15 +4,15 @@ import queryStringFunc from "../utility/queryStringFunc";
 
 
 
-export function getStock(userId,gting) {
+export function getStock(userId,gting,productid) {
     // return http.get("https://evening-plateau-98989.herokuapp.com/api/grossery");
-    return Client.get("stock/"+userId+"/"+gting);
+    return Client.get("storeStock/"+userId+"/"+gting+"/"+productid);
   }
 export function addStock() {
     // return http.get("https://evening-plateau-98989.herokuapp.com/api/grossery");
-    return Client.post("stock/");
+    return Client.post("storeStock/");
   }
   export function updateStock(userId,gting) {
     // return http.get("https://evening-plateau-98989.herokuapp.com/api/"+userId,gting+"/categ");
-    return Client.put("stock/"+userId+"/"+gting);
+    return Client.put("storeStock/"+userId+"/"+gting);
   }

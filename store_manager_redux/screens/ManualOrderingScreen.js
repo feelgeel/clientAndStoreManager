@@ -14,8 +14,8 @@ import *as listNamesAction from '../redux/listNames';
 import {updateProducts} from '../api/productsApi';
 import {getGrosseryByGting} from '../api/grosseryApi';
 import {getStock,updateStock,addStock} from '../api/stockApi';
-import {addtransaction} from '../api/store_transactionApi';
-import {addProdTransaction} from '../api/store_prod_transactionApi';
+import {addtransaction} from '../api/transactionApi';
+import {addtransactionProd} from '../api/transactionProdApi';
 import {addByu} from '../api/byuApi';
 import {updateListNames} from '../api/listNameApi';
 function ManualOrdering({navigation,route}) {
@@ -145,27 +145,7 @@ function ManualOrdering({navigation,route}) {
       // prod:{}
       
      
-      let st_stock=theProducts.map(tt=>{
-        let newStock={}
-        console.log("checke if  it exist");
-        if("exist"){
-          //if quantity <=0 update the quant
-          //if quant>0  pu +pn/2 new price
-          //oldPrice == newprice if quant is 0
-          newStock.productId=tt.productId
-          newStock.oldPrice=tt.price
-          newStock.newprice=tt.price
-          newStock.storeId=user.userId
-          newStock.quantity=tt.quantity
-
-          newStock.sellPrice=tt.ttc
-        }
-       newStock.productId=tt.productId
-       newStock.storeId=user.userId
-       newStock.quantity=tt.quantity
-       newStock.sellPrice=tt.ttc
-         return newStock
-                  })
+    
 
       // console.log(st_stock)
       setthetransObj(trans_obj)
@@ -174,23 +154,35 @@ function ManualOrdering({navigation,route}) {
       let trans_prod=theProducts.map(tt=>{
         let newTS_prod={}
         newTS_prod.productId=tt.productId
-        newTS_prod.transId=trans_id
+        newTS_prod.transactionId=trans_id
         newTS_prod.Gting=tt.Gting
         newTS_prod.price=tt.price
         newTS_prod.quantity=tt.quantity
         newTS_prod.Benefit=tt.Benefit
-        
         return newTS_prod
       })
-      trans_prod.map(async(ft)=>{
-        // let prod_trans=await addProdTransaction(ft)
-
-      })
       // if(trans_dt){
-        
-        console.log("trans server",trans_prod);
+        trans_prod.map(async(td)=>{
+          let {data:trans_prod}= await addtransactionProd(td)
+          console.log("trans server",trans_prod);
+        })
+        let st_stock=theProducts.map(async(tt)=>{
+          let newStock={}
+          let {data:st_res}=await getStock(user.userId,tt.Gting,tt.productId)
+          if(st_res.length==0){
+            newStock.productId=tt.productId
+            newStock.oldByuPrice=tt.price
+            newStock.oldByuPrice=tt.price
+            newStock.storeId=user.userId
+            newStock.quantity=tt.quantity
+            newStock.sellPrice=tt.ttc
+            newStock.Gting=tt.Gting
+            console.log("empty");
+          }
+           return newStock
+                    })
       // }
-      // console.log("trans_obj",trans_obj);
+      console.log("trans_obj",st_stock);
       }
 return (
 <Screen style={styles.container}>
