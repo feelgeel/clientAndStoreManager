@@ -182,7 +182,7 @@ function ManualOrdering({navigation,route}) {
            return newStock
                     })
       // }
-      console.log("trans_obj",trans_prod);
+      console.log("playing around with the code",trans_prod);
       }
 return (
 <Screen style={styles.container}>
