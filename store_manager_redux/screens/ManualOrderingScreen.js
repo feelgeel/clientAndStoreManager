@@ -164,25 +164,30 @@ function ManualOrdering({navigation,route}) {
       // if(trans_dt){
         trans_prod.map(async(td)=>{
           let {data:trans_prod}= await addtransactionProd(td)
-          console.log("trans server",trans_prod);
+          // console.log("trans server",trans_prod);
         })
-        let st_stock=theProducts.map(async(tt)=>{
+        let st_stock=theProducts.map((tt)=>{
           let newStock={}
-          let {data:st_res}=await getStock(user.userId,tt.Gting,tt.productId)
-          if(st_res.length==0){
             newStock.productId=tt.productId
             newStock.oldByuPrice=tt.price
-            newStock.oldByuPrice=tt.price
+            newStock.newByuPrice=tt.price
             newStock.storeId=user.userId
             newStock.quantity=tt.quantity
             newStock.sellPrice=tt.ttc
             newStock.Gting=tt.Gting
-            console.log("empty");
-          }
            return newStock
                     })
+        st_stock.map(async(tt)=>{
+          let newStock={}
+          let {data:st_res}=await getStock( tt.storeId,tt.Gting,tt.productId)
+          console.log("tt",st_res);
+          if(st_res.length==0){
+            let {data:stockAdded}= await addStock(tt);
+            console.log("stock dt",stockAdded);
+          }
+                    })
       // }
-      console.log("playing around with the code",trans_prod);
+      // console.log("playing around with the code",user);
       }
 return (
 <Screen style={styles.container}>
