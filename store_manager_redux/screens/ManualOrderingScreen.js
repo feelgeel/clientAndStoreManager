@@ -181,10 +181,13 @@ function ManualOrdering({navigation,route}) {
           let newStock={}
           let {data:st_res}=await getStock( tt.storeId,tt.Gting,tt.productId)
           console.log("tt",st_res);
-          if(st_res.length==0){
-            let {data:stockAdded}= await addStock(tt);
-            console.log("stock dt",stockAdded);
-          }
+          // if(st_res.length==0){
+          //   let {data:stockAdded}= await addStock(tt);
+          //   console.log("stock dt",stockAdded);
+          // }else{
+          //   let newSt_res=[...st_res]
+          //   console.log(newSt_res)
+          // }
                     })
       // }
       // console.log("playing around with the code",user);
