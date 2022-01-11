@@ -16,7 +16,8 @@ export function addStock(data) {
     return Client.post("/storeStock",newData,{ headers: {"Content-Type": "application/x-www-form-urlencoded" }});
     
   }
-  export function updateStock(userId,gting) {
+  export function updateStock(Id,data) {
+    const newData=queryStringFunc(data)
     // return http.get("https://evening-plateau-98989.herokuapp.com/api/"+userId,gting+"/categ");
-    return Client.put("storeStock/"+userId+"/"+gting);
+    return Client.put("/storeStock/"+Id,newData,{ headers: {"Content-Type": "application/x-www-form-urlencoded" }});
   }

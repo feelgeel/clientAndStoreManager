@@ -18,6 +18,7 @@ import {addtransaction} from '../api/transactionApi';
 import {addtransactionProd} from '../api/transactionProdApi';
 import {addByu} from '../api/byuApi';
 import {updateListNames} from '../api/listNameApi';
+import { ceil } from 'react-native-reanimated';
 function ManualOrdering({navigation,route}) {
   const dispatch=useDispatch();
   const transMode=useSelector(state=>state.entities.listNames.transMode)
@@ -149,23 +150,23 @@ function ManualOrdering({navigation,route}) {
 
       // console.log(st_stock)
       setthetransObj(trans_obj)
-      let {data:trans_dt}= await addtransaction(trans_obj)
-      let trans_id=trans_dt._id;
-      let trans_prod=theProducts.map(tt=>{
-        let newTS_prod={}
-        newTS_prod.productId=tt.productId
-        newTS_prod.transactionId=trans_id
-        newTS_prod.Gting=tt.Gting
-        newTS_prod.price=tt.price
-        newTS_prod.quantity=tt.quantity
-        newTS_prod.Benefit=tt.Benefit
-        return newTS_prod
-      })
+      // let {data:trans_dt}= await addtransaction(trans_obj)
+      // let trans_id=trans_dt._id;
+      // let trans_prod=theProducts.map(tt=>{
+      //   let newTS_prod={}
+      //   newTS_prod.productId=tt.productId
+      //   newTS_prod.transactionId=trans_id
+      //   newTS_prod.Gting=tt.Gting
+      //   newTS_prod.price=tt.price
+      //   newTS_prod.quantity=tt.quantity
+      //   newTS_prod.Benefit=tt.Benefit
+      //   return newTS_prod
+      // })
       // if(trans_dt){
-        trans_prod.map(async(td)=>{
-          let {data:trans_prod}= await addtransactionProd(td)
-          // console.log("trans server",trans_prod);
-        })
+        // trans_prod.map(async(td)=>{
+        //   let {data:trans_prod}= await addtransactionProd(td)
+        //   // console.log("trans server",trans_prod);
+        // })
         let st_stock=theProducts.map((tt)=>{
           let newStock={}
             newStock.productId=tt.productId
@@ -179,15 +180,29 @@ function ManualOrdering({navigation,route}) {
                     })
         st_stock.map(async(tt)=>{
           let newStock={}
-          let {data:st_res}=await getStock( tt.storeId,tt.Gting,tt.productId)
-          console.log("tt",st_res);
-          // if(st_res.length==0){
-          //   let {data:stockAdded}= await addStock(tt);
-          //   console.log("stock dt",stockAdded);
-          // }else{
-          //   let newSt_res=[...st_res]
-          //   console.log(newSt_res)
-          // }
+          let {data:st_res}=await getStock(tt.storeId,tt.Gting,tt.productId)
+          // console.log("tt",st_res);
+          if(st_res.length==0){
+            let {data:stockAdded}= await addStock(tt);
+            console.log("stock dt",stockAdded);
+          }
+          else{
+            let newSt_res={...st_res[0]}
+            let oldQuant=newSt_res.quantity;
+            newSt_res.newByuPrice=tt.oldByuPrice
+            newSt_res.quantity=Number(oldQuant)+Number(tt.quantity)
+
+            let daprice=(Number(newSt_res.oldByuPrice)+Number(newSt_res.newByuPrice))/2;
+            daprice=Math.ceil(daprice)
+            let withTva=daprice*(Tva/100+1)
+            withTva=Math.ceil(withTva)
+            let withBenefit=daprice*(Benefit/100+1)
+            withBenefit=Math.ceil(withBenefit)
+            newSt_res.sellPrice=withBenefit
+
+            let {data:updatedStock}=await updateStock(newSt_res._id,newSt_res)
+            console.log(updatedStock)
+          }
                     })
       // }
       // console.log("playing around with the code",user);
