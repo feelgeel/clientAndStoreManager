@@ -150,23 +150,24 @@ function ManualOrdering({navigation,route}) {
 
       // console.log(st_stock)
       setthetransObj(trans_obj)
-      // let {data:trans_dt}= await addtransaction(trans_obj)
-      // let trans_id=trans_dt._id;
-      // let trans_prod=theProducts.map(tt=>{
-      //   let newTS_prod={}
-      //   newTS_prod.productId=tt.productId
-      //   newTS_prod.transactionId=trans_id
-      //   newTS_prod.Gting=tt.Gting
-      //   newTS_prod.price=tt.price
-      //   newTS_prod.quantity=tt.quantity
-      //   newTS_prod.Benefit=tt.Benefit
-      //   return newTS_prod
-      // })
-      // if(trans_dt){
-        // trans_prod.map(async(td)=>{
-        //   let {data:trans_prod}= await addtransactionProd(td)
-        //   // console.log("trans server",trans_prod);
-        // })
+      let {data:trans_dt}= await addtransaction(trans_obj)
+      let trans_id=trans_dt._id;
+      let trans_prod=theProducts.map(tt=>{
+        let newTS_prod={}
+        newTS_prod.productId=tt.productId
+        newTS_prod.transactionId=trans_id
+        newTS_prod.Gting=tt.Gting
+        newTS_prod.price=tt.price
+        newTS_prod.quantity=tt.quantity
+        newTS_prod.Benefit=tt.Benefit
+        return newTS_prod
+      })
+      if(trans_dt){
+        trans_prod.map(async(td)=>{
+          let {data:trans_prod}= await addtransactionProd(td)
+          // console.log("trans server",trans_prod);
+        })
+      }
         let st_stock=theProducts.map((tt)=>{
           let newStock={}
             newStock.productId=tt.productId
@@ -181,7 +182,8 @@ function ManualOrdering({navigation,route}) {
         st_stock.map(async(tt)=>{
           let newStock={}
           let {data:st_res}=await getStock(tt.storeId,tt.Gting,tt.productId)
-          // console.log("tt",st_res);
+          console.log("st_res",st_res);
+          // console.log("tt",tt);
           if(st_res.length==0){
             let {data:stockAdded}= await addStock(tt);
             console.log("stock dt",stockAdded);
@@ -201,7 +203,7 @@ function ManualOrdering({navigation,route}) {
             newSt_res.sellPrice=withBenefit
 
             let {data:updatedStock}=await updateStock(newSt_res._id,newSt_res)
-            console.log(updatedStock)
+            console.log(newSt_res._id)
           }
                     })
       // }

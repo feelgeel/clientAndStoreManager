@@ -16,6 +16,7 @@ import {getGrosseryByGting} from '../api/grosseryApi';
 import {getStock,updateStock} from '../api/stockApi';
 import {addByu} from '../api/byuApi';
 import {updateListNames} from '../api/listNameApi';
+import ListChoosingScreen from './ListChoosingScreen';
 function ListOrdering({navigation,route}) {
   const dispatch=useDispatch();
   const transMode=useSelector(state=>state.entities.listNames.transMode)
@@ -103,7 +104,7 @@ function ListOrdering({navigation,route}) {
       // console.log("the",theProducts)
 return (
 <Screen style={styles.container}>
-<Text>listordering</Text>
+<Text>listordering tatatat</Text>
 <Button
 title="scan"
 onPress={()=>setModalVisible(true)} />
@@ -115,29 +116,7 @@ onPress={()=>{
 navigation.navigate("modeScreen")
 }
 } />
-           <FlatList
-              data={theProducts}
-              keyExtractor={(theProducts) => theProducts._id}
-                  
-              renderItem={({ item }) => 
-              {
-              return (
-                <Card 
-                style={{paddingTop:50}}
-                // onPress={()=>handleDeleteChosen(item)}
-                >
-                {<Card.Cover source={{ uri: item.image||"https://unsplash.com/photos/JpTY4gUviJM" }} />}
-                <Card.Content>
-                  <Title>{item.brands+" "+
-                  item.Gting+" quantity: "
-                  +item.quantity+" status: "+item.status}</Title>
-                </Card.Content>
-                
-                </Card>
-                  )
-              }
-    }
-    />   
+       <ListChoosingScreen/> 
     {/* </List.Section> */}
       
  <Modal
