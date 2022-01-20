@@ -17,6 +17,7 @@ import {getStock,updateStock} from '../api/stockApi';
 import {addByu} from '../api/byuApi';
 import {updateListNames} from '../api/listNameApi';
 import ListChoosingScreen from './ListChoosingScreen';
+import AddGtingsScreen1 from './AddGtingsScreen.1';
 function ListOrdering({navigation,route}) {
   const dispatch=useDispatch();
   const transMode=useSelector(state=>state.entities.listNames.transMode)
@@ -105,19 +106,8 @@ function ListOrdering({navigation,route}) {
 return (
 <Screen style={styles.container}>
 <Text>listordering tatatat</Text>
-<Button
-title="scan"
-onPress={()=>setModalVisible(true)} />
-<Button
-title="exit selfServing mode"
-onPress={()=>{
-    context.setModes("")
-    dispatch(listNamesAction.setTransMode("modeScreen"));
-navigation.navigate("modeScreen")
-}
-} />
-       <ListChoosingScreen/> 
-    {/* </List.Section> */}
+<AddGtingsScreen1/>
+    
       
  <Modal
         animationType="slide"
