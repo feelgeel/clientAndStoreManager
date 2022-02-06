@@ -16,6 +16,10 @@ export function getgrossery() {
     // return http.get("https://evening-plateau-98989.herokuapp.com/api/grossery/"+name+"/");
     return Client.get("grosseries/"+name+"/");
   }
+  export function getProductByName(store,categ) {
+    // return http.get("https://evening-plateau-98989.herokuapp.com/api/grossery/"+name+"/");
+    return Client.get("/"+store+"/"+categ+"/");
+  }
 export function getGrosseryByGting(id) {
     // return http.get("https://evening-plateau-98989.herokuapp.com/api/grossery/"+name+"/");
     return Client.get("grossery/gting/"+id+"/");

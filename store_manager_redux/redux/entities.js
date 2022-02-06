@@ -3,7 +3,9 @@ import bugsReducer from "./bugs";
 import projReducer from './projects';
 import usersReducer from './users';
 import addingGtingReducer from './addingGting';
+import addingGtingStoreReducer from './addingGtingStore';
 import listNamesReducer from './listNames';
+import storeListNamesReducer from './store_listNames';
 import productsReducer from './products';
 
 
@@ -13,6 +15,8 @@ bugs:bugsReducer,
 projects:projReducer,
 users:usersReducer,
 addingGting:addingGtingReducer,
+addingGtingStore:addingGtingStoreReducer,
 listNames:listNamesReducer,
+store_listNames:storeListNamesReducer,
 products:productsReducer,
 })
