@@ -118,7 +118,7 @@ function AddProducts({children,style,product,chosen,onSelected,onUnselected,onSa
       let thetext=item.toLowerCase();
       setCateg(thetext)
       setCateg(thetext)
-    // console.log(categs)
+    console.log(categs)
     }
 return (
 <View style={styles.container}>
