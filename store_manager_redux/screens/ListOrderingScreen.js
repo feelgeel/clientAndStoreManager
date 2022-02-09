@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
-import { StyleSheet, View,Modal,TextInput,Button,Text } from 'react-native';
+import { StyleSheet, View,Modal,TextInput,Button,Text,FlatList } from 'react-native';
 import AddProducts from '../components/AddProducts';
 import Screen from '../components/Screen';
-import {getProductByName} from "../api/grosseryApi"
+import {getProductByName,getGrosseryByName} from "../api/grosseryApi"
 import { useSelector, useDispatch } from "react-redux";
 import *as storeListNamesActions from '../redux/store_listNames';
-
+import Icon from './../components/Icon';
+import colors from '../config/colors';
+import { ListItem, ListItemSeparator } from "../components/lists";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 
 const containerStyle = {backgroundColor: 'white', padding: 20};
 function ListOrderingScreen({children,style}) {
@@ -16,7 +20,11 @@ function ListOrderingScreen({children,style}) {
   const [chosen,setchosen]=useState([]);
   const [thechosen,setthechosen]=useState({});
   const [quantityModal,setquantityModal]=useState(false);
+  const [Modalproduct,setModalproduct]=useState(false);
+  const [modalAddList,setmodalAddList]=useState(false);
   const [quantity,setQuantity]=useState(1);
+  const [ListName,setListName]=useState("");
+  const [TheListName,setTheListName]=useState([]);
 
 // console.log(storeListnames.list)
   const handleQuantity=async()=>{
@@ -46,17 +54,128 @@ console.log(storeListnames.list)
   
   }
   const handleSave=async(store,categ)=>{
+    console.log(categ)
     const {data:prod}=await getProductByName(store,categ);
+    // const {data:prod}=await getGrosseryByName(categ);
     setproduct(prod)
   }
-  // console.log(quantity)
+  const handleSaveListName=()=>{
+    // dispatch(storeListNamesActions.addListName(ListName));
+  }
+  console.log(TheListName)
 return (
 <Screen style={styles.container}>
-<AddProducts onUnselected={(dt)=>handleUnselected(dt)} 
+
+<ListItem
+          title="add an order"
+          IconComponent={
+            <Icon
+              name="plus-circle"
+              backgroundColor={colors.secondary}
+              />
+            }
+            onPress={()=>{
+              setmodalAddList(true)
+            }}
+        />
+          <FlatList
+          data={TheListName}
+          // keyExtractor={(ListName) => ListName._id}
+          ItemSeparatorComponent={ListItemSeparator}
+          renderItem={({ item }) => 
+          {  
+              return<ListItem
+                title="hello"
+                // title={item.listName}
+                quantity={true}
+                IconComponent={
+                  <Icon
+                    name={"menu"}
+                    backgroundColor={colors.primary}
+                  />
+                }
+                onPress={()=>handleChoose(item)}
+                onLongPress={()=>{
+                  console.log("halo");
+                }}
+                
+                
+              />
+            }
+          }
+        />
+
+      {/*                     adding a list                   */}
+        <Modal
+          animationType="slide"
+          // transparent={true}
+          contentContainerStyle={containerStyle}
+          visible={modalAddList}
+          onRequestClose={() => {
+            // Alert.alert("Modal has been closed.");
+            setmodalAddList(false);
+          }}
+        >
+            <View style={{
+              flexDirection:"row",justifyContent:"center"}}>
+              {/* <Text style={{paddingRight:20,fontSize:30}}>listName</Text> */}
+            <TextInput  onChangeText={(t)=>setListName(t)} 
+            placeholder="listName" style={{fontSize:30}}/>
+
+            </View>
+     
+            <View style={{flexDirection:"row",justifyContent:"space-evenly"}}>
+            <Button title='cancel'
+
+             onPress={()=>{
+              setmodalAddList(false)
+             }}
+            />
+            
+            <Button title='OK'
+             onPress={()=>{
+               let id=Math.random()*Math.random()
+               let theListname={
+                 listName:ListName,
+                 userId:user.userId,
+                 timeStamp:Date.now(),
+                 status:false,
+                 totalPrice:0,
+                 unfinished:0,
+                 finished:0
+                }
+                 console.log(ListName)
+                //  setListName(theListname)
+                 setTheListName(theListname)
+                 dispatch(storeListNamesActions.addListName(theListname));
+                 setmodalAddList(false)
+
+                handleSaveListName();
+             }}
+              />
+              </View>
+        </Modal>
+        {/*              add products           */}
+  <Modal
+   animationType="slide"
+   // transparent={true}
+   contentContainerStyle={containerStyle}
+   visible={Modalproduct}
+   onRequestClose={() => {
+     // Alert.alert("Modal has been closed.");
+     setModalproduct(false);
+   }}
+  >
+<AddProducts 
+onUnselected={(dt)=>handleUnselected(dt)} 
 product={product}
  chosen={chosen}
-  onSave={(store,categ)=>handleSave(store,categ)}/>
+  onSave={(store,categ)=>handleSave(store,categ)}
+  />
 
+
+  </Modal>
+{/*                      add quantity                */}
   <Modal 
  animationType="slide"
  // transparent={true}
