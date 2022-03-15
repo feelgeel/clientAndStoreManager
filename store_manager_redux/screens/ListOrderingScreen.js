@@ -1,20 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View,Modal,TextInput,Button,Text,FlatList } from 'react-native';
 import AddProducts from '../components/AddProducts';
 import Screen from '../components/Screen';
-import {getProductByName,getGrosseryByName} from "../api/grosseryApi"
+import {getProductByName} from "../api/grosseryApi"
 import { useSelector, useDispatch } from "react-redux";
 import *as storeListNamesActions from '../redux/store_listNames';
+import *as storeproductsActions from '../redux/store_products';
 import Icon from './../components/Icon';
 import colors from '../config/colors';
 import { ListItem, ListItemSeparator } from "../components/lists";
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { AntDesign } from '@expo/vector-icons';
-
+import GeneratedQrCode from '../components/GeneratedQrCode';
+import { storeAddListName } from '../api/store_ListNameApi';
+import { storeAddProducts } from '../api/store_productsApi';
+import *as listNamesAction from '../redux/listNames';
 const containerStyle = {backgroundColor: 'white', padding: 20};
-function ListOrderingScreen({children,style}) {
+function ListOrderingScreen({navigation,children,style}) {
   const dispatch=useDispatch();
-  const storeListnames=useSelector(state=>state.entities.store_listNames)
+  const storeListnames=useSelector(state=>state.entities.store_listNames.list)
+  const storeproducts=useSelector(state=>state.entities.store_products.list)
+  const listProducts=useSelector(state=>state.entities.store_products.listproducts)
   const user=useSelector(state=>state.entities.users.list)
   const [product,setproduct]=useState([]);
   const [chosen,setchosen]=useState([]);
@@ -24,8 +28,21 @@ function ListOrderingScreen({children,style}) {
   const [modalAddList,setmodalAddList]=useState(false);
   const [quantity,setQuantity]=useState(1);
   const [ListName,setListName]=useState("");
+  const [selectedListName,setselectedListName]=useState({});
   const [TheListName,setTheListName]=useState([]);
+  const [ModalQR,setModalQR]=useState(false);
 
+  let vr={
+  listid: selectedListName._id,
+  userId: user._id,
+  type:user.mode,
+}
+// console.log("user",user)
+  let listname=JSON.stringify(vr);
+  useEffect(()=>{
+    setTheListName(storeListnames)
+    setchosen(listProducts)
+  },[storeListnames,storeproducts])
 // console.log(storeListnames.list)
   const handleQuantity=async()=>{
     let newProd=[...product]
@@ -33,15 +50,30 @@ function ListOrderingScreen({children,style}) {
    let newtheChosen={...thechosen}
    let dtt={}
    let newstoreListnames={...storeListnames}
+   
   dtt={
  timeStamp:Date.now(),
  Gting:newtheChosen.Gting,
  userId:user.userId,
+ productId:thechosen._id,
+ listId:selectedListName._id,
  status:false,
- quantity:quantity
+ quantity:quantity,
   }
-  dispatch(storeListNamesActions.addListName(dtt));
-console.log(storeListnames.list)
+  newChosen.push(dtt)
+  const index = newProd.findIndex(dt=>dt._id===dtt.productId);
+  if(index>=0){
+    newProd.splice(index,1);
+
+  }
+  setproduct(newProd);
+  const {data:savedProd}=await storeAddProducts(dtt)
+  dispatch(storeproductsActions.addListName(savedProd));
+  dispatch(storeproductsActions.setlistProds(newChosen));
+  // setchosen(newChosen)
+  console.log(savedProd)
+  setquantityModal(false)
+// console.log(index)
  
  }
 
@@ -53,7 +85,7 @@ console.log(storeListnames.list)
     // console.log(data)
   
   }
-  const handleSave=async(store,categ)=>{
+  const handleSave=async(store,categ)=>{ 
     console.log(categ)
     const {data:prod}=await getProductByName(store,categ);
     // const {data:prod}=await getGrosseryByName(categ);
@@ -62,10 +94,17 @@ console.log(storeListnames.list)
   const handleSaveListName=()=>{
     // dispatch(storeListNamesActions.addListName(ListName));
   }
-  console.log(TheListName)
+  console.log(chosen)
 return (
 <Screen style={styles.container}>
-
+<Button
+title="exit manualOrdering mode"
+onPress={()=>{
+    // context.setModes("")
+    dispatch(listNamesAction.setTransMode("modeScreen"));
+navigation.navigate("modeScreen")
+}
+} />
 <ListItem
           title="add an order"
           IconComponent={
@@ -80,12 +119,12 @@ return (
         />
           <FlatList
           data={TheListName}
-          // keyExtractor={(ListName) => ListName._id}
+          keyExtractor={(TheListName) => (TheListName._id).toString()}
           ItemSeparatorComponent={ListItemSeparator}
           renderItem={({ item }) => 
           {  
               return<ListItem
-                title="hello"
+                title={item.listName}
                 // title={item.listName}
                 quantity={true}
                 IconComponent={
@@ -94,7 +133,16 @@ return (
                     backgroundColor={colors.primary}
                   />
                 }
-                onPress={()=>handleChoose(item)}
+                onPress={()=>{ 
+                  setselectedListName(item)
+                  let newProd=storeproducts.filter(data=>data.listId==item._id)
+                  // console.log("filtered prod",newProd)
+                  setchosen(newProd)
+                  dispatch(storeproductsActions.setlistProds(newProd));
+                  dispatch(storeListNamesActions.setTheListName(item));
+                  setModalproduct(true)
+                  console.log("newprod",newProd)
+                }}
                 onLongPress={()=>{
                   console.log("halo");
                 }}
@@ -133,13 +181,15 @@ return (
             />
             
             <Button title='OK'
-             onPress={()=>{
-               let id=Math.random()*Math.random()
+             onPress={async()=>{
+              //  let id=Math.random()*Math.random()
                let theListname={
+                //  _id:id,
                  listName:ListName,
                  userId:user.userId,
                  timeStamp:Date.now(),
                  status:false,
+                 totalQuantity:0,
                  totalPrice:0,
                  unfinished:0,
                  finished:0
@@ -147,9 +197,10 @@ return (
                  console.log(ListName)
                 //  setListName(theListname)
                  setTheListName(theListname)
-                 dispatch(storeListNamesActions.addListName(theListname));
+                 const {data:savedlistname}=await storeAddListName(theListname)
+                 dispatch(storeListNamesActions.addListName(savedlistname));
                  setmodalAddList(false)
-
+                  // console.log(savedlistname)
                 handleSaveListName();
              }}
               />
@@ -166,6 +217,36 @@ return (
      setModalproduct(false);
    }}
   >
+  <Button title='send'
+
+onPress={()=>{
+  setproduct([])
+ setModalQR(true)
+}}
+/>
+  <Button title='QRCode'
+
+onPress={()=>{
+  
+  setproduct([])
+ setModalQR(true)
+}}
+/>
+  <Button 
+  title='cancel'
+onPress={()=>{
+  dispatch(storeproductsActions.loadListNames([]));
+  setproduct([])
+ setModalproduct(false)
+}}
+/>
+  <Button title='save'
+
+onPress={()=>{
+ setquantityModal(false)
+ setModalproduct(false)
+}}
+/>
 <AddProducts 
 onUnselected={(dt)=>handleUnselected(dt)} 
 product={product}
@@ -209,6 +290,16 @@ placeholder="quantity" style={{width:50,height:50}}/>
 </View>
 
       </Modal>
+      <Modal
+ visible={ModalQR}
+>
+<Button title='cancel'
+  onPress={()=>{
+    setModalQR(false)
+ }}
+/>
+<GeneratedQrCode data={listname} />
+</Modal>
 </Screen>
  );
 }

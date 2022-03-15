@@ -55,6 +55,7 @@ export default function Index() {
   userName: "ciscoDabest",
   cash: 0,
   iat: 1628504935,
+  mode:"store"
 }
 // store.dispatch(()=>{
 //   if(!list.userId){

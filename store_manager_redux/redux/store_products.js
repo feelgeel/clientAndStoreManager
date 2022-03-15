@@ -7,10 +7,11 @@ import queryStringFunc from "../utility/queryStringFunc";
 
  //create slice
  const slice=createSlice({
-     name:"store_listNames",
+     name:"store_products",
      initialState:{
         list: [],
         theList:{},
+        listproducts:[],
         transMode:'modeScreen',
         loading:false,
         lastFetch:null
@@ -22,7 +23,7 @@ import queryStringFunc from "../utility/queryStringFunc";
              listName.list=action.payload
             //  return listName
         },
-         setlistProds:(listName,action)=>{
+        setlistProds:(listName,action)=>{
             //  console.log("listname added",action.payload);
              listName.listproducts=action.payload
             //  return listName

@@ -23,10 +23,10 @@ import ScannerScreen from "../screens/ScannerScreen";
 import ListTypeScreen from "../screens/ListTypeScreen";
 import AddGtingsScreen from "../screens/AddGtingsScreen";
 import AddGtingsScreen1 from "../screens/AddGtingsScreen.1";
-import Sell from "../screens/Sell";
+import Sell from "../screens/sellFolder/Sell";
 import Transaction from "../screens/Transaction";
 import orderProducts from "../screens/orderProducts";
-import ManualOrderingScreen from "../screens/ManualOrderingScreen";
+import ManualOrderingScreen from "../screens/manualOrderingfolder/ManualOrderingScreen";
 import ListorderingScreen from "../screens/ListOrderingScreen";
 
 

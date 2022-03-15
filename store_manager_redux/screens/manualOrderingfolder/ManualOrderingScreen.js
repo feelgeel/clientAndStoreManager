@@ -1,24 +1,27 @@
 import React, { useContext, useState ,useEffect} from 'react';
 import { Button, Modal, FlatList, StyleSheet, Text, View,textInput } from 'react-native';
-import Screen from '../components/Screen';
-import listContext from '../list_context/list-context';
+import Screen from '../../components/Screen';
+import listContext from '../../list_context/list-context';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import {  Card, Title,List } from 'react-native-paper';
-import TextInput from "../components/TextInput";
-import { ListItem } from '../components/lists';
-import Icon from '../components/Icon';
-import colors from '../config/colors';
+import TextInput from "../../components/TextInput";
+import { ListItem } from '../../components/lists';
+import Icon from '../../components/Icon';
+import colors from '../../config/colors';
 import { useSelector, useDispatch } from "react-redux";
-import *as addingGtingAction from '../redux/addingGting';
-import *as listNamesAction from '../redux/listNames';
-import {updateProducts} from '../api/productsApi';
-import {getGrosseryByGting} from '../api/grosseryApi';
-import {getStock,updateStock,addStock} from '../api/stockApi';
-import {addtransaction} from '../api/transactionApi';
-import {addtransactionProd} from '../api/transactionProdApi';
-import {addByu} from '../api/byuApi';
-import {updateListNames} from '../api/listNameApi';
+import *as addingGtingAction from '../../redux/addingGting';
+import *as listNamesAction from '../../redux/listNames';
+import {updateProducts} from '../../api/productsApi';
+import {getGrosseryByGting, getProductByName} from '../../api/grosseryApi';
+import {getStock,updateStock,addStock} from '../../api/stockApi';
+import {addtransaction} from '../../api/transactionApi';
+import {addtransactionProd} from '../../api/transactionProdApi';
+import *as sellStoreAction from '../../redux/Sell_store';
+import {addByu} from '../../api/byuApi';
+import {updateListNames} from '../../api/listNameApi';
 import { ceil } from 'react-native-reanimated';
+import AddProducts from '../../components/AddProducts';
+import { addListNameSell } from '../../api/sellApi.';
 function ManualOrdering({navigation,route}) {
   const dispatch=useDispatch();
   const transMode=useSelector(state=>state.entities.listNames.transMode)
@@ -34,9 +37,13 @@ function ManualOrdering({navigation,route}) {
     const [Benefit, setBenifit] = useState(30);
     const [Scannedresult, setScannedresult] = useState([]);
     const [theProducts, setTheProducts] = useState([]);
+    const [product, setproduct] = useState([]);
+    const [chosen, setchosen] = useState([]);
     const [daprod, setdaprod] = useState({});
     const [data, setdata] = useState([]);
     const [modalVisible, setModalVisible] = useState(false);
+    const [modalChoose, setmodalChoose] = useState(false);
+    const [modalChoose2, setmodalChoose2] = useState(false);
     const [Resultmodal, setResultmodal] = useState(false);
     const [supplier, setSupplier] = useState("");
     const [thetransObj, setthetransObj] = useState({});
@@ -120,7 +127,7 @@ function ManualOrdering({navigation,route}) {
         // console.log(grossRes)
 
       }
-      console.log("supplier",supplier)
+      // console.log("supplier",supplier)
       const handleSave=async()=>{
         let daSupplier=supplier;
         let daUser=user.userId;
@@ -209,6 +216,188 @@ function ManualOrdering({navigation,route}) {
       // }
       // console.log("playing around with the code",user);
       }
+      const handleAddproducts=async(store,categ)=>{
+        const {data:prod}=await getProductByName(store,categ);
+        let finishedprod=[...prod];
+        chosen.map(prodDt=>{
+          let index=prod.findIndex(dt=>dt._id!==prodDt.productId)
+          finishedprod.splice(index,1)
+        })
+        setproduct(finishedprod)
+        // console.log(finishedprod.length)
+      }
+      const handleunselected=(data)=>{
+        setdaprod(data)
+        setmodalChoose2(true);
+      }
+      const handleProductsList=async()=>{
+        let gting=Number(daprod.Gting)
+        let withBenefit=price*(Benefit/100+1)
+        withBenefit=Math.ceil(withBenefit)
+        let newchosen=[...chosen];
+        let newproduct=[...product];
+        let newQuant= Number(quantity)
+        let newPrice=Number(price)
+        let totalprice=newQuant*newPrice;
+        let {data:st_res}=await getStock(user.userId,gting,daprod.productId)
+        if(st_res.length===0){
+          let newchosenobj={
+            oldByuPrice:price,
+            newByuPrice:price,
+            ByuPrice:price,
+            quantity:newQuant,
+            sellPrice:withBenefit,
+            storeId:user.userId,
+            image:daprod.image_front_url,
+            productId:daprod._id,
+            Benefit,
+            Gting:daprod.Gting,
+            // sellPrice:
+          }
+          let index=newproduct.findIndex(dt=>dt._id==newchosenobj.productId)
+          newproduct.splice(index,1)
+          newchosen.push(newchosenobj)
+         setchosen(newchosen);
+         setproduct(newproduct);
+          // let {data:stockAdded}= await addStock(newchosenobj);
+          // console.log(stockAdded)
+          // console.log(stockAdded)
+        }else{
+          // console.log(st_res)
+          let oldbyuprice=st_res[0].newByuPrice;
+          let st_id=st_res[0]._id;
+          let newPrice=(price+oldbyuprice)/2;
+          let oldQuantity=st_res[0].quantity;
+          let newQuantity=oldQuantity+quantity;
+          newPrice=Math.ceil(newPrice)
+          let newchosenomodifiedobj={
+            oldByuPrice:oldbyuprice,
+            newByuPrice:price,
+            ByuPrice:newPrice,
+            quantity:newQuantity,
+            sellPrice:withBenefit,
+            image:daprod.image_front_url,
+            storeId:user.userId,
+            productId:dt.productId,
+            Benefit:dt.Benefit,
+            Gting:dt.Gting
+            // sellPrice:
+          }
+          // let {data:stockAdded}= await updateStock(st_id,newchosenomodifiedobj);
+          console.log("newchosenomodifiedobj",newchosenomodifiedobj)
+            let index=newproduct.findIndex(dt=>dt._id==daProdObj.productId)
+             newproduct.splice(index,1)
+             newchosen.push(daProdObj)
+            setchosen(newchosen);
+            setproduct(newproduct);
+        }
+        // let daProdObj={
+        //   Gting:daprod.Gting,
+        //   productId:daprod._id,
+        //   brands:daprod.brands,
+        //   image:daprod.image_front_url,
+        //   price,
+        //   quantity,
+        //   totalprice,
+        //   Tva,
+        //   Benefit,
+        // }
+        // let index=newproduct.findIndex(dt=>dt._id==daProdObj.productId)
+        // newproduct.splice(index,1)
+        // newchosen.push(daProdObj)
+        // setchosen(newchosen);
+        // setproduct(newproduct);
+        // setTheProducts(newproduct)
+        // console.log("index",index)
+        setmodalChoose2(false)
+      }
+      ////////// save stock from addproduct component//////////
+      const handleaddingStock=async()=>{
+         // productId:String,//required
+        // storeId:String,
+        // quantity:Number,
+        // newByuPrice:Number,
+        // oldByuPrice:Number,
+        // sellPrice:Number,
+        // Gting:Number,
+        // benefit:Number
+        // console.log("hello")
+      chosen.map(async(dt)=>{
+        let gting=Number(dt.Gting)
+        // let withTva=price*(Tva/100+1)
+        // withTva=Math.ceil(withTva)
+        let withBenefit=price*(Benefit/100+1)
+        withBenefit=Math.ceil(withBenefit)
+        // console.log(withBenefit,price)
+        // tt.ttc=withBenefit
+        let {data:st_res}=await getStock(user.userId,gting,dt.productId)
+        if(st_res.length===0){
+          let newchosenobj={
+            oldByuPrice:price,
+            newByuPrice:price,
+            ByuPrice:price,
+            quantity:dt.quantity,
+            sellPrice:withBenefit,
+            storeId:user.userId,
+            productId:dt.productId,
+            Benefit:dt.Benefit,
+            Gting:dt.Gting
+            // sellPrice:
+          }
+          console.log(newchosenobj)
+          let {data:stockAdded}= await addStock(newchosenobj);
+          // console.log(stockAdded)
+        }else{
+          // console.log(st_res)
+          let oldbyuprice=st_res[0].newByuPrice;
+          let st_id=st_res[0]._id;
+          let newPrice=(Number(price)+Number(oldbyuprice))/2;
+          let oldQuantity=st_res[0].quantity;
+          let newQuantity=Number(oldQuantity)+Number(quantity);
+          newPrice=Math.ceil(newPrice)
+          let newchosenomodifiedobj={
+            oldByuPrice:oldbyuprice,
+            newByuPrice:price,
+            ByuPrice:newPrice,
+            quantity:newQuantity,
+            sellPrice:withBenefit,
+            storeId:user.userId,
+            productId:dt.productId,
+            Benefit:dt.Benefit,
+            Gting:dt.Gting
+            // sellPrice:
+          }
+          let {data:stockAdded}= await updateStock(st_id,newchosenomodifiedobj);
+          console.log("newchosenomodifiedobj",newchosenomodifiedobj)
+        }
+        // console.log(user.userId,gting,dt.productId)
+        // console.log(st_res)
+      })
+      setchosen([]);
+      setproduct([])
+      }
+      const handlesavestock=async()=>{
+       chosen.map(async(dt)=>{
+        let gting=(dt.Gting).toString()
+        let {data:st_res}=await getStock(user.userId,gting,dt.productId)
+        console.log("added",dt)
+        if(st_res.length===0){
+          let {data:stockAdded}= await addStock(dt);
+        }else{
+          let st_id=st_res[0]._id;
+          let dbQuant=Number(st_res[0].quantity)
+          let newQuantity=Number(dt.quantity);
+          let updatedQuant=Number(newQuantity)+Number(newQuantity)
+          dt.quantity=updatedQuant
+          console.log("update",dt)
+          console.log("quant",newQuantity)
+          console.log("updatedquant",updatedQuant)
+          let {data:stockAdded}= await updateStock(st_id,dt);
+        }
+       })
+
+      }
+      // console.log("chosen",newchosen)
 return (
 <Screen style={styles.container}>
 <Text>manual ordering</Text>
@@ -216,9 +405,12 @@ return (
 title="scan"
 onPress={()=>setModalVisible(true)} />
 <Button
+title="choose"
+onPress={()=>setmodalChoose(true)} />
+<Button
 title="exit manualOrdering mode"
 onPress={()=>{
-    context.setModes("")
+    // context.setModes("")
     dispatch(listNamesAction.setTransMode("modeScreen"));
 navigation.navigate("modeScreen")
 }
@@ -233,14 +425,14 @@ navigation.navigate("modeScreen")
  <Button
 title="save"
 onPress={()=>{
-  handleSave()
+  handlesavestock()
   // console.log("save the list in store transition")
 }
 } />      
       
            <FlatList
-              data={theProducts}
-              keyExtractor={(theProducts) => theProducts.Gting}
+              data={chosen}
+              keyExtractor={(chosen) => chosen.Gting}
                   
               renderItem={({ item }) => 
               {
@@ -299,6 +491,34 @@ onPress={()=>{
   
 </View> */}
       </Modal>
+ {/*                        choose                 */}
+      <Modal
+        animationType="slide"
+        // transparent={true}
+        visible={modalChoose}
+        onRequestClose={() => {
+          // Alert.alert("Modal has been closed.");
+          setmodalChoose(false);
+        }}
+      >
+      <Button
+        title="exit"
+        onPress={()=>{
+          setmodalChoose(false)}} />
+      <Button
+        title="save"
+        onPress={()=>{
+          handleaddingStock()
+          setmodalChoose(false)}} />
+       <AddProducts 
+             onUnselected={(data)=>handleunselected(data)} 
+             onSave={(store,categ)=>handleAddproducts(store,categ)}
+             product={product}
+              chosen={chosen}
+        />
+      </Modal>
+ 
+{/*           add chosen          */}
  <Modal
         animationType="slide"
         visible={Resultmodal}
@@ -342,7 +562,6 @@ onPress={()=>{
      
 <View style={{flexDirection:"row",justifyContent:"space-evenly"}}>
 <Button title='cancel'
-
  onPress={()=>{
   setResultmodal(false)
  }}
@@ -354,6 +573,63 @@ onPress={()=>{
 />
 </View>
       </Modal>
+{/*  add chosen list */}
+ <Modal
+        animationType="slide"
+        visible={modalChoose2}
+        onRequestClose={() => {
+          setmodalChoose2(false);
+        }}
+      >
+        <Button
+        title="exit"
+        onPress={()=>{
+          setmodalChoose2(false)}} />
+          <Text>just saying</Text>
+    <TextInput keyboardType="number-pad" 
+        placeholder="price"
+        onChangeText={(text)=>{
+          setprice(text)
+          // console.log(tex)
+        }
+          } />
+    <TextInput keyboardType="number-pad" 
+        placeholder="quantity"
+        onChangeText={(text)=>{
+          setquantity(text)
+          // console.log(text)
+        }
+          } />
+    <TextInput keyboardType="number-pad" 
+        placeholder="TVA"
+        onChangeText={(text)=>{
+          setTva(text)
+          // console.log(text)
+        }
+          } />
+    <TextInput keyboardType="number-pad" 
+        placeholder="benefit"
+        onChangeText={(text)=>{
+          setBenifit(text)
+          // console.log(text)
+        }
+          } />
+  
+     
+<View style={{flexDirection:"row",justifyContent:"space-evenly"}}>
+<Button title='cancel'
+ onPress={()=>{
+  setmodalChoose2(false)
+ }}
+/>
+<Button title='OK'
+  onPress={()=>{
+    handleProductsList()
+ }}
+/>
+</View>
+      </Modal>
+
 </Screen>
  );
 }

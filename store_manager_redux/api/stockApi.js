@@ -5,9 +5,9 @@ import queryStringFunc from "../utility/queryStringFunc";
 
 
 export function getStock(userId,gting,productId) {
-  
     // return http.get("https://evening-plateau-98989.herokuapp.com/api/grossery");
-    return Client.get("storeStock/"+userId+"/"+gting+"/"+productId);
+    // console.log(userId,gting,productId)
+    return Client.get("/storeStock/"+userId+"/"+gting+"/"+productId+"/");
     
   }
 export function addStock(data) {

@@ -5,7 +5,8 @@ import Icon from './Icon';
 import colors from '../config/colors';
 import TextInput1 from "./TextInput";
 import { useSelector, useDispatch } from "react-redux";
-import {getCategory} from "../api/grosseryApi"
+import {getCategory} from "../api/grosseryApi";
+import GeneratedQrCode from './GeneratedQrCode';
 const stores=[
 
   {
@@ -76,10 +77,10 @@ const stores=[
 
 
 ]
-
-
-
 function AddProducts({children,style,product,chosen,onSelected,onUnselected,onSave}) {
+    const dispatch=useDispatch();
+  const storeListnames=useSelector(state=>state.entities.store_listNames.list)
+  const storeproducts=useSelector(state=>state.entities.store_products.list)
   const addgting=useSelector(state=>state.entities.addingGting)
   const addgtingStore=useSelector(state=>state.entities.addingGtingStore)
   let theStore=addgting.store;
@@ -93,8 +94,6 @@ function AddProducts({children,style,product,chosen,onSelected,onUnselected,onSa
     const [categ,setCateg]=useState("milk");
     const [filterStore,setfilterStore]=useState(stores);
     const [filterCateg,setfilterCateg]=useState(categs);
-
-   
     const handleStoreSearch=(item)=>{
       let thetext=item.toLowerCase();
       let filterStore1=stores.filter((m)=>m.storeName.startsWith(thetext));
@@ -110,6 +109,8 @@ function AddProducts({children,style,product,chosen,onSelected,onUnselected,onSa
       let thetext=item.toLowerCase();
       setstore(thetext)
       const {data:thecategs}=await getCategory(item);
+
+    //   thecategs.filter(dt=>dt.Gting===)
       setCategs(thecategs)
       setfilterCateg(thecategs)
     // console.log(categs)
@@ -161,7 +162,7 @@ backgroundColor={colors.secondary}
 }
    {selected&&<FlatList
     data={chosen}
-    keyExtractor={(chosen) => chosen.productId}
+    keyExtractor={(chosen) => chosen.Gting}
     
     renderItem={({ item }) => 
     {
@@ -239,6 +240,7 @@ backgroundColor={colors.secondary}
       </List.Accordion>
 </View>
 </Modal>
+
 </View>
  );
 }

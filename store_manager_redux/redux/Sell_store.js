@@ -7,10 +7,11 @@ import queryStringFunc from "../utility/queryStringFunc";
 
  //create slice
  const slice=createSlice({
-     name:"store_listNames",
+     name:"sell_store",
      initialState:{
         list: [],
         theList:{},
+        products:[],
         transMode:'modeScreen',
         loading:false,
         lastFetch:null
@@ -20,6 +21,12 @@ import queryStringFunc from "../utility/queryStringFunc";
              console.log("listname added",action.payload);
              
              listName.list=action.payload
+            //  return listName
+        },
+         setProducts:(listName,action)=>{
+             console.log("listname added",action.payload);
+             
+             listName.products.push(action.payload)
             //  return listName
         },
          setlistProds:(listName,action)=>{
@@ -74,7 +81,7 @@ import queryStringFunc from "../utility/queryStringFunc";
  })
 
 export default  slice.reducer;
-export const {loadListNames,setlistProds,addListName,editListName,setTransMode,setTheListName,userRegistered,loginRequested,loginFailed,registerRequested,registerFailed}=slice.actions;
+export const {loadListNames,setProducts,setlistProds,addListName,editListName,setTransMode,setTheListName,userRegistered,loginRequested,loginFailed,registerRequested,registerFailed}=slice.actions;
 export const loginUser=userData=>
 {
     const newData=queryStringFunc(userData)
