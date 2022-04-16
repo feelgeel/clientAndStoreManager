@@ -2,17 +2,17 @@
 import React, {useContext, useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { NavigationContainer} from "@react-navigation/native";
-import navigationTheme from './store_manager_redux/navigation/navigationTheme';
-import AppNavigator from './store_manager_redux/navigation/AppNavigator';
-import AuthNavigator from './store_manager_redux/navigation/AuthNavigator';
-import listContext from './store_manager_redux/list_context/list-context';
-import Screen from './store_manager_redux/components/Screen';
-import AddGtingsScreen from './store_manager_redux/screens/AddGtingsScreen';
-import AddGtingsScreen1 from './store_manager_redux/screens/AddGtingsScreen.1';
-import ListFilter from './store_manager_redux/components/lists/ListFilter';
-import ListChoosingScreen from './store_manager_redux/screens/ListChoosingScreen';
+import navigationTheme from './client_manager_redux_v1/navigation/navigationTheme';
+import AppNavigator from './client_manager_redux_v1/navigation/AppNavigator';
+import AuthNavigator from './client_manager_redux_v1/navigation/AuthNavigator';
+import listContext from './client_manager_redux_v1/list_context/list-context';
+import Screen from './client_manager_redux_v1/components/Screen';
+import AddGtingsScreen from './client_manager_redux_v1/screens/AddGtingsScreen';
+import AddGtingsScreen1 from './client_manager_redux_v1/screens/AddGtingsScreen.1';
+import ListFilter from './client_manager_redux_v1/components/lists/ListFilter';
+import ListChoosingScreen from './client_manager_redux_v1/screens/ListChoosingScreen';
 import { useSelector, useDispatch } from "react-redux";
-import *as userAction from './store_manager_redux/redux/users';
+import *as userAction from './client_manager_redux_v1/redux/users';
 
 
 // store.dispatch(bugsAction.addBug({description:"bug5"}))
@@ -46,8 +46,9 @@ prod={
 export default function Index() {
 
     const dispatch=useDispatch();
-  const context=useContext(listContext)
-  const token=context.Token;
+    const user=useSelector(state=>state.entities.users.list)
+  // const context=useContext(listContext)
+  // const token=context.Token;
   const savedtoken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTgxODI2ZmZjZGJhODE5NjRmZmJhYjciLCJlbWFpbCI6ImNpc2NvQGdtYWlsLmNvbSIsInVzZXJOYW1lIjoiY2lzY2RhYmVzdCIsImNhc2giOjAsImlhdCI6MTYzNTg3NzQ4N30.BSy4caxsfYcnwt6hDw__KN38UO1uxy6fZd8YYz5jUv0"
   const savedUSer=
   {userId: "6181826ffcdba81964ffbab7",
@@ -66,8 +67,8 @@ export default function Index() {
 
 
     const tempLogin=async(token,user)=>{
-      await context.setToken(token)
-      await context.setUser(user)
+      // await context.setToken(token)
+      // await context.setUser(user)
       dispatch(userAction.userloggedIn({...user,token}))
       
     }
@@ -81,7 +82,7 @@ export default function Index() {
     //  <AddGtingsScreen1/>
     // </Screen>
         <NavigationContainer theme={navigationTheme}>
-            {token?<AppNavigator/>:<AuthNavigator/>}
+            {user?<AppNavigator/>:<AuthNavigator/>}
         </NavigationContainer>
        
   

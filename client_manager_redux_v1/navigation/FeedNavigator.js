@@ -23,7 +23,15 @@ import ScannerScreen from "../screens/ScannerScreen";
 import ListTypeScreen from "../screens/ListTypeScreen";
 import AddGtingsScreen from "../screens/AddGtingsScreen";
 import AddGtingsScreen1 from "../screens/AddGtingsScreen.1";
-import showlistNames1 from "../screens/showListNames/showlistNames1";
+import Sell from "../screens/TheSellfolder/Sell";
+// import Sell from "../screens/Sell/Sell";
+import Transaction from "../screens/TransactionFolder/Transaction";
+import orderProducts from "../screens/orderProducts";
+import Manualordering from "../screens/manualOrderingfolder/Manualordering";
+import ListOrderScreen from "../screens/ListorderFolder/ListOrderScreen";
+// import ManualOrderingScreen from "../screens/manualOrderingfolder/ManualOrderingScreen";
+import ListorderingScreen from "../screens/ListOrderingScreen";
+import ShowListNamesScreen from "../screens/showListNames/ShowListNamesScreen";
 
 
 const Stack = createStackNavigator();
@@ -32,7 +40,8 @@ const FeedNavigator = () => (
   <Stack.Navigator mode="modal" screenOptions={{ headerShown: false }}>
      {/* <Stack.Screen name="showlists" component={productScreen1} />  */}
      {/* <Stack.Screen name="showlists" component={ShowListsScreen} />  */}
-     <Stack.Screen name="showlists" component={showlistNames1} /> 
+     {/* <Stack.Screen name="showlists" component={ListOrderScreen} />  */}
+     <Stack.Screen name="showlists" component={Qrcodescanner} /> 
     <Stack.Screen name="addList" component={ListingEditScreen} />
     <Stack.Screen name="showlistitems" component={listScreen} />
     {/* <Stack.Screen name="itemDetails" component={prodPickerScreen} /> */}
@@ -45,8 +54,13 @@ const FeedNavigator = () => (
     {/* <Stack.Screen name="products" component={productScreen1} /> */}
     <Stack.Screen name="modeScreen" component={ModeScreens} />
     <Stack.Screen name="selfServing" component={SelfServingScreen} />
-    <Stack.Screen name="addgtings" component={AddGtingsScreen1} />
     <Stack.Screen name="byuFromStore" component={BuyFromtheStoreScreen} />
+    <Stack.Screen name="sell" component={Sell} />
+    <Stack.Screen name="manualOrdering" component={Manualordering} />
+    <Stack.Screen name="listOrdering" component={ListorderingScreen} />
+    <Stack.Screen name="transaction" component={Transaction} />
+    <Stack.Screen name="orderProducts" component={orderProducts} />
+    <Stack.Screen name="addgtings" component={AddGtingsScreen1} />
     <Stack.Screen name="codeBar" component={qrcode} />
     <Stack.Screen name="qrcodescanner" component={Qrcodescanner} />
     <Stack.Screen name="scannerScreen" component={ScannerScreen} />
