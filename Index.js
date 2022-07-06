@@ -1,18 +1,27 @@
 
 import React, {useContext, useEffect, useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet,View,TextInput } from 'react-native';
+import moment from 'moment';
+import { useSelector, useDispatch } from "react-redux";
+import *as userAction from "./client_manager_redux_v1/redux/users";
 import { NavigationContainer} from "@react-navigation/native";
 import navigationTheme from './client_manager_redux_v1/navigation/navigationTheme';
 import AppNavigator from './client_manager_redux_v1/navigation/AppNavigator';
-import AuthNavigator from './client_manager_redux_v1/navigation/AuthNavigator';
-import listContext from './client_manager_redux_v1/list_context/list-context';
+import ListOrderScreen from './client_manager_redux_v1/screens/listOrder/ListOrderScreen';
 import Screen from './client_manager_redux_v1/components/Screen';
-import AddGtingsScreen from './client_manager_redux_v1/screens/AddGtingsScreen';
-import AddGtingsScreen1 from './client_manager_redux_v1/screens/AddGtingsScreen.1';
-import ListFilter from './client_manager_redux_v1/components/lists/ListFilter';
-import ListChoosingScreen from './client_manager_redux_v1/screens/ListChoosingScreen';
-import { useSelector, useDispatch } from "react-redux";
-import *as userAction from './client_manager_redux_v1/redux/users';
+import Manualordering from './client_manager_redux_v1/screens/manualOrderingfolder/Manualordering';
+import C_FormDatePicker from './client_manager_redux_v1/components/C_FormDatePicker';
+import C_DatePicker from './client_manager_redux_v1/components/C_DatePicker';
+import Sell from './client_manager_redux_v1/screens/TheSellfolder/Sell';
+import ClientListScreen from './client_manager_redux_v1/screens/showListNames/ClientListScreen';
+// import AuthNavigator from './client_manager_redux_v1/navigation/AuthNavigator';
+// import listContext from './client_manager_redux_v1/list_context/list-context';
+// import Screen from './client_manager_redux_v1/components/Screen';
+// import AddGtingsScreen from './client_manager_redux_v1/screens/AddGtingsScreen';
+// import AddGtingsScreen1 from './client_manager_redux_v1/screens/AddGtingsScreen.1';
+// import ListFilter from './client_manager_redux_v1/components/lists/ListFilter';
+// import ListChoosingScreen from './client_manager_redux_v1/screens/ListChoosingScreen';
+
 
 
 // store.dispatch(bugsAction.addBug({description:"bug5"}))
@@ -54,10 +63,21 @@ export default function Index() {
   {userId: "6181826ffcdba81964ffbab7",
   email: "cisco@gmail.com",
   userName: "ciscoDabest",
-  cash: 0,
+  cash: 5000,
   iat: 1628504935,
-  mode:"store"
+  mode:"store",
+  gender:"male"
 }
+// const ClientUser={
+//   "userId" : "625afc18923af92368524f40",
+//   "firstName" : "amine",
+//   "lastName" : "allam",
+//   "userName" : "amineAllam",
+//   "email" : "amine@gmail.com",
+//   "password" : "cisco",
+//   "cash" : 0,
+//   "__v" : 0
+// }
 // store.dispatch(()=>{
 //   if(!list.userId){
 //     store.dispatch(usersAction.userloggedIn({...savedUSer,token}))
@@ -70,20 +90,28 @@ export default function Index() {
       // await context.setToken(token)
       // await context.setUser(user)
       dispatch(userAction.userloggedIn({...user,token}))
-      
     }
     // console.log("token",context.Token);
     // console.log("User",context.User);
+    const [category,setcategory]=useState()
     useEffect(()=>{
       tempLogin(savedtoken,savedUSer)
     },[])
+    const categories=[
+      {label:"milk",_id:1},
+      {label:"sugar",_id:2},
+      {label:"coffee",_id:3}
+    ]
+    // console.log(moment().format("DD-MM-YYYY"))
   return(
-    // <Screen>
-    //  <AddGtingsScreen1/>
-    // </Screen>
-        <NavigationContainer theme={navigationTheme}>
-            {user?<AppNavigator/>:<AuthNavigator/>}
-        </NavigationContainer>
+    <Screen>
+      <ClientListScreen/>
+    </Screen>
+        //  <NavigationContainer theme={navigationTheme}>
+         //<AppNavigator/> */}
+         //{user?<AppNavigator/>:<AuthNavigator/>} */}
+        //<AuthNavigator/> */}
+     //</NavigationContainer> */}
        
   
   )
@@ -91,8 +119,10 @@ export default function Index() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor:"red"
+    // flex: 1,
+    // backgroundColor:"#f8f4f4",
+    // padding:20,
+    // paddingTop:100
   
   },
 });

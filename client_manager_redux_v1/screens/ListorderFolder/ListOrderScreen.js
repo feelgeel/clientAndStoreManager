@@ -7,7 +7,7 @@ import AddOrderList from '../../components/AddListGlobal';
 import ModifyOrderList from '../../components/AddListGlobal';
 import { handleSaveOrderList, handleChosenClicked, 
     handleAddproducts, handleScannedGting,
-     handleAddScannedProd, handleUnselected, handleUpdateTheChosenQuant, handleDeleteProduct } from './ListOrderFunc';
+     handleAddScannedProd, handleAddToChosen, handleUpdateTheChosenQuant, handleDeleteProduct,handleUnselected } from './ListOrderFunc';
 import { ListItem } from '../../components/lists';
 function ListOrderScreen({}) {
     const dispatch=useDispatch();
@@ -114,6 +114,7 @@ showPrice={false}
 showDelete={false}
 showBenefit={false}
 buttonColor="#dc3545"
+onUnselected={(dt)=>handleUnselected(dt,setquantityModal,settheChosen,user)}
 //scan
 scanModal={scanModal}
 scannedGting={scannedGting}
@@ -138,7 +139,7 @@ onAddScannedProd={()=>handleAddScannedProd(theChosen,scannedProd,quantity,price,
 quantityModal={quantityModal}
 selectedListName={selectedListName}
 setBenefit={(dt)=>setBenefit(dt)}
-onAddQuantity={()=>handleUnselected(
+onAddQuantity={()=>handleAddToChosen(
     theChosen,selectedListName,
     quantity,setquantityModal,
     product,setproduct,

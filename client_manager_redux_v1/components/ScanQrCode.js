@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet, View,Modal,Button } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
-function ScanQrCode({setscanQrModal,scanQrModal,setScanned,scanned,handleBarCodeScanned}) {
+function ScanQrCode({setscanQrModal,scanQrModal,handleBarCodeScanned,setScanned,
+        scanned}) {
 return (
 <View style={styles.container}>
 <Modal
@@ -17,8 +18,12 @@ return (
         title="done"
         // color={buttonColor}
         onPress={()=>setscanQrModal(false)} />
+         <Button
+        title="get client obj"
+        // color={buttonColor}
+        onPress={()=>handleBarCodeScanned()} />
 
-         <View
+         {/* <View
         //   style={{flex:1,paddingTop:"50%",justifyContent:"center",alignItems:"center"}}
           >
           <BarCodeScanner
@@ -29,7 +34,7 @@ return (
           />
         {scanned && <Button title={'Tap to Scan'} onPress={() => setScanned(false)} />} 
   
-</View>
+      </View> */}
 
 </Modal>
 

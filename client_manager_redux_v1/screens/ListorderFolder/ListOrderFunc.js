@@ -5,6 +5,10 @@ import { addListOrder } from "../../api/storeListOrderApi";
 import { AddOrderProd } from "../../api/storeListOrderProdApi";
 import moment from 'moment';
 import { addStock } from "../../api/stockApi";
+export const handleUnselected=(dt,setquantityModal,settheChosen,user)=>{
+  settheChosen(dt)
+  setquantityModal(true);
+}
 {/*                 handleSaveOrderList                 */}
 export const handleSaveOrderList=async(chosen,user,setorderList,
     orderList,dispatch,setchosenModal,setchosen,setselectedListName,selectedListName,
@@ -47,6 +51,7 @@ export const handleSaveOrderList=async(chosen,user,setorderList,
   
 
     })
+    setchosenModal(false)
   }
  {/*                 handleChosenClicked                 */}
  export const handleChosenClicked=(selecteditem,settheChosen,
@@ -111,8 +116,8 @@ export const handleAddproducts=async(store,categ,Setproduct,chosen)=>{
       setchosen(newChosen)
       setproduct([])
         }
-{/*                 handleunselected                 */}
-export const handleUnselected=(  theChosen,selectedListName,
+{/*                 handleAddToChosen                 */}
+export const handleAddToChosen=(  theChosen,selectedListName,
     quantity,setquantityModal,
     product,setproduct,
     chosen,setchosen,user)=>{

@@ -1,22 +1,27 @@
 import React from 'react';
 import { StyleSheet, View,Modal,Button } from 'react-native';
 import AddProducts from './AddProducts';
+import C_Button from './C_Button';
 
 function AddProductModal({
     chosen,
     product,
-    onAddProduct,
-    onUnselected,
     prodModal,
     onSetProdModal,
+    onAddProduct,
+    onUnselected,
+    verification=false,
     onSaveChosen,
     onSelected,
-    showPriceAddprod,
     onScan,
     showDelete=false,
-    showBenefit=false,
     onDelete,
-    buttonColor
+    buttonColor,
+    manualOrder,
+    selfServing,
+    clientStock=false,
+    onAddStockAlert,
+    sell,
 }) {
 return (
 <View style={styles.container}>
@@ -30,34 +35,39 @@ onRequestClose={() => {
 }}
 
 >
-<Button 
+<C_Button 
 title="exit"
-color={buttonColor}
 onPress={()=>onSetProdModal(false)}
+// color={buttonColor}
 />
-<Button 
-color={buttonColor}
+<C_Button 
 title="scan"
 onPress={onScan}
+// color={buttonColor}
 />
-<Button 
-color={buttonColor}
+<C_Button 
 title="save"
 onPress={onSaveChosen}
+// color={buttonColor}
 />
 {showDelete&&<Button 
-color={buttonColor}
-title="Delete List"
-onPress={onDelete}
+    title="Delete List"
+    onPress={onDelete}
+    // color={buttonColor}
 />}
 <AddProducts
-chosen={chosen}
 product={product}
-onAddProduct={onAddProduct}
+chosen={chosen}
 onUnselected={onUnselected}
+onAddProduct={onAddProduct}
+verification={verification}
 onSelected={onSelected}
-showPriceAddprod={showPriceAddprod}
-showBenefit={showBenefit}
+manualOrder={manualOrder}
+selfServing={selfServing}
+clientStock={clientStock}
+onAddStockAlert={onAddStockAlert}
+sell={sell}
+buttonColor={buttonColor}
 />
 </Modal>
 </View>

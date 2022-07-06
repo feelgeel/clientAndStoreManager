@@ -1,5 +1,7 @@
 import React from 'react';
 import { StyleSheet, View,Modal,Button,Text,TextInput } from 'react-native';
+import C_Button from './C_Button';
+import C_TextInput from './C_TextInput';
 
 function Scan({scanModal,setscanModal,setscannedGting,onScan,buttonColor}) {
 return (
@@ -13,19 +15,20 @@ return (
           setscanModal(false);
         }}
       >
-        <Button
+        <C_Button
         title="done"
-        color={buttonColor}
+        // color={buttonColor}
         onPress={()=>setscanModal(false)} />
-        <TextInput keyboardType="number-pad" 
+        <C_TextInput
+         keyboardType="number-pad" 
         placeholder="gting"
         onChangeText={(text)=>{
           setscannedGting(text)
           // console.log(tex)
         }
           } />
-        <Button
-       color={buttonColor}
+        <C_Button
+      //  color={buttonColor}
         title="checked"
         onPress={()=>{
           onScan()

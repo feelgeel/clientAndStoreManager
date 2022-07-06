@@ -10,6 +10,11 @@ export const clientLoadListNames=(userId)=> {
     return Client.get("/client_listNames/"+userId);
 
 }
+export const loadClientList=(userId,listId)=> {
+    // const newData=queryStringFunc(data)
+    return Client.get("/client_listNames/"+userId+"/"+listId);
+
+}
 export const clientUpdateListNames=(id,data)=> {
     const newData=queryStringFunc(data)
     return Client.put("/client_listNames/"+id,newData,{ headers: {"Content-Type": "application/x-www-form-urlencoded" }});

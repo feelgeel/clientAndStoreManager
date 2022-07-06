@@ -10,19 +10,27 @@ import AreUSure from './AreUSure';
 function AddListGlobal({
        //add product
        chosen,product,chosenModal,setchosenModal,
-       settheChosen,setModifyChosenModal,setscanModal,setquantityModal,
-       onSaveChosen,onSelected,onAddProduct,showPriceAddprod,showDelete,showBenefit,showStock,onDelete,
-       onUnselected,buttonColor,
-       //scan
-       scanModal,theChosen,setscannedGting,setscannedProdModel,onScan,
-       //scanned product
-       scannedProd,scannedProdModel,setquantity,setprice,onAddScannedProd,showPriceScannedProd,
-     //Add quantity
-     quantityModal,onAddQuantity,setBenefit,selectedStock,quantity,showPriceAddQuant,
+       setscanModal,onSaveChosen,onSelected,onAddProduct,
+       showDelete,onDelete,onUnselected,buttonColor,
+       selfServing,clientStock,verification,onAddStockAlert,manualOrder,
+        //Add quantity
+     quantityModal,onAddQuantity,setbenefit,selectedStock,quantity,
+     stockAlert,setquantityModal,sell,
+    setquantity,setprice,price,benefit,duplication,setselectedStock,listOrder,
+    perimationDate,setperimationDate,perimationAlert,setperimationAlert,
      //modify chosen
-     modifyChosenModal,setareUSureModal,setareUSeureMessage,onUpdateTheChosenQuant,
+     modifyChosenModal,setmodifyChosenModal,setareUSureModal,setareUSeureMessage,
+     onUpdateTheChosenQuant,modifyTransProd,modifyManOrderProd,
+     theChosen,setstockAlert,
+       //scan
+       scanModal,setscannedGting,onScan,
+       //scanned product
+       scannedProd,scannedProdModel,onAddScannedProd,manOrderScanProd,setscannedProdModel,
+       scannedgtingResProd,scannedgtingResChosen,selectedProd,setselectedProd,
+    
+    
      //are u sure
-     areUSureModal,onOk,areUSeureMessage,showPriceAreUSure
+     areUSureModal,onOk,areUSeureMessage,titleButton
 }) {
 return (
 <View style={styles.container}>
@@ -30,18 +38,85 @@ return (
 <AddProductModal
  chosen={chosen}
  product={product}
- onAddProduct={(store,categ)=>onAddProduct(store,categ)}
- onUnselected={(dt)=>{onUnselected(dt)}}
  prodModal={chosenModal}
  onSetProdModal={(dt)=>setchosenModal(dt)}
+ onAddProduct={(store,categ)=>onAddProduct(store,categ)}
+ onUnselected={(dt)=>{onUnselected(dt)}}
  onSaveChosen={()=>onSaveChosen()}
  onSelected={(dt)=>onSelected(dt)}
- showPriceAddprod={showPriceAddprod}
 onScan={()=>setscanModal(true)}
 showDelete={showDelete}
+manualOrder={manualOrder}
 onDelete={()=>onDelete()}
 buttonColor={buttonColor}
-showBenefit={showBenefit}
+selfServing={selfServing}
+clientStock={clientStock}
+verification={verification}
+onAddStockAlert={(dt)=>onAddStockAlert(dt)}
+sell={sell}
+buttonColor={buttonColor}
+
+/>
+{/*  add quantity*/}
+<AddQuantity
+chosenmodal={quantityModal}
+setchosenmodal={(dt)=>setquantityModal(dt)}
+setquantity={(dt)=>setquantity(dt)}
+setprice={(dt)=>setprice(dt)}
+setbenefit={(dt)=>setbenefit(dt)}
+setstockAlert={(dt)=>setstockAlert(dt)}
+sell={sell}
+manualOrder={manualOrder}
+onAddQuantity={(dt)=>onAddQuantity(dt)}
+buttonColor={buttonColor}
+selectedStock={selectedStock}
+quantity={quantity}
+price={price}
+benefit={benefit}
+stockAlert={stockAlert}
+selfServing={selfServing}
+theChosen={theChosen}
+duplication={duplication}
+setselectedStock={setselectedStock}
+scannedgtingResProd={scannedgtingResProd}
+scannedgtingResChosen={scannedgtingResChosen}
+listOrder={listOrder}
+perimationDate={perimationDate}
+setperimationDate={setperimationDate}
+perimationAlert={perimationAlert}
+setperimationAlert={setperimationAlert}
+
+/>
+{/*  modify chosen*/}
+<ModifyChosen
+modifyChosenModal={modifyChosenModal}
+setmodifyChosenModal={(dt)=>setmodifyChosenModal(dt)}
+Theproduct={theChosen}
+setquantity={(dt)=>setquantity(dt)}
+setprice={(dt)=>setprice(dt)}
+setbenefit={(dt)=>setbenefit(dt)}
+setstockAlert={(dt)=>setstockAlert(dt)}
+onUpdateTheChosenQuant={(dt)=>onUpdateTheChosenQuant(dt)}
+//     setbenefit={(dt)=>setbenefit(dt)}
+    onDelete={()=>{setareUSureModal(true)
+    setareUSeureMessage("ARE U SURE U WANT TO DELETE THIS PRODUCT FROM THE LIST")
+    }}
+    buttonColor={buttonColor}
+manualOrder={manualOrder}
+modifyTransProd={modifyTransProd}
+quantity={quantity}
+price={price}
+benefit={benefit}
+stockAlert={stockAlert}
+modifyManOrderProd={modifyManOrderProd}
+selfServing={selfServing}
+manualOrder={manualOrder}
+listOrder={listOrder}
+sell={sell}
+perimationDate={perimationDate}
+setperimationDate={setperimationDate}
+perimationAlert={perimationAlert}
+setperimationAlert={setperimationAlert}
 />
 {/*  scan product*/}
  <Scan
@@ -58,52 +133,42 @@ scannedProdModel={scannedProdModel}
 setscannedProdModel={(dt)=>setscannedProdModel(dt)}
 setquantity={(dt)=>setquantity(dt)}
 setprice={(dt)=>setprice(dt)}
+setbenefit={(dt)=>setbenefit(dt)}
+setstockAlert={(dt)=>setstockAlert(dt)}
+manualOrder={manualOrder}
 theChosen={theChosen}
-onAddScannedProd={()=>onAddScannedProd()}
+onAddScannedProd={(dt)=>onAddScannedProd(dt)}
 buttonColor={buttonColor}
-showPriceScannedProd={showPriceScannedProd}
-showBenefit={showBenefit}
-/>
-{/*  add quantity*/}
-<AddQuantity
-chosenmodal={quantityModal}
-Setchosenmodal={(dt)=>setquantityModal(dt)}
-Setquantity={(dt)=>setquantity(dt)}
-Setprice={(dt)=>setprice(dt)}
-setBenefit={(dt)=>setBenefit(dt)}
-showPriceAddQuant={showPriceAddQuant}
-showBenefit={showBenefit}
-showStock={showStock}
-onAddQuantity={()=>onAddQuantity()}
-buttonColor={buttonColor}
-selectedStock={selectedStock}
+// showPriceScannedProd={showPriceScannedProd}
+// showBenefit={showBenefit}
+manOrderScanProd={manOrderScanProd}
 quantity={quantity}
+price={price}
+benefit={benefit}
+stockAlert={stockAlert}
+selfServing={selfServing}
+sell={sell}
+selectedStock={selectedStock}
+setselectedStock={(dt)=>setselectedStock(dt)}
+scannedgtingResProd={scannedgtingResProd}
+scannedgtingResChosen={scannedgtingResChosen}
+selectedProd={selectedProd}
+setselectedProd={setselectedProd}
+listOrder={listOrder}
 />
-{/*  modify chosen*/}
-<ModifyChosen
-modifyChosenModal={modifyChosenModal}
-setModifyChosenModal={(dt)=>setModifyChosenModal(dt)}
-Theproduct={theChosen}
-Setquantity={(dt)=>setquantity(dt)}
-onUpdateTheChosenQuant={()=>onUpdateTheChosenQuant()}
-    showPrice={showPriceAddprod}
-    setprice={(dt)=>setprice(dt)}
-    onDelete={()=>{setareUSureModal(true)
-    setareUSeureMessage("ARE U SURE U WANT TO DELETE THIS PRODUCT FROM THE LIST")
-    }}
-    buttonColor={buttonColor}
-    showStock={showStock}
-/>
+
 {/*  are u sure model*/}
 <AreUSure
 areUSureModal={areUSureModal}
 setareUSureModal={(dt)=>setareUSureModal(dt)}
 onOk={()=>onOk()}
 Message={areUSeureMessage}
+titleButton={titleButton}
 theChosen={theChosen}
 buttonColor={buttonColor}
-showPriceAreUSure={showPriceAreUSure}
-showBenefit={showBenefit}
+selfServing={selfServing}
+sell={sell}
+
 />
 </View>
  );

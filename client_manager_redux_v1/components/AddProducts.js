@@ -7,6 +7,9 @@ import TextInput1 from "./TextInput";
 import { useSelector, useDispatch } from "react-redux";
 import {getCategory} from "../api/grosseryApi";
 import GeneratedQrCode from './GeneratedQrCode';
+import { ListItem, ListItemSeparator } from "../components/lists";
+import C_Button from './C_Button';
+import C_Card from './C_Card';
 const stores=[
 
   {
@@ -77,19 +80,30 @@ const stores=[
 
 
 ]
-function AddProducts({product,chosen,
-    onUnselected,onAddProduct,onSelected,showPriceAddprod=false,showBenefit=false}) {
+function AddProducts(
+    {product,
+    chosen,
+    onUnselected,
+    onAddProduct,
+    verification=false,
+    onSelected,
+    manualOrder=false,
+    selfServing=false,
+    clientStock,
+    onAddStockAlert,
+    sell,
+    buttonColor,
+    }) {
     const dispatch=useDispatch();
   const storeListnames=useSelector(state=>state.entities.store_listNames.list)
   const storeproducts=useSelector(state=>state.entities.store_products.list)
   const addgting=useSelector(state=>state.entities.addingGting)
   const addgtingStore=useSelector(state=>state.entities.addingGtingStore)
-//   let theStore=addgting.store;
-//   let theCateg=addgting.categ;
   let theCategs=addgting.categObj;
     const [unselected,setUnselected]=useState(false);
     const [selected,setSelected]=useState(true);
     const [filterModal,setfilterModal]=useState(false);
+    const [choseFilterModal,setchoseFilterModal]=useState(false);
     const [store,setstore]=useState("grosseries");
     const [categs,setCategs]=useState(theCategs);
     const [categ,setCateg]=useState("milk");
@@ -122,74 +136,175 @@ function AddProducts({product,chosen,
       let thetext=item.toLowerCase();
       setCateg(thetext)
       setCateg(thetext)
-    console.log(categs)
+    // console.log(categs)
     }
-
+let unverified=verification?"unVerified":"unselected"
+let verified=verification?"Verified":"selected"
+// console.log("state",!verification&&!clientStock)
 return (
 <View style={styles.container}>
-<Icon name="filter" 
+{(!verification&&!clientStock&&!sell)&&<Icon name="filter" 
 backgroundColor={colors.secondary}
  size={50}  
- onPress={()=>setfilterModal(true)} 
-/>
-< View style={{flexDirection:"row",
+ onPress={()=>{
+    //  if()
+     setchoseFilterModal(true)}
+     } 
+/>}
+<View style={{flexDirection:"row",
               justifyContent:"space-between"}}>
-              <Button style={{flex:0.5}} 
-              title={product.length+'unselected'} 
+              <C_Button 
+              style={{flex:0.5}} 
+              title={product.length+"  "+unverified} 
+            //   color={unselected&&"#dc3545"}
+            width="23%"
+            fontSize={15}
+            padding={5}
               onPress={()=>{setUnselected(true);setSelected(false)}}
               />
-              <Button style={{flexDirection:"row"}} title={chosen.length+'selected'} 
+              <C_Button style={{flexDirection:"row"}} 
+              title={chosen.length+"  "+verified} 
+            //   color={selected&&"#dc3545"}
+              width="23%"
+              fontSize={15}
+              padding={5}
               onPress={()=>{setUnselected(false);setSelected(true)}}
               />
 
 </View>
-{unselected&&<FlatList
+{unselected&&<View>
+    {product.length==0&&<Text style={{fontSize:30}} >product list is empty</Text>}
+    <FlatList
     data={product}
     keyExtractor={(product) => product._id}
     
     renderItem={({ item }) => 
     {
+        let sellQuantity=sell?" ||quantity:"+item.quantity:"";
+        let sellSellPrice=sell?" ||sellprice:"+item.sellPrice:"";
+        let sellTotalprice=sell?" ||totalPrice:"+Number(item.sellPrice)*Number(item.quantity):"";
+        let clientStockquantity=clientStock?"||quantity:"+item.quantity:"";
+        let clientStockByuPrice=clientStock?"||byuPrice:"+item.ByuPrice:"";
+        let clientStockstockAlert=clientStock?"||stockAlert:"+item.stockAlert:"";
+        // console.log("item",item)
         return (
-          <Card 
-          onPress={()=>onUnselected(item)}
-          >
-          {<Card.Cover source={{ uri: item.image_front_url||"https://unsplash.com/photos/JpTY4gUviJM" }} />}
-          <Card.Content>
-            <Title> {"brand: "+item.brands+"|| Gting : "+item.Gting}</Title>
-          </Card.Content>
+            <C_Card
+            image={{ uri: item.image_front_url||"https://unsplash.com/photos/JpTY4gUviJM" }}
+            title={"brand: "+item.brands+"|| Gting : "+item.Gting+
+                clientStockquantity+clientStockByuPrice+clientStockstockAlert+
+                sellSellPrice+sellQuantity}
+                onPress={()=>onUnselected(item)}
+            />
+        //   <C_Card
+        //   onPress={()=>onUnselected(item)}
+        //   >
+        //   {<Card.Cover source={{ uri: item.image_front_url||"https://unsplash.com/photos/JpTY4gUviJM" }} />}
+        //   <Card.Content>
+        //     <Title> {"brand: "+item.brands+"|| Gting : "+item.Gting+
+        //     clientStockquantity+clientStockByuPrice+clientStockstockAlert+
+        //     sellSellPrice+sellQuantity}</Title>
+        //   </Card.Content>
           
-        </Card>
+        // </Card>
         )
     }
-  }
-  />
 }
-   {selected&&<FlatList
+/>
+</View>
+}
+   {selected&&
+   <View>
+    {chosen.length==0&&<Text style={{fontSize:30}} >chosen list is empty</Text>}
+
+   <FlatList
     data={chosen}
-    keyExtractor={(chosen) => chosen.productId}
+    keyExtractor={(chosen) => chosen._id}
     
     renderItem={({ item }) => 
     {
-        let thePrice=showPriceAddprod?"||price:"+item.price:"";
-        let theBenefit=showBenefit?"||benefit:"+item.benefit:"";
+        let sellPrice=Number(item.ByuPrice)*(1+(Number(item.benefit)/100))
+        let clientStockByuPrice=clientStock?"||byuPrice:"+item.ByuPrice:"";
+        // let clientStockstockAlert=clientStock?"||stockAlert:"+item.stockAlert:"";
+        let sellSellPrice=sell?" ||sellprice:"+item.sellPrice:"";
+        let sellTotalprice=sell?" ||totalPrice:"+Number(item.sellPrice)*Number(item.quantity):"";
+        let clientStockstockAlert=clientStock?" ||stockAlert:"+item.stockAlert:"";
+        let selfServingByuPrice=selfServing?" ||byuPrice:"+item.ByuPrice:"";
+        let selfServingstockAlert=selfServing?" ||stockAlert:"+item.stockAlert:"";
+        let manOrderByuPrice=manualOrder?" ||byuPrice:"+item.ByuPrice:"";
+        let manOrderTheBenefit=manualOrder?" ||benefit:"+item.benefit:"";
+        let manOrderSellPrice=manualOrder?" ||sellPrice:"+sellPrice:"";
+        let manOrderStockAlert=manualOrder?" ||StockAlert:"+item.stockAlert:"";
+        let perimationAlert=manualOrder?" ||perimationAlert:"+item.perimationAlert:"";
+        let perimationDate=manualOrder?" ||perimationDate:"+item.perimationDate:"";
+        // let priority=manualOrder?" ||priority:"+item.priority:"";
+        // console.log("sell",item)
         return (
-          <Card 
-          onPress={()=>onSelected(item)}
-          >
-          {<Card.Cover source={{ uri: item.image_front_url||"https://unsplash.com/photos/JpTY4gUviJM" }} />}
-          <Card.Content>
-            <Title>
-            {"brand: "+item.brands+
+            <C_Card
+            image={{ uri: item.image_front_url||"https://unsplash.com/photos/JpTY4gUviJM" }}
+            title= {"brand: "+item.brands+
             " || quantity:"+
-            item.quantity+"|| Gting : "+item.Gting+thePrice+theBenefit}</Title>
-          </Card.Content>
+            item.quantity+"|| Gting : "+
+            item.Gting+manOrderByuPrice+
+            manOrderTheBenefit+manOrderSellPrice+manOrderStockAlert+
+            selfServingByuPrice+selfServingstockAlert+clientStockByuPrice+
+            clientStockstockAlert+sellSellPrice+sellTotalprice+perimationAlert+
+            perimationDate}
+            onPress={()=>onSelected(item)}
+            />
+        //   <Card 
+        //   onPress={()=>onSelected(item)}
+        //   >
+        //   {<Card.Cover source={{ uri: item.image_front_url||"https://unsplash.com/photos/JpTY4gUviJM" }} />}
+        //   <Card.Content>
+        //     <Title>
+        //     {"brand: "+item.brands+
+        //     " || quantity:"+
+        //     item.quantity+"|| Gting : "+
+        //     item.Gting+manOrderByuPrice+
+        //     manOrderTheBenefit+manOrderSellPrice+manOrderStockAlert+
+        //     selfServingByuPrice+selfServingstockAlert+clientStockByuPrice+
+        //     clientStockstockAlert+sellSellPrice+sellTotalprice+perimationAlert+
+        //     perimationDate}</Title>
+        //   </Card.Content>
           
-        </Card>
+        // </Card>
         )
     }
+}
+/>
+</View>
   }
-  />
-  }
+    <Modal
+ visible={choseFilterModal}
+ >
+ <C_Button
+ title="exit"
+ onPress={()=>{
+    setchoseFilterModal(false)}}
+ />
+ <View style={{flexDirection:"row",justifyContent:"space-evenly"}}>
+                <C_Button title='getProductvia categories :'
+                // color={buttonColor}
+                width="45%"
+              fontSize={15}
+            //   padding={5}
+                onPress={()=>{
+                    setchoseFilterModal(false)
+                    setfilterModal(true)
+                  }}
+                  />
+                <C_Button title='getProduct via stockAlert :'
+                // color={buttonColor}
+                width="45%"
+              fontSize={15}
+            //   padding={5}
+                onPress={()=>{
+                    onAddStockAlert()
+                    setchoseFilterModal(false)
+                }}
+                />
+             </View>
+  </Modal>
     <Modal
  visible={filterModal}
  >
@@ -202,7 +317,7 @@ backgroundColor={colors.secondary}
                     onAddProduct(store,categ)}}
                 />
     
-    <View style={styles.container}>
+    <View >
       <List.Accordion
         title={"stores"+"  "+store}
         // left={props => <List.Icon {...props} icon="folder" />}
@@ -254,6 +369,9 @@ backgroundColor={colors.secondary}
  );
 }
 const styles = StyleSheet.create({
-
+container:{
+    backgroundColor:colors.light,
+    
+}
 })
 export default AddProducts;

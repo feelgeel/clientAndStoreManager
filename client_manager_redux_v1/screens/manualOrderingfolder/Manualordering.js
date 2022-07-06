@@ -3,17 +3,18 @@ import { StyleSheet, View,Modal,Button,Text,FlatList } from 'react-native';
 import { useSelector, useDispatch } from "react-redux";
 import *as listNamesAction from '../../redux/listNames';
 import Screen from '../../components/Screen';
-import { handleAddproducts, handleUnselected,
+import { handleAddproducts, handleUnselected,handleAddToChosen,
      handleSaveManualListAndProd, handleChosenClicked,
      handleUpdateTheChosenQuant, 
      handleScannedGting,
      handleAddScannedProd,
      handleDeleteProduct,
      handleSetListProducts,
-     handleUpdateManualListAndProd} from './manualOrderingFunc';
+     handleUpdateManualListAndProd,handleGetStock} from './manualOrderingFunc';
 import { ListItem } from '../../components/lists';
 import AddListManualOrder from '../../components/AddListGlobal';
 import ModifyListManualOrder from '../../components/AddListGlobal';
+import C_Button from '../../components/C_Button';
 function Manualordering({navigation}) {
     const dispatch=useDispatch();
     const user=useSelector(state=>state.entities.users.list)
@@ -22,17 +23,25 @@ function Manualordering({navigation}) {
     const[scanModal,setscanModal]=useState(false)
     const[chosenModal,setchosenModal]=useState(false)
     const[quantityModal,setquantityModal]=useState(false)
-    const[modifyChosenModal,setModifyChosenModal]=useState(false) 
+    const[modifyChosenModal,setmodifyChosenModal]=useState(false) 
     const[modifyproductModal,setmodifyproductModal]=useState(false) 
     const[scannedProdModel,setscannedProdModel]=useState(false) 
     const[areUSureModal,setareUSureModal]=useState(false) 
     const[quantity,setquantity]=useState(1)
     const[price,setprice]=useState(1)
     const[benefit,setbenefit]=useState(30)
+    const[perimationDate,setperimationDate]=useState("")
+    const[perimationAlert,setperimationAlert]=useState(5)
+    const[stockAlert,setstockAlert]=useState(0)
     const[chosen,setchosen]=useState([])
     const[product,setproduct]=useState([])
+    const[duplication,setduplication]=useState([])
     const[manualOrderLists,setmanualOrderLists]=useState([])
+    const[selectedStock,setselectedStock]=useState([]) 
+    const[scannedgtingResChosen,setscannedgtingResChosen]=useState([]) 
+    const[scannedgtingResProd,setscannedgtingResProd]=useState([]) 
     const[scannedProd,setscannedProd]=useState({})
+    const[selectedProd,setselectedProd]=useState({})
     const[theChosen,settheChosen]=useState({})
     const[selectedListName,setselectedListName]=useState({})
     const [scannedGting, setscannedGting] = useState("6130760003769");
@@ -51,10 +60,10 @@ return (
 {/* <Button
 title="scan"
 onPress={()=>setscanModal(true)} /> */}
-<Button
+<C_Button
 title="choose"
 onPress={()=>{setchosenModal(true);setchosen([]);setproduct([])}} />
-<Button
+<C_Button
 title="exit manualOrdering mode"
 onPress={()=>{
     // context.setModes("")
@@ -93,72 +102,105 @@ navigation.navigate("modeScreen")
         ////////////////////////////////////////////////////////    
 */}
   
-<AddListManualOrder
-//add product
+  <AddListManualOrder
+ //add product
+//  chosen,product,chosenModal,setchosenModal,
+//  setscanModal,onSaveChosen,onSelected,onAddProduct,
+//  showDelete,onDelete,onUnselected,buttonColor,
+//  selfServing,clientStock,verification,onAddStockAlert,manualOrder
 chosen={chosen}
 product={product}
 chosenModal={chosenModal}
-user={user}
-dispatch={dispatch}
-manualOrderLists={manualOrderLists}
-setmanualOrderLists={(dt)=>setmanualOrderLists(dt)}
-setchosen={(dt)=>setchosen(dt)}
 setchosenModal={(dt)=>setchosenModal(dt)}
 setproduct={(dt)=>setproduct(dt)}
-settheChosen={(dt)=>settheChosen(dt)}
-setModifyChosenModal={(dt)=>setModifyChosenModal(dt)}
 setscanModal={(dt)=>setscanModal(dt)}
-setquantityModal={(dt)=>setquantityModal(dt)}
-setselectedListName={(dt)=>setselectedListName(dt)}
-selectedListName={selectedListName}
 onSaveChosen={()=>handleSaveManualListAndProd(chosen,user,setmanualOrderLists,
-    manualOrderLists,dispatch,setchosenModal,setchosen,setselectedListName,selectedListName,benefit)}
-onSelected={(dt)=>handleChosenClicked(dt,settheChosen,setModifyChosenModal,
-        dispatch)}
-onAddProduct={(store,categ)=>handleAddproducts(store,categ,setproduct,chosen)}
-showPrice={true}
-showDelete={false}
-showBenefit={true}
+manualOrderLists,dispatch,setchosenModal,setchosen,setselectedListName,selectedListName,benefit)}
+onSelected={(dt)=>handleChosenClicked(dt,settheChosen,setmodifyChosenModal,
+        dispatch,setprice,setquantity,setbenefit,chosen)}
+ onAddProduct={(store,categ)=>handleAddproducts(store,categ,setproduct,chosen)}
+ showDelete={false}
+ manualOrderLists={manualOrderLists}
+ onUnselected={(dt)=>handleUnselected(dt,setquantityModal,settheChosen,user,
+     setselectedStock)}
 buttonColor="#dc3545"
-//scan
-scanModal={scanModal}
-scannedGting={scannedGting}
-theChosen={theChosen}
+manualOrder={true}
+onAddStockAlert={()=>handleGetStock(user,setproduct)}
 
-setscannedGting={(dt)=>setscannedGting(dt)}
-setscannedProd={(dt)=>setscannedProd(dt)}
-setscannedProdModel={(dt)=>setscannedProdModel(dt)}
-onScan={()=>handleScannedGting(scannedGting,setscannedProd,
-    setscannedProdModel,user,settheChosen,theChosen,chosen,dispatch)}
-//scanned prod
-scannedProd={scannedProd}
-scannedProdModel={scannedProdModel}
-quantity={quantity}
-price={price}
-setquantity={(dt)=>setquantity(dt)}
-setprice={(dt)=>setprice(dt)}
-onAddScannedProd={()=>handleAddScannedProd(theChosen,scannedProd,quantity,price,
-    setchosen,user,chosen,setproduct,benefit)}
-    setbenefit={(dt)=>setbenefit(dt)}
-//add quantity
+
+
+ //Add quantity
+//  quantityModal,onAddQuantity,setbenefit,selectedStock,quantity,
+//  stockAlert,setquantityModal,sell,
+// setquantity,setprice,price,benefit,duplication,setselectedStock,listOrder,
+// perimationDate,setperimationDate,perimationAlert,setperimationAlert,
 quantityModal={quantityModal}
-selectedListName={selectedListName}
-setBenefit={(dt)=>setBenefit(dt)}
-onAddQuantity={()=>handleUnselected(
+setquantityModal={(dt)=>setquantityModal(dt)}
+onAddQuantity={(values)=>handleAddToChosen(
     theChosen,selectedListName,
     quantity,setquantityModal,
-    product,setproduct,
-    chosen,setchosen,user,price,benefit)}
+    product,setproduct,chosen,setchosen,
+    user,price,benefit,stockAlert,perimationDate,perimationAlert,values)}
+    setquantity={(dt)=>setquantity(dt)}
+    setprice={(dt)=>setprice(dt)}
+    setbenefit={(dt)=>setbenefit(dt)}
+    setstockAlert={(dt)=>setstockAlert(dt)}
+    sell={false}
+    manualOrderAddQuant={false}
+    quantity={quantity}
+    price={price}
+    benefit={benefit}
+    theChosen={theChosen}
+    stockAlert={stockAlert}
+    selfServing={false}
+    selectedStock={selectedStock}
+    duplication={duplication}
+    setselectedStock={(dt)=>setselectedStock(dt)}
+    listOrder={false}
+    perimationDate={perimationDate}
+    setperimationDate={(dt)=>setperimationDate(dt)}
+    perimationAlert={perimationAlert}
+    setperimationAlert={(dt)=>setperimationAlert(dt)}
 //modify chosen
+//modifyChosenModal,setareUSureModal,
+// setareUSeureMessage,
+//onUpdateTheChosenQuant,modifyTransProd,
+// modifyManOrderProd,
+//setmodifyChosenModal,
 modifyChosenModal={modifyChosenModal}
 setareUSureModal={(dt)=>setareUSureModal(dt)}
+theChosen={theChosen}
+setareUSeureMessage={(dt)=>setareUSeureMessage(dt)}
 onUpdateTheChosenQuant={()=>handleUpdateTheChosenQuant(quantity,price,
-    settheChosen,chosen,setchosen,theChosen,benefit)}
-    setareUSeureMessage={(dt)=>setareUSeureMessage(dt)}
-//are u sure modal
+    settheChosen,chosen,setchosen,theChosen,benefit,stockAlert)}
+    modifyManOrderProd={true}
+    setmodifyChosenModal={(dt)=>setmodifyChosenModal(dt)}
+//scan
+// scanModal,setscannedGting,onScan,
+scanModal={scanModal}
+setscannedGting={(dt)=>setscannedGting(dt)}
+onScan={()=>handleScannedGting(scannedGting,setscannedProd,
+    setscannedProdModel,user,settheChosen,theChosen,chosen,dispatch,
+    setscannedgtingResChosen,setscannedgtingResProd,setselectedProd)}
+//scanned prod
+// scannedProd,scannedProdModel,onAddScannedProd,
+// manOrderScanProd,setscannedProdModel,
+// scannedgtingResProd,scannedgtingResChosen,
+scannedProd={scannedProd}
+scannedProdModel={scannedProdModel}
+setscannedProdModel={(dt)=>setscannedProdModel(dt)}
+onAddScannedProd={(values)=>handleAddScannedProd(theChosen,scannedProd,quantity,price,
+    setchosen,user,chosen,setproduct,benefit,stockAlert,values,scannedgtingResProd)}
+    setbenefit={(dt)=>setbenefit(dt)}
+    scannedgtingResProd={scannedgtingResProd}
+scannedgtingResChosen={scannedgtingResChosen} 
+selectedProd={selectedProd}
+setselectedProd={(dt)=>selectedProd(dt)}
+    //are u sure modal
+// areUSureModal,onOk,areUSeureMessage
 areUSureModal={areUSureModal}
 onOk={()=>handleDeleteProduct(chosen,theChosen,setchosen,setareUSureModal,
-    setModifyChosenModal,setproduct)}
+    setmodifyChosenModal,setproduct)}
     areUSeureMessage={areUSeureMessage}
 />
 
@@ -175,8 +217,8 @@ onOk={()=>handleDeleteProduct(chosen,theChosen,setchosen,setareUSureModal,
 chosen={chosen}
 product={product}
 chosenModal={modifyProductslistModal}
-user={user}
-dispatch={dispatch}
+// user={user}
+// dispatch={dispatch}
 manualOrderLists={manualOrderLists}
 setmanualOrderLists={(dt)=>setmanualOrderLists(dt)}
 setchosen={(dt)=>setchosen(dt)}
@@ -189,19 +231,22 @@ setquantityModal={(dt)=>setquantityModal1(dt)}
 setselectedListName={(dt)=>setselectedListName(dt)}
 selectedListName={selectedListName}
 onSaveChosen={()=>handleUpdateManualListAndProd(chosen,user,setmanualOrderLists,
-    manualOrderLists,dispatch,setchosenModal,setchosen,setselectedListName,selectedListName,theChosenRedux,benefit)}
+    manualOrderLists,dispatch,setchosenModal,setchosen,setselectedListName,
+    selectedListName,theChosenRedux,benefit)}
 onSelected={(dt)=>handleChosenClicked(dt,settheChosen,setModifyChosenModal1,
-        dispatch)}
+        dispatch,setprice,setquantity,setbenefit)}
 onAddProduct={(store,categ)=>handleAddproducts(store,categ,setproduct,chosen)}
-showPrice={true}
-showDelete={false}
-showBenefit={true}
+onUnselected={(dt)=>handleUnselected(dt,setquantityModal,settheChosen,user,
+    setselectedStock)}
+// showPrice={true}
+// showDelete={false}
+// showBenefit={true}
+manOrderScanProd={true}
 // buttonColor="#dc3545"
 //scan
 scanModal={scanModal1}
 scannedGting={scannedGting}
 theChosen={theChosen}
-
 setscannedGting={(dt)=>setscannedGting(dt)}
 setscannedProd={(dt)=>setscannedProd(dt)}
 setscannedProdModel={(dt)=>setscannedProdModel1(dt)}
@@ -215,25 +260,30 @@ price={price}
 setquantity={(dt)=>setquantity(dt)}
 setprice={(dt)=>setprice(dt)}
 onAddScannedProd={()=>handleAddScannedProd(theChosen,scannedProd,quantity,price,
-    setchosen,user,chosen,setproduct)}
+    setchosen,user,chosen,setproduct,benefit,stockAlert)}
 //add quantity
 quantityModal={quantityModal1}
 selectedListName={selectedListName}
-onAddQuantity={()=>handleUnselected(
+setstockAlert={(dt)=>setstockAlert(dt)}
+onAddQuantity={()=>handleAddToChosen(
     theChosen,selectedListName,
     quantity,setquantityModal1,
     product,setproduct,
-    chosen,setchosen,user,price,benefit)}
+    chosen,setchosen,user,price,benefit,stockAlert)}
+    selectedStock={selectedStock}
+    manualOrderAddQuant={true}
+    stockAlert={stockAlert}
 //modify chosen
 modifyChosenModal={modifyChosenModal1}
 setareUSureModal={(dt)=>setareUSureModal1(dt)}
 onUpdateTheChosenQuant={()=>handleUpdateTheChosenQuant(quantity,price,
-    settheChosen,chosen,setchosen,theChosen)}
+    settheChosen,chosen,setchosen,theChosen,benefit,stockAlert)}
     setareUSeureMessage={(dt)=>setareUSeureMessage(dt)}
+    modifyManOrderProd={true}
 //are u sure modal
 areUSureModal={areUSureModal1}
 onOk={()=>handleDeleteProduct(chosen,theChosen,setchosen,setareUSureModal,
-    setModifyChosenModal,setproduct)}
+    setmodifyChosenModal,setproduct)}
     areUSeureMessage={areUSeureMessage}
  />
 </Screen>

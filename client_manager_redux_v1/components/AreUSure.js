@@ -1,9 +1,23 @@
 import React from 'react';
 import { StyleSheet,View,Text,Button,Modal } from 'react-native';
 import {  Card, Title,List } from 'react-native-paper';
-function AreUSure({areUSureModal,setareUSureModal,onOk,Message,theChosen,buttonColor,showPriceAreUSure,showBenefit}) {
-  let thePrice=showPriceAreUSure?"||price:"+theChosen.price:"";
-  let theBenefit=showBenefit?"||benefit:"+theChosen.benefit:"";
+import C_Card from './C_Card';
+import C_Button from './C_Button';
+function AreUSure({
+  areUSureModal,
+  setareUSureModal,
+  onOk,
+  Message,
+  titleButton="ok",
+  theChosen,
+  buttonColor,
+  selfServing=false,
+  sell,
+}) {
+  let byuPriceselfServing=selfServing?"||ByuPrice:"+theChosen.ByuPrice:"";
+  let sellSellPrice=sell?" ||sellprice:"+theChosen.sellPrice:"";
+  let sellTotalprice=sell?" ||totalPrice:"+Number(theChosen.sellPrice)*Number(theChosen.quantity):"";
+  // let theBenefit=showBenefit?"||benefit:"+theChosen.benefit:"";
 return (
   
 <View style={styles.container}>
@@ -14,27 +28,42 @@ return (
             setareUSureModal(false);
         }}
       >
-        <Card 
-        //   onPress={()=>onUnselected(item)}
-          >
-          {<Card.Cover source={{ uri: theChosen.image_front_url||"https://unsplash.com/photos/JpTY4gUviJM" }} />}
-          <Card.Content>
-            <Title> {"Brand: "+theChosen.brands+"|| Gting : "+theChosen.Gting+
-            "|| Quantity : "+theChosen.quantity+thePrice+theBenefit}</Title>
-          </Card.Content>
+        {theChosen.Gting&&
+        <C_Card
+        image={{ uri: theChosen.image_front_url||"https://unsplash.com/photos/JpTY4gUviJM" }}
+        title= {"Brand: "+theChosen.brands+"|| Gting : "+theChosen.Gting+
+        "|| Quantity : "+theChosen.quantity+byuPriceselfServing+sellSellPrice+
+        sellTotalprice}
+        
+        />
+        // <Card 
+        // //   onPress={()=>onUnselected(item)}
+        //   >
+        //   {<Card.Cover source={{ uri: theChosen.image_front_url||"https://unsplash.com/photos/JpTY4gUviJM" }} />}
+        //   <Card.Content>
+        //     <Title> {"Brand: "+theChosen.brands+"|| Gting : "+theChosen.Gting+
+        //     "|| Quantity : "+theChosen.quantity+byuPriceselfServing+sellSellPrice+
+        //     sellTotalprice}</Title>
+        //   </Card.Content>
           
-        </Card>
+        // </Card>
+      }
       <Text style={{fontSize:30}}>{Message}</Text>
            <View style={{flexDirection:"row",justifyContent:"space-evenly"}}>
-            <Button title='cancel'
-            color={buttonColor}
+            <C_Button
+             title='cancel'
+            // color={buttonColor}
+            width="20%"
              onPress={()=>{
                 setareUSureModal(false)
              }}
             />
             
-            <Button title='OK'
-            color={buttonColor}
+            <C_Button 
+            title={titleButton}
+            width="20%"
+
+            // color={buttonColor}
              onPress={()=>{
                  onOk()
              }}
@@ -46,7 +75,7 @@ return (
 }
 const styles = StyleSheet.create({
 container:{
-
+paddingHorizontal:10
 }
 })
 export default AreUSure;

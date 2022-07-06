@@ -24,3 +24,7 @@ export function getGrosseryByGting(id) {
     // return http.get("https://evening-plateau-98989.herokuapp.com/api/grossery/"+name+"/");
     return Client.get("grossery/gting/"+id+"/");
   }
+export function getGrosseryById(id) {
+    // return http.get("https://evening-plateau-98989.herokuapp.com/api/grossery/"+name+"/");
+    return Client.get("grossery/"+id+"/");
+  }

@@ -6,9 +6,14 @@ export const register=(data)=> {
     return Client.post("/users",newData,{ headers: {"Content-Type": "application/x-www-form-urlencoded" }});
 
 }
-export const updateProducts=(id,obj)=> {
+export const updateUser=(id,data)=> {
+    const newData=queryStringFunc(data)
+    return Client.put("/users/"+id,newData,{ headers: {"Content-Type": "application/x-www-form-urlencoded" }});
+
+}
+export const getAUser=(id)=> {
     // const newData=queryStringFunc(data)
-    return Client.put("/products/"+id,obj);
+    return Client.get("/users/"+id);
 
 }
 export const removeProducts=(id)=> {

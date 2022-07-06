@@ -26,12 +26,16 @@ import AddGtingsScreen1 from "../screens/AddGtingsScreen.1";
 import Sell from "../screens/TheSellfolder/Sell";
 // import Sell from "../screens/Sell/Sell";
 import Transaction from "../screens/TransactionFolder/Transaction";
+import ClientTransaction from "../screens/TransactionFolder/ClientTransaction";
 import orderProducts from "../screens/orderProducts";
 import Manualordering from "../screens/manualOrderingfolder/Manualordering";
 import ListOrderScreen from "../screens/ListorderFolder/ListOrderScreen";
 // import ManualOrderingScreen from "../screens/manualOrderingfolder/ManualOrderingScreen";
 import ListorderingScreen from "../screens/ListOrderingScreen";
 import ShowListNamesScreen from "../screens/showListNames/ShowListNamesScreen";
+import ClientListScreen from "../screens/showListNames/ClientListScreen";
+import ClientCashScreen from "../screens/cash/ClientCashScreen";
+import StoreCashScreen from "../screens/cash/StoreCashScreen";
 
 
 const Stack = createStackNavigator();
@@ -41,9 +45,10 @@ const FeedNavigator = () => (
      {/* <Stack.Screen name="showlists" component={productScreen1} />  */}
      {/* <Stack.Screen name="showlists" component={ShowListsScreen} />  */}
      {/* <Stack.Screen name="showlists" component={ListOrderScreen} />  */}
-     <Stack.Screen name="showlists" component={Qrcodescanner} /> 
+     <Stack.Screen name="showlists" component={ListorderingScreen} /> 
     <Stack.Screen name="addList" component={ListingEditScreen} />
     <Stack.Screen name="showlistitems" component={listScreen} />
+    <Stack.Screen name="clientCash" component={ClientCashScreen} />
     {/* <Stack.Screen name="itemDetails" component={prodPickerScreen} /> */}
     {/* <Stack.Screen name="add" component={AddItemScreens} /> */}
     {/* <Stack.Screen name="add1" component={AddItemScreens1} /> */}
