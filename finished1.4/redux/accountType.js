@@ -9,7 +9,7 @@ import queryStringFunc from "../utility/queryStringFunc";
  const slice=createSlice({
      name:"account type",
      initialState:{
-        account:"client",
+        account:"storeOwner",
         },
      reducers:{
          changeAccount:(listName,action)=>{

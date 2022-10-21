@@ -143,6 +143,7 @@ let verified=verification?"Verified":"selected"
 // console.log("state",!verification&&!clientStock)
 return (
 <View style={styles.container}>
+  <TextInput1>Add product modal</TextInput1>
 {(!verification&&!clientStock&&!sell)&&<Icon name="filter" 
 backgroundColor={colors.secondary}
  size={50}  

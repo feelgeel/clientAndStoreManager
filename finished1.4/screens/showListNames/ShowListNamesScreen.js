@@ -16,9 +16,9 @@ import { handleSaveList,handleAddproducts,
     handleUpdateTheChosenQuantDuplication} from './ShowlistNameFunc';
 import { useSelector, useDispatch } from "react-redux";
 import AddListName from '../../components/AddListName';
-import AddQuantity from '../../components/AddQuantity';
+import AddQuantity from '../../components/addQuantity/AddQuantity';
 import LongpressList from '../../components/LongpressList';
-import ModifyChosen from '../../components/ModifyChosen';
+import ModifyChosen from '../../components/modifyChosen/ModifyChosen';
 import Duplication from '../../components/Duplication';
 function ShowListNamesScreen({children,style}) {
     const dispatch=useDispatch();

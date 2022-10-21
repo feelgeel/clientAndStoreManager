@@ -71,7 +71,11 @@ export const handleSaveClientList=async(chosen,user,setorderList,
 
 {/*                 handleAddproducts                 */}
 export const handleAddproducts=async(store,categ,setproduct,chosen)=>{
-    const {data:prod}=await getProductByName(store,categ);
+  console.log("result",store,categ);
+
+    const result=await getProductByName(store,categ);
+    let prod=result.data
+    console.log("result",result);
     let finishedprod=[...prod];
     chosen.map(prodDt=>{
       let index=finishedprod.findIndex(dt=>dt._id===prodDt.productId)

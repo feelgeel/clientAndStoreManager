@@ -13,7 +13,7 @@ const Stack = createStackNavigator();
 
 const FeedNavigator = () => (
   <Stack.Navigator mode="modal" screenOptions={{ headerShown: false }}>
-     <Stack.Screen name="RegisterScreen" component={RegisterScreen} /> 
+     {/* <Stack.Screen name="RegisterScreen" component={RegisterScreen} />  */}
      <Stack.Screen name="showlists" component={ClientListScreen} /> 
     <Stack.Screen name="clientTransaction" component={ClientTransaction} />
     <Stack.Screen name="selfServing" component={SelfServingScreen} />

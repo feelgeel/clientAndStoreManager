@@ -9,7 +9,7 @@ import { handleBarCodeScanned, handleCallTransactions,handleConfirmList,
 import { useSelector, useDispatch } from "react-redux";
 import { ListItem } from '../../components/lists';
 import ConfirmTranProd from './ConfirmTranProd';
-import ModifyChosen from '../../components/ModifyChosen';
+import ModifyChosen from '../../components/modifyChosen/ModifyChosen';
 import AreUSure from '../../components/AreUSure';
 import { getTransactionProd } from '../../api/transactionProdApi';
 import C_Button from '../../components/C_Button';

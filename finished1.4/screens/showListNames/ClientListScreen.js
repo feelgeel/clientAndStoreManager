@@ -159,7 +159,7 @@ onAddQuantity={(dt)=>handleAddToChosen(
 //setmodifyChosenModal,     
 modifyChosenModal={modifyChosenModal}
 setareUSureModal={(dt)=>setareUSureModal(dt)}
-theChosen={theChosen}
+// theChosen={theChosen}
 setareUSeureMessage={(dt)=>setareUSeureMessage(dt)}
 onUpdateTheChosenQuant={()=>handleUpdateTheChosenQuant(quantity,price,
     settheChosen,chosen,setchosen,theChosen,benefit)}
@@ -180,7 +180,7 @@ scannedProdModel={scannedProdModel}
 setscannedProdModel={(dt)=>setscannedProdModel(dt)}
 onAddScannedProd={(dt)=>handleAddScannedProd(theChosen,scannedProd,quantity,price,
     setchosen,user,chosen,setproduct,benefit,dt)}
-setbenefit={(dt)=>setbenefit(dt)}
+// setbenefit={(dt)=>setbenefit(dt)}
 scannedgtingResChosen={scannedgtingResChosen} 
 selectedProd={selectedProd}
 setselectedProd={(dt)=>setselectedProd(dt)}

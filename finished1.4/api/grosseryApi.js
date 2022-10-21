@@ -29,7 +29,7 @@ export function getgrossery() {
     })
   });
       // data.images=img
-      // console.log(data)
+      console.log(data)
   
     // const newData=queryStringFunc(data)
     return Client.post("/grosseries_temp",data,

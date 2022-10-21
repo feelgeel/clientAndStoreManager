@@ -3,8 +3,8 @@ import { StyleSheet, View } from 'react-native';
 import AddProductModal from './AddProductModal';
 import Scan from './Scan';
 import ScannedProdModel from './ScannedProdModel';
-import AddQuantity from './AddQuantity';
-import ModifyChosen from './ModifyChosen';
+import AddQuantity from './addQuantity/AddQuantity';
+import ModifyChosen from './modifyChosen/ModifyChosen';
 import AreUSure from './AreUSure';
 
 function AddListGlobal({
@@ -56,7 +56,7 @@ clientStock={clientStock}
 verification={verification}
 onAddStockAlert={(dt)=>onAddStockAlert(dt)}
 sell={sell}
-buttonColor={buttonColor}
+// buttonColor={buttonColor}
 onRefresh={onRefresh}
 refresh={refresh}
 />
@@ -114,7 +114,7 @@ benefit={benefit}
 stockAlert={stockAlert}
 modifyManOrderProd={modifyManOrderProd}
 selfServing={selfServing}
-manualOrder={manualOrder}
+// manualOrder={manualOrder}
 listOrder={listOrder}
 sell={sell}
 perimationDate={perimationDate}

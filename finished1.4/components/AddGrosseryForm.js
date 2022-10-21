@@ -20,7 +20,7 @@ const AddStoreschema = Yup.object().shape({
     Gting: Yup.object().required().label("Gting"),
     product_name: Yup.string().required().label("product_name"),
     brand: Yup.string().required().label("brand"),
-    categ: Yup.object().required().label("categ"),
+    categ: Yup.object().label("categ"),
   })
 function AddGrosseryForm({}) {
     const[category,setcategory]=useState([])
@@ -41,11 +41,11 @@ return (
         Gting:0,
         product_name:"",
         brand:"",
-        categ:null,
+        categ:{categ:"grossery"},
 }}
     onSubmit={async(values)=>{
         const{data:addTempGross}=await addGrosseries(values)
-        // console.log(values)
+        console.log(addTempGross)
         // handleAddStoreWorkerMember(values,family,user,setaddFamModal)
     }}
     validationSchema={AddStoreschema}

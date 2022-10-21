@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View,Button,Modal,TextInput } from 'react-native';
 import AddProducts from '../components/AddProducts';
-import ModifyChosen from '../components/ModifyChosen';
+import ModifyChosen from './modifyChosen/ModifyChosen';
 
 function Duplication({setDuplicationmodal,Duplicationmodal,
     SetlistName,chosen,product,

@@ -16,7 +16,7 @@ import { handleAddproducts, handleUnselected,
 import { useSelector, useDispatch } from "react-redux";
 import { ListItem } from '../../components/lists';
 import AddProductModal from '../../components/AddProductModal';
-import AddQuantity from '../../components/AddQuantity';
+import AddQuantity from '../../components/addQuantity/AddQuantity';
 import C_Button from '../../components/C_Button';
 
 function SelfServingScreen({children,style}) {
@@ -105,7 +105,6 @@ onPress={()=>handleCallClientList(setclientList,user)}
  verification={true}
  onAddStockAlert
  sell={false}
- buttonColor
 onRefresh={()=>handleRefresh(user,selectedListName)}
  refresh={false}
 />
