@@ -4,10 +4,13 @@ import * as Yup from "yup"
 import C_Form from '../C_Form';
 import C_FormField from '../C_FormField';
 import C_SubmitButton from '../C_SubmitButton';
+import { useFormikContext } from 'formik';
 const listOrderValidSchema = Yup.object().shape({
     quantity: Yup.number().required().label("quantity"),
   })
 function FormClient({setquantity,onAddQuantity}) {
+  const {values}=useFormikContext()
+  console.log("values",values)
 return (
 <View style={styles.container}>
 <C_Form

@@ -5,6 +5,7 @@ import C_Form from '../C_Form';
 import C_FormField from '../C_FormField';
 import C_SubmitButton from '../C_SubmitButton';
 import * as Yup from "yup"
+import { useFormikContext } from 'formik';
 const manualOrderValidSchema = Yup.object().shape({
     quantity: Yup.number().required().label("quantity"),
     ByuPrice: Yup.number().required().label("ByuPrice"),
@@ -14,9 +15,11 @@ const manualOrderValidSchema = Yup.object().shape({
     perimationAlert: Yup.number().required().label("perimationAlert"),
   })
 function AddQuantManOrder({onAddQuantity}) {
+    // const {values}=useFormikContext()
+    // console.log("values",values)
     return (
         <View style={styles.container}>
-            <C_Form
+            {({values})=>(<C_Form
                 initialValues={{
                     quantity: "",
                     ByuPrice: 0,
@@ -57,7 +60,7 @@ function AddQuantManOrder({onAddQuantity}) {
                     keyboardType="number-pad"
                     placeholder="sell_price"
                 />
-                <Text>hello</Text>
+                <Text>{values.ByuPrice}</Text>
                 <C_FormField
                     name="benefit"
                     //  icon="email"
@@ -87,6 +90,8 @@ function AddQuantManOrder({onAddQuantity}) {
                 />
                 <C_SubmitButton title='submit' />
             </C_Form>
+        )
+        }
         </View>
     );
 }
