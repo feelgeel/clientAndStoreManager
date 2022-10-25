@@ -7,6 +7,7 @@ import { NavigationContainer} from "@react-navigation/native";
 import AuthNavigator from './finished1.4/navigation/AuthNavigator';
 import navigationTheme from './finished1.4/navigation/navigationTheme';
 import AppNavigator from './finished1.4/navigation/AppNavigator';
+import FormManOrder from './finished1.4/components/theForms/FormManOrder';
 
 export default function Index() {
 
@@ -46,6 +47,7 @@ export default function Index() {
       {label:"coffee",_id:3}
     ]
   return(
+    // <FormManOrder/>
          <NavigationContainer theme={navigationTheme}>
          {user?<AppNavigator/>:<AuthNavigator/>} 
      </NavigationContainer> 

@@ -33,14 +33,16 @@ import supplierReducer from './supplier';
 import ownerSupplierReducer from './ownerSupplier';
 import ManifactureReducer from './manifacture';
 import ManifactureWorkerReducer from './manifactureWorker';
-import ownerManifactureReducer from './ownerManifacture';
 
+import ownerManifactureReducer from './ownerManifacture';
+import formikpropsReducer from './FormikProps';
 
 
 export default combineReducers({
 addingGting:addingGtingReducer,
 addingGtingStore:addingGtingStoreReducer,
 listNames:listNamesReducer,
+formikProps:formikpropsReducer,
 users:usersReducer,
 counter:counterREducer,
 owner:ownerReducer,

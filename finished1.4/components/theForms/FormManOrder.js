@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import C_DatePicker from '../C_DatePicker';
 import C_Form from '../C_Form';
 import C_FormField from '../C_FormField';
 import C_SubmitButton from '../C_SubmitButton';
 import * as Yup from "yup"
+import { useSelector } from 'react-redux';
+
 import { useFormikContext } from 'formik';
+import { useEffect } from 'react';
 const manualOrderValidSchema = Yup.object().shape({
     quantity: Yup.number().required().label("quantity"),
     ByuPrice: Yup.number().required().label("ByuPrice"),
@@ -15,11 +18,19 @@ const manualOrderValidSchema = Yup.object().shape({
     perimationAlert: Yup.number().required().label("perimationAlert"),
   })
 function AddQuantManOrder({onAddQuantity}) {
+    const [formProp,setformprop]=useState({})
+    const formikProps=useSelector(state=>state.entities.formikProps.formikProps)
+    useEffect(()=>{
+        setformprop(formikProps)
+    },[formikProps])
+    //  const {getFieldProps}=useFormikContext()
+    // let getProps=getFieldProps("quantity")
+    // console.log("getFieldProps",getProps.value)
     // const {values}=useFormikContext()
-    // console.log("values",values)
+    console.log("values",formProp)
     return (
         <View style={styles.container}>
-            {({values})=>(<C_Form
+            <C_Form
                 initialValues={{
                     quantity: "",
                     ByuPrice: 0,
@@ -36,7 +47,8 @@ function AddQuantManOrder({onAddQuantity}) {
                 }}
                 validationSchema={manualOrderValidSchema}
             >
-                <C_FormField
+                <Text>{formProp.quantity}hello</Text>
+               <C_FormField
                     name="quantity"
                     //  icon="email"
                     autoCapitalize="none"
@@ -53,6 +65,15 @@ function AddQuantManOrder({onAddQuantity}) {
                     placeholder="ByuPrice"
                 />
                 <C_FormField
+                    name="calculatedPrice"
+                    value={formProp.quantity}
+                    //  icon="email"
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    keyboardType="number-pad"
+                    placeholder="ByuPrice"
+                />
+                <C_FormField
                     name="sell_price"
                     //  icon="email"
                     autoCapitalize="none"
@@ -60,7 +81,7 @@ function AddQuantManOrder({onAddQuantity}) {
                     keyboardType="number-pad"
                     placeholder="sell_price"
                 />
-                <Text>{values.ByuPrice}</Text>
+                {/* <Text>{values.ByuPrice}</Text> */}
                 <C_FormField
                     name="benefit"
                     //  icon="email"
@@ -90,8 +111,7 @@ function AddQuantManOrder({onAddQuantity}) {
                 />
                 <C_SubmitButton title='submit' />
             </C_Form>
-        )
-        }
+        
         </View>
     );
 }

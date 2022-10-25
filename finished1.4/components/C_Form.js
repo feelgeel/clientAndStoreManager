@@ -11,9 +11,9 @@ onSubmit={onSubmit}
 validationSchema={validationSchema}
 // innerRef={formRef}
 >
-{({values}) => 
+{() => 
 (<>
-{children(values)}
+{children}
 </>)
 }
 </Formik>
