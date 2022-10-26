@@ -12,6 +12,7 @@ import { useEffect } from 'react';
 const manualOrderValidSchema = Yup.object().shape({
     quantity: Yup.number().required().label("quantity"),
     ByuPrice: Yup.number().required().label("ByuPrice"),
+    calculatedPrice: Yup.number().required().label("ByuPrice"),
     benefit: Yup.number().required().label("benefit"),
     perimationDate: Yup.string().required().label("perimationDate"),
     stockAlert: Yup.number().required().label("stockAlert"),
@@ -19,23 +20,27 @@ const manualOrderValidSchema = Yup.object().shape({
   })
 function AddQuantManOrder({onAddQuantity}) {
     const [formProp,setformprop]=useState({})
+    const [calcPrice,setcalcPrice]=useState(0)
     const formikProps=useSelector(state=>state.entities.formikProps.formikProps)
     useEffect(()=>{
         setformprop(formikProps)
+        let dabenefit=(30/100)+1
+        setcalcPrice(formikProps.ByuPrice*dabenefit)
     },[formikProps])
     //  const {getFieldProps}=useFormikContext()
     // let getProps=getFieldProps("quantity")
     // console.log("getFieldProps",getProps.value)
     // const {values}=useFormikContext()
-    console.log("values",formProp)
+    console.log("values",calcPrice)
     return (
         <View style={styles.container}>
             <C_Form
                 initialValues={{
                     quantity: "",
                     ByuPrice: 0,
+                    benefit: 0,
+                    calculatedPrice: 0,
                     sell_price: 0,
-                    benefit: "",
                     stockAlert: "",
                     perimationDate: "",
                     perimationAlert: ""
@@ -64,14 +69,22 @@ function AddQuantManOrder({onAddQuantity}) {
                     keyboardType="number-pad"
                     placeholder="ByuPrice"
                 />
-                <C_FormField
-                    name="calculatedPrice"
-                    value={formProp.quantity}
+                 <C_FormField
+                    name="benefit"
                     //  icon="email"
                     autoCapitalize="none"
                     autoCorrect={false}
                     keyboardType="number-pad"
-                    placeholder="ByuPrice"
+                    placeholder="benefit"
+                />
+                <C_FormField
+                    name="calculatedPrice"
+                    value={calcPrice} 
+                    //  icon="email"
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    keyboardType="number-pad"
+                    placeholder="calculatedPrice"
                 />
                 <C_FormField
                     name="sell_price"
@@ -82,14 +95,7 @@ function AddQuantManOrder({onAddQuantity}) {
                     placeholder="sell_price"
                 />
                 {/* <Text>{values.ByuPrice}</Text> */}
-                <C_FormField
-                    name="benefit"
-                    //  icon="email"
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    keyboardType="number-pad"
-                    placeholder="benefit"
-                />
+               
                 <C_FormField
                     name="stockAlert"
                     //  icon="email"
