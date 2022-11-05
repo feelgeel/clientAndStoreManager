@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useSelector, useDispatch } from "react-redux";
 import ManualOrder from "../screens/ManualOrder";
 import NewListingButton from "./NewListingButton";
+import StoreNavigator from "./StoreNavigator";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 const Tab = createBottomTabNavigator();
 
@@ -13,7 +14,7 @@ const GrossNavigator = () => {
     <Tab.Navigator>
     <Tab.Screen
       name="Feed"
-      component={ManualOrder}
+      component={StoreNavigator}
       options={{
         tabBarIcon: ({ color, size }) => (
           <MaterialCommunityIcons name="home" color={color} size={size} />

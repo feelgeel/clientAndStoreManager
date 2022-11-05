@@ -1,8 +1,4 @@
 import {createSlice } from "@reduxjs/toolkit";
-import { createSelector } from "reselect";
-import *as actions from './api';
-import queryStringFunc from "../utility/queryStringFunc";
- let lastId=0;
 
 
  //create slice
