@@ -4,7 +4,7 @@ import AddProductModal from './AddProductModal';
 import Scan from './Scan';
 import ScannedProdModel from './ScannedProdModel';
 import AddQuantity from './AddQuantity';
-import ModifyChosen from './ModifyChosen';
+import ModifyChosen from './modifyChosen/ModifyChosen';
 import AreUSure from './AreUSure';
 
 function AddListGlobal({

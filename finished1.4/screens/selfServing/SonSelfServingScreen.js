@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, View,Button,FlatList,Text } from 'react-native';
-import AddListGlobal from '../../components/AddListGlobal';
+import AddListGlobal from '../../components/add list global/AddListGlobal';
 import Screen from '../../components/Screen';
 import { handleAddproducts, handleUnselected,
      handleAddToChosen, 

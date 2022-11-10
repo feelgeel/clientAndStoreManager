@@ -14,8 +14,8 @@ import { handleAddproducts, handleUnselected,handleAddToChosen,
      handleUpdateManualListAndProd,
      handleGetStock} from './listOrderFunc';
 import { ListItem } from '../../components/lists';
-import AddListManualOrder from '../../components/AddListGlobal';
-import ModifyListManualOrder from '../../components/AddListGlobal';
+import AddListManualOrder from '../../components/add list global/AddListGlobal';
+import ModifyListManualOrder from '../../components/add list global/AddListGlobal';
 function ListOrderScreen({navigation}) {
     const dispatch=useDispatch();
     const user=useSelector(state=>state.entities.users.list)

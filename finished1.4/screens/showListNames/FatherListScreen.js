@@ -3,8 +3,8 @@ import { StyleSheet, View,Modal,Button,Text,FlatList } from 'react-native';
 import { useSelector, useDispatch } from "react-redux";
 import *as listNamesAction from '../../redux/listNames';
 import Screen from '../../components/Screen';
-import AddOrderList from '../../components/AddListGlobal';
-import ModifyOrderList from '../../components/AddListGlobal';
+import AddOrderList from '../../components/add list global/AddListGlobal';
+import ModifyOrderList from '../../components/add list global/AddListGlobal';
 import { handleSaveClientList, handleChosenClicked, 
     handleAddproducts, handleScannedGting,
      handleAddScannedProd, handleAddToChosen, handleUpdateTheChosenQuant,

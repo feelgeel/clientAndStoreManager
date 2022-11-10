@@ -6,9 +6,9 @@ import *as userAction from "./finished1.4/redux/users";
 import { NavigationContainer} from "@react-navigation/native";
 import AuthNavigator from './finished1.4/navigation/AuthNavigator';
 import navigationTheme from './finished1.4/navigation/navigationTheme';
-import AppNavigator from './finished1.4/navigation/AppNavigator';
-import FormManOrder from './finished1.4/components/theForms/FormManOrder';
-import GrossNavigator from './finished1.5/navigation/GrossNavigator';
+// import AppNavigator from './finished1.4/navigation/AppNavigator';
+// import FormManOrder from './finished1.4/components/theForms/FormManOrder';
+import GrossNavigator from './finished1.5/navigation/GrossistNavigator';
 
 export default function Index() {
 
@@ -51,7 +51,7 @@ export default function Index() {
     // <FormManOrder/>
          <NavigationContainer theme={navigationTheme}>
           <GrossNavigator/>
-         {/* {user?<GrossNavigator/>:<AuthNavigator/>}  */}
+         {/* {user?<AppNavigator/>:<AuthNavigator/>}  */}
      </NavigationContainer> 
        
   

@@ -12,8 +12,8 @@ import { handleAddproducts, handleUnselected,handleAddToChosen,
      handleSetListProducts,
      handleUpdateManualListAndProd,handleGetStock} from './manualOrderingFunc';
 import { ListItem } from '../../components/lists';
-import AddListManualOrder from '../../components/AddListGlobal';
-import ModifyListManualOrder from '../../components/AddListGlobal';
+import AddListManualOrder from '../../components/add list global/AddListGlobal';
+import ModifyListManualOrder from '../../components/add list global/AddListGlobal';
 import C_Button from '../../components/C_Button';
 function Manualordering({navigation}) {
     const dispatch=useDispatch();

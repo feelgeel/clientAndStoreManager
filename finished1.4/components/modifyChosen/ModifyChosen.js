@@ -3,9 +3,9 @@ import { StyleSheet, View,Modal,Button,Text,TextInput } from 'react-native';
 import {  Card, Title,List } from 'react-native-paper';
 import C_Button from '../C_Button';
 import C_Form from '../C_Form';
-import C_FormField from '../../../moshCourse/component/C_FormField';
+import C_FormField from './C_FormField';
 import C_SubmitButton from '../C_SubmitButton';
-import FormManOrder from '../../components/theForms/FormManOrder';
+import FormManOrder from './theForms/FormManOrder';
 import * as Yup from "yup"
 import C_DatePicker from '../C_DatePicker';
 
