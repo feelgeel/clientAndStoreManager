@@ -40,7 +40,7 @@ export const handleAddToChosen=async(theChosen,selectedListName,
         let newproduct=[...product];
         let newChosen=[...chosen];
         let newThechosen={...theChosen}
-        let sellPrice=price*(1+Number(benefit)/100)
+        // let sellPrice=price*(1+Number(benefit)/100)
         let index=product.findIndex(dt=>dt._id==theChosen._id);
         newThechosen.quantity=values.quantity
         newThechosen.listId=selectedListName._id
@@ -50,7 +50,7 @@ export const handleAddToChosen=async(theChosen,selectedListName,
         newThechosen.benefit=values.benefit
         newThechosen.perimationDate=values.perimationDate
         newThechosen.perimationAlert=values.perimationAlert
-        newThechosen.sellPrice=sellPrice
+        newThechosen.sellPrice=values.sellPrice
         newThechosen.stockAlert=values.stockAlert
         newThechosen.timestamp=Date.now();
         let {data:prodDb}=await getStockByProdId(user.userId,theChosen._id)

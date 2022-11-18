@@ -6,8 +6,6 @@ import colors from '../config/colors';
 import TextInput1 from "./TextInput";
 import { useSelector, useDispatch } from "react-redux";
 import {getCategory} from "../api/grosseryApi";
-import GeneratedQrCode from './GeneratedQrCode';
-import { ListItem, ListItemSeparator } from "../components/lists";
 import C_Button from './C_Button';
 import C_Card from './C_Card';
 const stores=[
@@ -192,7 +190,7 @@ backgroundColor={colors.secondary}
             <C_Card
             image={{ uri: item.image_front_url||"https://unsplash.com/photos/JpTY4gUviJM" }}
             title={"brand: "+item.brands+"|| Gting : "+item.Gting+
-            "|| quantity : "+item.quantity+
+            // "|| quantity : "+item.quantity+
                 // clientStockquantity+
                 clientStockByuPrice+
                 clientStockstockAlert+

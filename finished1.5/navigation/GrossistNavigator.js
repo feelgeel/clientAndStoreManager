@@ -2,25 +2,26 @@ import React, { useContext } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import AccountNavigator from "./AccountNavigator";
-import FeedNavigator from "./FeedNavigator";
-import ClientNavigator from "./ClientNavigator";
-import StoreNavigator from "./StoreNavigator";
-import fatherNavigator from "./fatherNavigator";
-import SonNavigator from "./SonNavigator";
-import DaughterNavigator from "./DaughterNavigator";
-import OwnerNavigator from "./OwnerNavigator";
-import WorkerNavigator from "./WorkerNavigator";
-import manufactureNavigator from "./manufactureNavigator";
-import supplierNavigator from "./supplierNavigator";
-import ListingEditScreen from "../screens/ListingEditScreen";
+// import AccountNavigator from "./AccountNavigator";
+// import FeedNavigator from "./FeedNavigator";
+// import ClientNavigator from "./ClientNavigator";
+// import StoreNavigator from "./StoreNavigator";
+// import fatherNavigator from "./fatherNavigator";
+// import SonNavigator from "./SonNavigator";
+// import DaughterNavigator from "./DaughterNavigator";
+// import OwnerNavigator from "./OwnerNavigator";
+// import WorkerNavigator from "./WorkerNavigator";
+// import manufactureNavigator from "./manufactureNavigator";
+// import supplierNavigator from "./supplierNavigator";
+// import ListingEditScreen from "../screens/ListingEditScreen";
 import NewListingButton from "./NewListingButton";
-import ClientModeScreens from "../screens/ClientModeScreens";
-import routes from "./routes";
+import StoreNavigator from "./StoreNavigator";
+// import ClientModeScreens from "../screens/ClientModeScreens";
+// import routes from "./routes";
 // import listContext from "../list_context/list-context";
-import { useSelector, useDispatch } from "react-redux";
-import *as listNamesAction from '../redux/listNames';
-import ManualOrdering from './../screens/TheSellfolder/ManualOrderingScreen';
+// import { useSelector, useDispatch } from "react-redux";
+// import *as listNamesAction from '../redux/listNames';
+import ManualOrdering from '../screens/manualOrderingfolder/Manualordering';
 const Tab = createBottomTabNavigator();
 
 
@@ -80,7 +81,7 @@ const GrossitNavigator = () => {
     <Tab.Navigator>
     <Tab.Screen
       name="Feed"
-      component={ManualOrdering}
+      component={StoreNavigator}
       options={{
         tabBarIcon: ({ color, size }) => (
           <MaterialCommunityIcons name="home" color={color} size={size} />
@@ -93,7 +94,7 @@ const GrossitNavigator = () => {
       options={({ navigation }) => ({
         tabBarButton: () => (
           <NewListingButton
-          onPress={() => navigation.navigate(transMode)}
+          // onPress={() => navigation.navigate(transMode)}
           />
           ),
           

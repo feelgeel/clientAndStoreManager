@@ -1,14 +1,14 @@
 import React from 'react';
 import { StyleSheet, View,Modal,TextInput,Button,Text,FlatList } from 'react-native';
-import C_Button from '../C_Button';
+import C_Button from './C_Button';
 import * as Yup from "yup"
-import C_Card from '../C_Card';
+import C_Card from './C_Card';
 import { useFormikContext } from 'formik';
-import FormClient from '../theForms/FormClient';
-import FormListOrder from '../theForms/FormListOrder';
-import FormSell from '../theForms/FormSell';
-import FormSelfServe from '../theForms/FormSelfServe';
-import FormManOrder from '../theForms/FormManOrder';
+import FormClient from './theForms/FormClient';
+import FormListOrder from './theForms/FormListOrder';
+import FormSell from './theForms/FormSell';
+import FormSelfServe from './theForms/FormSelfServe';
+import FormManOrder from './theForms/FormManOrder';
 
 const listOrderValidSchema = Yup.object().shape({
   quantity: Yup.number().required().label("quantity"),

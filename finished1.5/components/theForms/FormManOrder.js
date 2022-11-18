@@ -30,7 +30,7 @@ function AddQuantManOrder({onAddQuantity}) {
     // let getProps=getFieldProps("quantity")
     // console.log("getFieldProps",getProps.value)
     // const {values}=useFormikContext()
-    console.log("values",calcPrice)
+    // console.log("values",calcPrice)
     return (
         <ScrollView style={styles.container}>
             <C_Form
@@ -50,7 +50,7 @@ function AddQuantManOrder({onAddQuantity}) {
                 }}
                 validationSchema={manualOrderValidSchema}
             >
-                <Text>{calcPrice}hello</Text>
+                {/* <Text>{calcPrice}hello</Text> */}
                <C_FormField
                     name="quantity"
                     //  icon="email"
