@@ -172,7 +172,7 @@ setmanualOrderLists(newmanualOrderlist)
     if(globalstockdb.ok){
       if(datastockGlob.length==0){
         let {data:globalstockdb}=await addGlobalStock(stock) 
-        console.log( "addstock")
+        console.log("addstock")
       }else{
         let newglobalstockdb=datastockGlob[0]
         // console.log(newglobalstockdb)
