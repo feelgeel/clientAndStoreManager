@@ -6,6 +6,7 @@ import ScannedProdModel from './ScannedProdModel';
 import AddQuantity from './AddQuantity';
 import ModifyChosen from './modifyChosen/ModifyChosen';
 import AreUSure from './AreUSure';
+import Payment from './Payment';
 
 function AddListGlobal({
        //add product
@@ -31,7 +32,9 @@ function AddListGlobal({
     
     
      //are u sure
-     areUSureModal,onOk,areUSeureMessage,titleButton
+     areUSureModal,onOk,areUSeureMessage,titleButton,
+     //payment
+     paymentModal,setpaymentModal
 }) {
 return (
 <View style={styles.container}>
@@ -175,6 +178,11 @@ selfServing={selfServing}
 sell={sell}
 
 />
+{/*  are u sure model*/}
+{/* <Payment
+paymentModal={paymentModal}
+setpaymentModal={(dt)=>setpaymentModal(dt)}
+/> */}
 </View>
  );
 }

@@ -4,69 +4,39 @@ import {  Card, Title,List } from 'react-native-paper';
 import C_Card from './C_Card';
 import C_Button from './C_Button';
 function Payment({
-  areUSureModal,
-  setareUSureModal,
-  onOk,
-  Message,
-  titleButton="ok",
-  theChosen={},
-  buttonColor,
-  selfServing=false,
-  sell=false,
+  paymentModal,
+  setpaymentModal,
 }) {
-  let byuPriceselfServing=selfServing?"||ByuPrice:"+theChosen.ByuPrice:"";
-  let sellSellPrice=sell?" ||sellprice:"+theChosen.sellPrice:"";
-  let sellTotalprice=sell?" ||totalPrice:"+Number(theChosen.sellPrice)*Number(theChosen.quantity):"";
-  // let theBenefit=showBenefit?"||benefit:"+theChosen.benefit:"";
+  
 return (
   
 <View style={styles.container}>
 <Modal
         animationType="slide"
-        visible={areUSureModal}
+        visible={paymentModal}
         onRequestClose={() => {
-            setareUSureModal(false);
+          setpaymentModal(false);
         }}
       >
-        {theChosen.Gting&&
-        <C_Card
-        image={{ uri: theChosen.image_front_url||"https://unsplash.com/photos/JpTY4gUviJM" }}
-        title= {"Brand: "+theChosen.brands+"|| Gting : "+theChosen.Gting+
-        "|| Quantity : "+theChosen.quantity+byuPriceselfServing+sellSellPrice+
-        sellTotalprice}
         
-        />
-        // <Card 
-        // //   onPress={()=>onUnselected(item)}
-        //   >
-        //   {<Card.Cover source={{ uri: theChosen.image_front_url||"https://unsplash.com/photos/JpTY4gUviJM" }} />}
-        //   <Card.Content>
-        //     <Title> {"Brand: "+theChosen.brands+"|| Gting : "+theChosen.Gting+
-        //     "|| Quantity : "+theChosen.quantity+byuPriceselfServing+sellSellPrice+
-        //     sellTotalprice}</Title>
-        //   </Card.Content>
-          
-        // </Card>
-      }
-      <Text style={{fontSize:30}}>{Message}</Text>
+      <Text style={{fontSize:30}}>helolo</Text>
            <View style={{flexDirection:"row",justifyContent:"space-evenly"}}>
             <C_Button
              title='cancel'
             // color={buttonColor}
             width="20%"
              onPress={()=>{
-                setareUSureModal(false)
+              setpaymentModal(false)
              }}
             />
-            
             <C_Button 
-            title={titleButton}
+            title="hello"
             width="20%"
 
             // color={buttonColor}
-             onPress={()=>{
-                 onOk()
-             }}
+            //  onPress={()=>{
+            //      onOk()
+            //  }}
               />
               </View>
       </Modal>

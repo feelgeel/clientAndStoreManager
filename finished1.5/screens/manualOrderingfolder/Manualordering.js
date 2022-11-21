@@ -23,6 +23,7 @@ function Manualordering({navigation}) {
     const[scanModal,setscanModal]=useState(false)
     const[chosenModal,setchosenModal]=useState(false)
     const[quantityModal,setquantityModal]=useState(false)
+    const[paymentModal,setpaymentModal]=useState(false)
     const[modifyChosenModal,setmodifyChosenModal]=useState(false) 
     const[modifyproductModal,setmodifyproductModal]=useState(false) 
     const[scannedProdModel,setscannedProdModel]=useState(false) 
@@ -202,6 +203,9 @@ areUSureModal={areUSureModal}
 onOk={()=>handleDeleteProduct(chosen,theChosen,setchosen,setareUSureModal,
     setmodifyChosenModal,setproduct)}
     areUSeureMessage={areUSeureMessage}
+//payment
+// paymentModal={paymentModal}
+// setpaymentModal={(dt)=>setpaymentModal(dt)}
 />
 
 
