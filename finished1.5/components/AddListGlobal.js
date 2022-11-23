@@ -179,10 +179,10 @@ sell={sell}
 
 />
 {/*  are u sure model*/}
-{/* <Payment
+<Payment
 paymentModal={paymentModal}
 setpaymentModal={(dt)=>setpaymentModal(dt)}
-/> */}
+/>
 </View>
  );
 }

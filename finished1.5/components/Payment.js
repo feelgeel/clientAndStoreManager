@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet,View,Text,Button,Modal } from 'react-native';
 import {  Card, Title,List } from 'react-native-paper';
 import C_Card from './C_Card';
 import C_Button from './C_Button';
+import C_TextInput from './C_TextInput';
+
 function Payment({
   paymentModal,
   setpaymentModal,
 }) {
-  
+  const [remise,setremise]=useState(0)
+  const [versement,setversement]=useState(0)
 return (
   
 <View style={styles.container}>
@@ -19,7 +22,18 @@ return (
         }}
       >
         
-      <Text style={{fontSize:30}}>helolo</Text>
+      <Text style={{fontSize:30}}>total:10000</Text>
+     <C_TextInput
+     placeholder="remise"
+     keyboardType="numeric"
+     />
+     <Text style={{fontSize:30}}>nouveau solde:9500</Text>
+     <C_TextInput
+     placeholder="versement"
+     keyboardType="numeric"
+     />
+       <Text style={{fontSize:30}}>rest:500</Text>
+
            <View style={{flexDirection:"row",justifyContent:"space-evenly"}}>
             <C_Button
              title='cancel'

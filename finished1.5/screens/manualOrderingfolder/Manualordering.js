@@ -204,8 +204,8 @@ onOk={()=>handleDeleteProduct(chosen,theChosen,setchosen,setareUSureModal,
     setmodifyChosenModal,setproduct)}
     areUSeureMessage={areUSeureMessage}
 //payment
-// paymentModal={paymentModal}
-// setpaymentModal={(dt)=>setpaymentModal(dt)}
+paymentModal={paymentModal}
+setpaymentModal={(dt)=>setpaymentModal(dt)}
 />
 
 
