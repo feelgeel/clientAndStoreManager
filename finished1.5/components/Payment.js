@@ -9,6 +9,7 @@ function Payment({
   paymentModal,
   setpaymentModal,
 }) {
+  console.log("payment",paymentModal)
   const [remise,setremise]=useState(0)
   const [versement,setversement]=useState(0)
 return (
@@ -17,9 +18,7 @@ return (
 <Modal
         animationType="slide"
         visible={paymentModal}
-        onRequestClose={() => {
-          setpaymentModal(false);
-        }}
+        onRequestClose={() =>setpaymentModal(false)}
       >
         
       <Text style={{fontSize:30}}>total:10000</Text>

@@ -9,9 +9,11 @@ import navigationTheme from './finished1.4/navigation/navigationTheme';
 // import AppNavigator from './finished1.4/navigation/AppNavigator';
 // import FormManOrder from './finished1.4/components/theForms/FormManOrder';
 import GrossNavigator from './finished1.5/navigation/GrossistNavigator';
+import Screen from './finished1.5/components/Screen';
+import Payment from './finished1.5/components/Payment';
 
 export default function Index() {
-
+const [paymentModfal,setpaymentModfal]=useState(true)
     // const dispatch=useDispatch();
     // const user=useSelector(state=>state.entities.users.list)
   const savedtoken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTgxODI2ZmZjZGJhODE5NjRmZmJhYjciLCJlbWFpbCI6ImNpc2NvQGdtYWlsLmNvbSIsInVzZXJOYW1lIjoiY2lzY2RhYmVzdCIsImNhc2giOjAsImlhdCI6MTYzNTg3NzQ4N30.BSy4caxsfYcnwt6hDw__KN38UO1uxy6fZd8YYz5jUv0"
@@ -48,11 +50,10 @@ export default function Index() {
     //   {label:"coffee",_id:3}
     // ]
   return(
-    // <FormManOrder/>
-         <NavigationContainer theme={navigationTheme}>
-          <GrossNavigator/>
-         {/* {user?<AppNavigator/>:<AuthNavigator/>}  */}
-     </NavigationContainer> 
+        <NavigationContainer theme={navigationTheme}>
+         <GrossNavigator/> 
+        {/* {user?<AppNavigator/>:<AuthNavigator/>} */}
+     </NavigationContainer>
        
   
   )

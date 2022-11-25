@@ -27,6 +27,7 @@ function Manualordering({navigation}) {
     const[modifyChosenModal,setmodifyChosenModal]=useState(false) 
     const[modifyproductModal,setmodifyproductModal]=useState(false) 
     const[scannedProdModel,setscannedProdModel]=useState(false) 
+    const[emptyModal,setemptyModal]=useState(false) 
     const[areUSureModal,setareUSureModal]=useState(false) 
     const[quantity,setquantity]=useState(1)
     const[price,setprice]=useState(1)
@@ -54,7 +55,7 @@ function Manualordering({navigation}) {
     const[modifyChosenModal1,setModifyChosenModal1]=useState(false) 
     const[scannedProdModel1,setscannedProdModel1]=useState(false) 
     const[areUSureModal1,setareUSureModal1]=useState(false) 
-
+ console.log('payment modal',paymentModal)
 return (
 <Screen style={styles.container}>
 <Text>manual ordering</Text>
@@ -104,6 +105,7 @@ navigation.navigate("modeScreen")
 */}
   
   <AddListManualOrder
+
  //add product
 //  chosen,product,chosenModal,setchosenModal,
 //  setscanModal,onSaveChosen,onSelected,onAddProduct,
@@ -170,7 +172,7 @@ onAddQuantity={(values)=>handleAddToChosen(
 //setmodifyChosenModal,
 modifyChosenModal={modifyChosenModal}
 setareUSureModal={(dt)=>setareUSureModal(dt)}
-theChosen={theChosen}
+
 setareUSeureMessage={(dt)=>setareUSeureMessage(dt)}
 onUpdateTheChosenQuant={()=>handleUpdateTheChosenQuant(quantity,price,
     settheChosen,chosen,setchosen,theChosen,benefit,stockAlert)}
@@ -192,7 +194,7 @@ scannedProdModel={scannedProdModel}
 setscannedProdModel={(dt)=>setscannedProdModel(dt)}
 onAddScannedProd={(values)=>handleAddScannedProd(theChosen,scannedProd,quantity,price,
     setchosen,user,chosen,setproduct,benefit,stockAlert,values,scannedgtingResProd)}
-    setbenefit={(dt)=>setbenefit(dt)}
+   
     scannedgtingResProd={scannedgtingResProd}
 scannedgtingResChosen={scannedgtingResChosen} 
 selectedProd={selectedProd}
@@ -203,9 +205,16 @@ areUSureModal={areUSureModal}
 onOk={()=>handleDeleteProduct(chosen,theChosen,setchosen,setareUSureModal,
     setmodifyChosenModal,setproduct)}
     areUSeureMessage={areUSeureMessage}
-//payment
-paymentModal={paymentModal}
-setpaymentModal={(dt)=>setpaymentModal(dt)}
+    titleButton="he"
+// areUSureModal,onOk,areUSeureMessage
+// areUSureModal={emptyModal}
+// onOk={()=>handleDeleteProduct(chosen,theChosen,setchosen,setareUSureModal,
+//     setmodifyChosenModal,setproduct)}
+//     areUSeureMessage={areUSeureMessage}
+//     titleButton="he"
+  //payment
+//   paymentModal={paymentModal}
+//   setpaymentModal={(dt)=>setpaymentModal(dt)}
 />
 
 
