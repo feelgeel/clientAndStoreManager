@@ -10,7 +10,6 @@ function AreUSure({
   Message,
   titleButton="ok",
   theChosen={},
-  buttonColor,
   selfServing=false,
   sell=false,
 }) {

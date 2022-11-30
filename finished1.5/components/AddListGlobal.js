@@ -46,68 +46,57 @@ function AddListGlobal(
 return (
 <View style={styles.container}>
 {/*  add product*/}
+{/* add product
+        chosen,product,chosenModal,setchosenModal,
+        setscanModal,onSaveChosen,onSelected,onAddProduct,
+        showDelete,onDelete,onUnselected,buttonColor,
+        selfServing,clientList,clientStock,verification,onAddStockAlert
+        ,manualOrder,onRefresh,refresh, */}
 <AddProductModal
  chosen={globalProps.chosen}
  product={globalProps.product}
  prodModal={globalProps.chosenModal}
+ verification={globalProps.verification}
+ showDelete={globalProps.showDelete}
+ manualOrder={globalProps.manualOrder}
+ selfServing={globalProps.selfServing}
+ clientStock={globalProps.clientStock}
+ sell={globalProps.sell}
+ refresh={globalProps.refresh}
  onSetProdModal={(dt)=>globalProps.setchosenModal(dt)}
  onAddProduct={(store,categ)=>globalProps.onAddProduct(store,categ)}
  onUnselected={(dt)=>{globalProps.onUnselected(dt)}}
- onSaveChosen={()=>globalProps.onSaveChosen()}
+ onSaveChosen={(dt)=>globalProps.onSaveChosen(dt)}
  onSelected={(dt)=>globalProps.onSelected(dt)}
-onScan={()=>globalProps.setscanModal(true)}
-showDelete={globalProps.showDelete}
-manualOrder={globalProps.manualOrder}
-onDelete={()=>globalProps.onDelete()}
+ onDelete={(dt)=>globalProps.onDelete(dt)}
+ onAddStockAlert={(dt)=>globalProps.onAddStockAlert(dt)}
+ onRefresh={globalProps.onRefresh}
+onScan={(dt)=>globalProps.setscanModal(dt)}
 buttonColor={globalProps.buttonColor}
-selfServing={globalProps.selfServing}
-
-clientStock={globalProps.clientStock}
-verification={globalProps.verification}
-onAddStockAlert={(dt)=>globalProps.onAddStockAlert(dt)}
-sell={globalProps.sell}
 // buttonColor={buttonColor}
-onRefresh={globalProps.onRefresh}
-refresh={globalProps.refresh}
 />
 {/*  add quantity*/}
-<AddQuantity
-chosenmodal={globalProps.quantityModal}
-setchosenmodal={(dt)=>globalProps.setquantityModal(dt)}
-setquantity={(dt)=>globalProps.setquantity(dt)}
-setprice={(dt)=>globalProps.setprice(dt)}
-setbenefit={(dt)=>globalProps.setbenefit(dt)}
-setstockAlert={(dt)=>globalProps.setstockAlert(dt)}
+{/* <AddQuantity
+quantityModal={globalProps.quantityModal}
+setquantityModal={(dt)=>globalProps.setquantityModal(dt)}
+onAddQuantity={(dt)=>globalProps.onAddQuantity(dt)}
 sell={globalProps.sell}
 manualOrder={globalProps.manualOrder}
-onAddQuantity={(dt)=>globalProps.onAddQuantity(dt)}
-buttonColor={globalProps.buttonColor}
+selfServing={globalProps.selfServing}
+listOrder={globalProps.listOrder}
+clientList={globalProps.clientList}
+setquantity={(dt)=>globalProps.setquantity(dt)}
 selectedStock={globalProps.selectedStock}
 quantity={globalProps.quantity}
-price={globalProps.price}
-benefit={globalProps.benefit}
-stockAlert={globalProps.stockAlert}
-selfServing={globalProps.selfServing}
-clientList={globalProps.clientList}
 theChosen={globalProps.theChosen}
-duplication={globalProps.duplication}
-setselectedStock={globalProps.setselectedStock}
-scannedgtingResProd={globalProps.scannedgtingResProd}
-scannedgtingResChosen={globalProps.scannedgtingResChosen}
-listOrder={globalProps.listOrder}
-perimationDate={globalProps.perimationDate}
-setperimationDate={globalProps.setperimationDate}
-perimationAlert={globalProps.perimationAlert}
-setperimationAlert={globalProps.setperimationAlert}
-
-/>
+/> */}
 {/*  modify chosen*/}
-<ModifyChosen
+{/* <ModifyChosen
 modifyChosenModal={globalProps.modifyChosenModal}
 setmodifyChosenModal={(dt)=>globalProps.setmodifyChosenModal(dt)}
 Theproduct={globalProps.theChosen}
-setquantity={(dt)=>globalProps.setquantity(dt)}
 setprice={(dt)=>globalProps.setprice(dt)}
+setquantity={(dt)=>globalProps.setquantity(dt)}
 setbenefit={(dt)=>globalProps.setbenefit(dt)}
 setstockAlert={(dt)=>globalProps.setstockAlert(dt)}
 onUpdateTheChosenQuant={(dt)=>globalProps.onUpdateTheChosenQuant(dt)}
@@ -115,47 +104,44 @@ onUpdateTheChosenQuant={(dt)=>globalProps.onUpdateTheChosenQuant(dt)}
     onDelete={()=>{globalProps.setareUSureModal(true)
       globalProps.setareUSeureMessage("ARE U SURE U WANT TO DELETE THIS PRODUCT FROM THE LIST")
     }}
-    buttonColor={globalProps.buttonColor}
-manualOrder={globalProps.manualOrder}
-modifyTransProd={globalProps.modifyTransProd}
-quantity={globalProps.quantity}
-price={globalProps.price}
-benefit={globalProps.benefit}
-stockAlert={globalProps.stockAlert}
-modifyManOrderProd={globalProps.modifyManOrderProd}
-selfServing={globalProps.selfServing}
+    price={globalProps.price}
+    benefit={globalProps.benefit}
+    stockAlert={globalProps.stockAlert}
+    selfServing={globalProps.selfServing}
+    manualOrder={globalProps.manualOrder}
+    listOrder={globalProps.listOrder}
+    sell={globalProps.sell}
+    perimationDate={globalProps.perimationDate}
+    setperimationDate={globalProps.setperimationDate}
+    perimationAlert={globalProps.perimationAlert}
+    setperimationAlert={globalProps.setperimationAlert}
+    // buttonColor={globalProps.buttonColor}
+// modifyTransProd={globalProps.modifyTransProd}
+// quantity={globalProps.quantity}
+// modifyManOrderProd={globalProps.modifyManOrderProd}
 // manualOrder={manualOrder}
-listOrder={globalProps.listOrder}
-sell={globalProps.sell}
-perimationDate={globalProps.perimationDate}
-setperimationDate={globalProps.setperimationDate}
-perimationAlert={globalProps.perimationAlert}
-setperimationAlert={globalProps.setperimationAlert}
-/>
+/> */}
 {/*  scan product*/}
- <Scan
+ {/* <Scan
  scanModal={globalProps.scanModal}
  setscanModal={(dt)=>globalProps.setscanModal(dt)}
  setscannedGting={(dt)=>globalProps.setscannedGting(dt)}
  onScan={()=>globalProps.onScan()}
- buttonColor={globalProps.buttonColor}
- />
+//  buttonColor={globalProps.buttonColor}
+ /> */}
  {/*  scanned product modal*/}
-<ScannedProdModel
-scannedProd={globalProps.scannedProd}
+{/* <ScannedProdModel
+// scannedProd={globalProps.scannedProd}
 scannedProdModel={globalProps.scannedProdModel}
 setscannedProdModel={(dt)=>globalProps.setscannedProdModel(dt)}
 setquantity={(dt)=>globalProps.setquantity(dt)}
 setprice={(dt)=>globalProps.setprice(dt)}
-setbenefit={(dt)=>globalProps.setbenefit(dt)}
-setstockAlert={(dt)=>globalProps.setstockAlert(dt)}
-manualOrder={globalProps.manualOrder}
 theChosen={globalProps.theChosen}
 onAddScannedProd={(dt)=>globalProps.onAddScannedProd(dt)}
+setbenefit={(dt)=>globalProps.setbenefit(dt)}
 buttonColor={globalProps.buttonColor}
-// showPriceScannedProd={showPriceScannedProd}
-// showBenefit={showBenefit}
-manOrderScanProd={globalProps.manOrderScanProd}
+setstockAlert={(dt)=>globalProps.setstockAlert(dt)}
+manualOrder={globalProps.manualOrder}
 quantity={globalProps.quantity}
 price={globalProps.price}
 benefit={globalProps.benefit}
@@ -170,21 +156,23 @@ scannedgtingResChosen={globalProps.scannedgtingResChosen}
 selectedProd={globalProps.selectedProd}
 setselectedProd={globalProps.setselectedProd}
 listOrder={globalProps.listOrder}
-/>
+
+// showPriceScannedProd={showPriceScannedProd}
+// showBenefit={showBenefit}
+// manOrderScanProd={globalProps.manOrderScanProd}
+/> */}
 
 {/*  are u sure model*/}
-<AreUSure
+{/* <AreUSure
 areUSureModal={globalProps.areUSureModal}
 setareUSureModal={(dt)=>globalProps.setareUSureModal(dt)}
 onOk={()=>globalProps.onOk()}
 Message={globalProps.areUSeureMessage}
 titleButton={globalProps.titleButton}
 theChosen={globalProps.theChosen}
-buttonColor={globalProps.buttonColor}
 selfServing={globalProps.selfServing}
 sell={globalProps.sell}
-
-/>
+/> */}
 {/* <AreUSure
 areUSureModal={emptyModal}
 setareUSureModal={(dt)=>setemptyModal(dt)}
@@ -202,10 +190,10 @@ sell={sell}
  settempmodal={(dt)=>setamchi(dt)}
 /> */}
 {/*  are u sure model*/}
-{/* <Payment
+<Payment
  paymentModal={globalProps.paymentModal}
-setpaymentModal={(dt)=>globalProps.setpaymentModal(dt)}
-/> */}
+setpaymentModal={(dt)=>globalProps.setpaymentModal(dt)} 
+/>
 </View>
  );
 }

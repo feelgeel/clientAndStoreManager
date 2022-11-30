@@ -13,6 +13,9 @@ import { getGlobalStockByProdId, addGlobalStock, updateGlobalStock } from "../..
 import { getperimationAlertbyUser } from "../../api/perimationAlertApi";
 
 {/*                 handleAddproducts                 */}
+export const handleRefresh=async()=>{
+   
+}
 export const handleAddproducts=async(store,categ,Setproduct,chosen)=>{
     const {data:prod}=await getProductByName(store,categ);
     let finishedprod=[...prod];

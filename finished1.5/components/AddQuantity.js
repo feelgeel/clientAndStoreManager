@@ -21,34 +21,18 @@ const selfServiceValidSchema = Yup.object().shape({
   perimationAlert: Yup.number().required().label("perimationAlert"),
 })
 function AddQuantity({
-    chosenmodal,
-    setchosenmodal,
+     quantityModal,
+    setquantityModal,
     onAddQuantity,
-    setquantity,
-    setprice,
-    setbenefit,
-    setstockAlert,
     sell=false,
     manualOrder=false,
-    buttonColor,
+    selfServing=false,
+    listOrder=false,
+    clientList=false,
+    setquantity,
     selectedStock,
     quantity,
-    price,
-    benefit,
-    stockAlert,
-    selfServing=false,
-    clientList,
-    clientStock=false,
     theChosen={},
-    duplication,
-    setselectedStock,
-    scannedgtingResProd,
-    scannedgtingResChosen,
-    listOrder=false,
-    perimationDate,
-    setperimationDate,
-    perimationAlert,
-    setperimationAlert,
 }) {
   // const formRef = useRef();
   // const dt=useFormikContext()
@@ -63,15 +47,15 @@ return (
 
 <Modal
 animationType="slide"
-visible={chosenmodal}
+visible={quantityModal}
 onRequestClose={() => {
-    setchosenmodal(false);
+    setquantityModal(false);
 }}
 >
 <C_Button
 title="exit"
 onPress={()=>{
-  setchosenmodal(false) 
+  setquantityModal(false) 
 }}
 />
      {!sell&&<C_Card

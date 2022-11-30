@@ -22,7 +22,6 @@ const listOrderSchema = Yup.object().shape({
   quantity: Yup.number().required().label("quantity"),
 })
 function ScannedProdModel({
-  scannedProd,
   scannedProdModel,
   setscannedProdModel,
   setquantity,
@@ -30,10 +29,6 @@ function ScannedProdModel({
   theChosen,
   onAddScannedProd,
   buttonColor,
-  setbenefit,
-  setstockAlert,
-  // showPriceScannedProd,
-  // showBenefit,
   manualOrder=false,
   quantity,
   price,

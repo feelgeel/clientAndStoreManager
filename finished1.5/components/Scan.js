@@ -4,7 +4,12 @@ import C_Button from './C_Button';
 import C_TextInput from './C_TextInput';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 
-function Scan({scanModal,setscanModal,setscannedGting,onScan,buttonColor}) {
+function Scan({
+  scanModal,
+  setscanModal,
+  setscannedGting,
+  onScan,
+}) {
   const[scanned,setscaned]=useState(false)
 const handleBarCodeScanned=({ type, data })=>{
 
