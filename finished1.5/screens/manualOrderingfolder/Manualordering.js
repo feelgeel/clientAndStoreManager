@@ -12,8 +12,9 @@ import { handleAddproducts, handleUnselected,handleAddToChosen,
      handleSetListProducts,
      handleUpdateManualListAndProd,handleGetStock,handleRefresh} from './manualOrderingFunc';
 import { ListItem } from '../../components/lists';
+// import AddListManualOrder from '../../components/NewListGlobal';
 import AddListManualOrder from '../../components/AddListGlobal';
-import ModifyListManualOrder from '../../components/AddListGlobal';
+// import ModifyListManualOrder from '../../components/AddListGlobal';
 import C_Button from '../../components/C_Button';
 function Manualordering({navigation}) {
     const dispatch=useDispatch();
@@ -171,11 +172,11 @@ onAddQuantity={(values)=>handleAddToChosen(
     /////don't belong to add quantity///
     ////////////////////////////////
 
-    manualOrderAddQuant={false}
+    // manualOrderAddQuant={false}
     
-    selfServing={false}
-    duplication={duplication}
-    listOrder={false}
+    // selfServing={false}
+    // duplication={duplication}
+    // listOrder={false}
    
 //modify chosen
 // modifyChosenModal,setmodifyChosenModal,Theproduct,
@@ -186,22 +187,22 @@ onAddQuantity={(values)=>handleAddToChosen(
 // setperimationDate, perimationAlert,setperimationAlert,
 
 
-modifyChosenModal={modifyChosenModal}
-setmodifyChosenModal={(dt)=>setmodifyChosenModal(dt)}
-Theproduct={theChosen}
-setprice={(dt)=>setprice(dt)}
-setbenefit={(dt)=>setbenefit(dt)}
-setstockAlert={(dt)=>setstockAlert(dt)}
-onUpdateTheChosenQuant={()=>handleUpdateTheChosenQuant(quantity,price,
-    settheChosen,chosen,setchosen,theChosen,benefit,stockAlert)}
+// modifyChosenModal={modifyChosenModal}
+// setmodifyChosenModal={(dt)=>setmodifyChosenModal(dt)}
+// Theproduct={theChosen}
+// setprice={(dt)=>setprice(dt)}
+// setbenefit={(dt)=>setbenefit(dt)}
+// setstockAlert={(dt)=>setstockAlert(dt)}
+// onUpdateTheChosenQuant={()=>handleUpdateTheChosenQuant(quantity,price,
+//     settheChosen,chosen,setchosen,theChosen,benefit,stockAlert)}
 
 
 //ondelete already exist
 
 
-price={price}
-benefit={benefit}
-stockAlert={stockAlert}
+// price={price}
+// benefit={benefit}
+// stockAlert={stockAlert}
 
 
 //selfserving exist 
@@ -210,11 +211,11 @@ stockAlert={stockAlert}
 //sell order exist 
 
 
-perimationDate={perimationDate}
-setperimationDate={(dt)=>setperimationDate(dt)}
-perimationAlert={perimationAlert}
-setperimationAlert={(dt)=>setperimationAlert(dt)}
-setareUSureModal={(dt)=>setareUSureModal(dt)}
+// perimationDate={perimationDate}
+// setperimationDate={(dt)=>setperimationDate(dt)}
+// perimationAlert={perimationAlert}
+// setperimationAlert={(dt)=>setperimationAlert(dt)}
+// setareUSureModal={(dt)=>setareUSureModal(dt)}
 
 
 ///////////////////////
@@ -225,12 +226,12 @@ setareUSureModal={(dt)=>setareUSureModal(dt)}
 // scanModal,setscanModal,onScan,setscannedGting
 
 
-scanModal={scanModal}
-setscanModal={(dt)=>setscanModal(dt)}
-setscannedGting={(dt)=>setscannedGting(dt)}
-onScan={()=>handleScannedGting(scannedGting,setscannedProd,
-    setscannedProdModel,user,settheChosen,theChosen,chosen,dispatch,
-    setscannedgtingResChosen,setscannedgtingResProd,setselectedProd)}
+// scanModal={scanModal}
+// setscanModal={(dt)=>setscanModal(dt)}
+// setscannedGting={(dt)=>setscannedGting(dt)}
+// onScan={()=>handleScannedGting(scannedGting,setscannedProd,
+//     setscannedProdModel,user,settheChosen,theChosen,chosen,dispatch,
+//     setscannedgtingResChosen,setscannedgtingResProd,setselectedProd)}
 
 
 //scanned prod
@@ -245,10 +246,10 @@ onScan={()=>handleScannedGting(scannedGting,setscannedProd,
 // setselectedProd,listOrder,
 
 
-scannedProdModel={scannedProdModel}
-setscannedProdModel={(dt)=>setscannedProdModel(dt)}
-onAddScannedProd={(values)=>handleAddScannedProd(theChosen,scannedProd,quantity,price,
-    setchosen,user,chosen,setproduct,benefit,stockAlert,values,scannedgtingResProd)}
+// scannedProdModel={scannedProdModel}
+// setscannedProdModel={(dt)=>setscannedProdModel(dt)}
+// onAddScannedProd={(values)=>handleAddScannedProd(theChosen,scannedProd,quantity,price,
+//     setchosen,user,chosen,setproduct,benefit,stockAlert,values,scannedgtingResProd)}
 
 
 //setQuantity exist
@@ -260,11 +261,11 @@ onAddScannedProd={(values)=>handleAddScannedProd(theChosen,scannedProd,quantity,
 // clientList,sell,selectedStock exist
 
 
-setselectedStock={(dt)=>setselectedStock(dt)}
-scannedgtingResProd={scannedgtingResProd}
-scannedgtingResChosen={scannedgtingResChosen} 
-selectedProd={selectedProd}
-setselectedProd={(dt)=>selectedProd(dt)}
+// setselectedStock={(dt)=>setselectedStock(dt)}
+// scannedgtingResProd={scannedgtingResProd}
+// scannedgtingResChosen={scannedgtingResChosen} 
+// selectedProd={selectedProd}
+// setselectedProd={(dt)=>selectedProd(dt)}
 
 
 // listOrder exist
@@ -273,12 +274,13 @@ setselectedProd={(dt)=>selectedProd(dt)}
     // areUSureModal,setareUSureModal,onOk,
     // Message,titleButton="ok", theChosen={}, 
     //selfServing=false,sell=false,
-areUSureModal={areUSureModal}
-// setareUSureModal exist
-onOk={()=>handleDeleteProduct(chosen,theChosen,setchosen,setareUSureModal,
-    setmodifyChosenModal,setproduct)}
-Message={areUSeureMessage}
-titleButton="he"
+    // setareUSureModal exist
+
+//     areUSureModal={areUSureModal}
+// onOk={()=>handleDeleteProduct(chosen,theChosen,setchosen,setareUSureModal,
+//     setmodifyChosenModal,setproduct)}
+// Message={areUSeureMessage}
+// titleButton="he"
 
 //the chosen exist 
 //selfServing exist 
@@ -291,7 +293,7 @@ titleButton="he"
 //     areUSeureMessage={areUSeureMessage}
 //     titleButton="he"
   //payment
-  
+  paymentModal={paymentModal}
   setpaymentModal={(dt)=>setpaymentModal(dt)}
 />
 
@@ -303,7 +305,7 @@ titleButton="he"
         ////////////////////////////////////////////////////////    
         ////////////////////////////////////////////////////////    
 */}
- <ModifyListManualOrder
+ {/* <ModifyListManualOrder
  //add product
 chosen={chosen}
 product={product}
@@ -376,7 +378,7 @@ areUSureModal={areUSureModal1}
 onOk={()=>handleDeleteProduct(chosen,theChosen,setchosen,setareUSureModal,
     setmodifyChosenModal,setproduct)}
     Message={areUSeureMessage}
- />
+ /> */}
 </Screen>
  );
 }

@@ -190,10 +190,10 @@ sell={sell}
  settempmodal={(dt)=>setamchi(dt)}
 /> */}
 {/*  are u sure model*/}
-<Payment
+{/* <Payment
  paymentModal={globalProps.paymentModal}
 setpaymentModal={(dt)=>globalProps.setpaymentModal(dt)} 
-/>
+/> */}
 </View>
  );
 }
