@@ -8,6 +8,7 @@ import C_TextInput from './C_TextInput';
 function Payment({
   paymentModal,
   setpaymentModal,
+  onSavePayment,
 }) {
   console.log("payment",paymentModal)
   const [remise,setremise]=useState(0)
@@ -43,13 +44,11 @@ return (
              }}
             />
             <C_Button 
-            title="hello"
+            title="save"
             width="20%"
 
             // color={buttonColor}
-            //  onPress={()=>{
-            //      onOk()
-            //  }}
+             onPress={()=>{onSavePayment() }}
               />
               </View>
       </Modal>

@@ -12,8 +12,8 @@ import { handleAddproducts, handleUnselected,handleAddToChosen,
      handleSetListProducts,
      handleUpdateManualListAndProd,handleGetStock,handleRefresh} from './manualOrderingFunc';
 import { ListItem } from '../../components/lists';
-// import AddListManualOrder from '../../components/NewListGlobal';
-import AddListManualOrder from '../../components/AddListGlobal';
+import AddListManualOrder from '../../components/NewListGlobal';
+// import AddListManualOrder from '../../components/AddListGlobal';
 // import ModifyListManualOrder from '../../components/AddListGlobal';
 import C_Button from '../../components/C_Button';
 function Manualordering({navigation}) {
@@ -106,7 +106,7 @@ navigation.navigate("modeScreen")
 */}
   
   <AddListManualOrder
-paymentModal={paymentModal}
+// paymentModal={paymentModal}
  //add product
 //  chosen,product,chosenModal,setchosenModal,
 //  setscanModal,onSaveChosen,onSelected,onAddProduct,
@@ -127,8 +127,9 @@ setchosenModal={(dt)=>setchosenModal(dt)}
 onAddProduct={(store,categ)=>handleAddproducts(store,categ,setproduct,chosen)}
 onUnselected={(dt)=>handleUnselected(dt,setquantityModal,settheChosen,user,
     setselectedStock)}
-onSaveChosen={()=>handleSaveManualListAndProd(chosen,user,setmanualOrderLists,
-    manualOrderLists,dispatch,setchosenModal,setchosen,setselectedListName,selectedListName,benefit)}
+onSaveChosen={()=>setpaymentModal(true)}
+// onSaveChosen={()=>handleSaveManualListAndProd(chosen,user,setmanualOrderLists,
+//     manualOrderLists,dispatch,setchosenModal,setchosen,setselectedListName,selectedListName,benefit)}
 onSelected={(dt)=>handleChosenClicked(dt,settheChosen,setmodifyChosenModal,
             dispatch,setprice,setquantity,setbenefit,chosen)}
 onDelete={(dt)=>handleDeleteProduct(dt)}
@@ -185,37 +186,30 @@ onAddQuantity={(values)=>handleAddToChosen(
 // stockAlert,selfServing=false,manualOrder=false,
 // listOrder=false,sell=false, perimationDate,
 // setperimationDate, perimationAlert,setperimationAlert,
+//////////////////////////////////////////////////////////
 
-
-// modifyChosenModal={modifyChosenModal}
-// setmodifyChosenModal={(dt)=>setmodifyChosenModal(dt)}
-// Theproduct={theChosen}
-// setprice={(dt)=>setprice(dt)}
-// setbenefit={(dt)=>setbenefit(dt)}
-// setstockAlert={(dt)=>setstockAlert(dt)}
-// onUpdateTheChosenQuant={()=>handleUpdateTheChosenQuant(quantity,price,
-//     settheChosen,chosen,setchosen,theChosen,benefit,stockAlert)}
-
-
+modifyChosenModal={modifyChosenModal}
+setmodifyChosenModal={(dt)=>setmodifyChosenModal(dt)}
+Theproduct={theChosen}
+setprice={(dt)=>setprice(dt)}
+setbenefit={(dt)=>setbenefit(dt)}
+setstockAlert={(dt)=>setstockAlert(dt)}
+onUpdateTheChosenQuant={()=>handleUpdateTheChosenQuant(quantity,price,
+    settheChosen,chosen,setchosen,theChosen,benefit,stockAlert)}
 //ondelete already exist
-
-
-// price={price}
-// benefit={benefit}
-// stockAlert={stockAlert}
-
-
+price={price}
+benefit={benefit}
+stockAlert={stockAlert}
 //selfserving exist 
 //manual order exist 
 //listorder order exist 
 //sell order exist 
 
-
-// perimationDate={perimationDate}
-// setperimationDate={(dt)=>setperimationDate(dt)}
-// perimationAlert={perimationAlert}
-// setperimationAlert={(dt)=>setperimationAlert(dt)}
-// setareUSureModal={(dt)=>setareUSureModal(dt)}
+perimationDate={perimationDate}
+setperimationDate={(dt)=>setperimationDate(dt)}
+perimationAlert={perimationAlert}
+setperimationAlert={(dt)=>setperimationAlert(dt)}
+setareUSureModal={(dt)=>setareUSureModal(dt)}
 
 
 ///////////////////////
@@ -224,14 +218,14 @@ onAddQuantity={(values)=>handleAddToChosen(
     // modifyManOrderProd={true}
 //scan
 // scanModal,setscanModal,onScan,setscannedGting
+//////////////////////////////////////////////
 
-
-// scanModal={scanModal}
-// setscanModal={(dt)=>setscanModal(dt)}
-// setscannedGting={(dt)=>setscannedGting(dt)}
-// onScan={()=>handleScannedGting(scannedGting,setscannedProd,
-//     setscannedProdModel,user,settheChosen,theChosen,chosen,dispatch,
-//     setscannedgtingResChosen,setscannedgtingResProd,setselectedProd)}
+scanModal={scanModal}
+setscanModal={(dt)=>setscanModal(dt)}
+setscannedGting={(dt)=>setscannedGting(dt)}
+onScan={()=>handleScannedGting(scannedGting,setscannedProd,
+    setscannedProdModel,user,settheChosen,theChosen,chosen,dispatch,
+    setscannedgtingResChosen,setscannedgtingResProd,setselectedProd)}
 
 
 //scanned prod
@@ -244,13 +238,12 @@ onAddQuantity={(values)=>handleAddToChosen(
 // setselectedStock,scannedgtingResProd,
 // scannedgtingResChosen, selectedProd,
 // setselectedProd,listOrder,
+/////////////////////////////////////////////////////////////
 
-
-// scannedProdModel={scannedProdModel}
-// setscannedProdModel={(dt)=>setscannedProdModel(dt)}
-// onAddScannedProd={(values)=>handleAddScannedProd(theChosen,scannedProd,quantity,price,
-//     setchosen,user,chosen,setproduct,benefit,stockAlert,values,scannedgtingResProd)}
-
+scannedProdModel={scannedProdModel}
+setscannedProdModel={(dt)=>setscannedProdModel(dt)}
+onAddScannedProd={(values)=>handleAddScannedProd(theChosen,scannedProd,quantity,price,
+    setchosen,user,chosen,setproduct,benefit,stockAlert,values,scannedgtingResProd)}
 
 //setQuantity exist
 //setprice exist
@@ -260,12 +253,11 @@ onAddQuantity={(values)=>handleAddToChosen(
 // quantity,price,benefit,stockAlert,selfServing exist
 // clientList,sell,selectedStock exist
 
-
-// setselectedStock={(dt)=>setselectedStock(dt)}
-// scannedgtingResProd={scannedgtingResProd}
-// scannedgtingResChosen={scannedgtingResChosen} 
-// selectedProd={selectedProd}
-// setselectedProd={(dt)=>selectedProd(dt)}
+setselectedStock={(dt)=>setselectedStock(dt)}
+scannedgtingResProd={scannedgtingResProd}
+scannedgtingResChosen={scannedgtingResChosen} 
+selectedProd={selectedProd}
+setselectedProd={(dt)=>selectedProd(dt)}
 
 
 // listOrder exist
@@ -276,22 +268,22 @@ onAddQuantity={(values)=>handleAddToChosen(
     //selfServing=false,sell=false,
     // setareUSureModal exist
 
-//     areUSureModal={areUSureModal}
-// onOk={()=>handleDeleteProduct(chosen,theChosen,setchosen,setareUSureModal,
-//     setmodifyChosenModal,setproduct)}
-// Message={areUSeureMessage}
-// titleButton="he"
+    areUSureModal={areUSureModal}
+onOk={()=>handleDeleteProduct(chosen,theChosen,setchosen,setareUSureModal,
+    setmodifyChosenModal,setproduct)}
+Message={areUSeureMessage}
+titleButton="he"
 
 //the chosen exist 
 //selfServing exist 
 //sell exist 
-    // areUSeureMessage={areUSeureMessage}
+    areUSeureMessage={areUSeureMessage}
 // areUSureModal,onOk,areUSeureMessage
-// areUSureModal={emptyModal}
-// onOk={()=>handleDeleteProduct(chosen,theChosen,setchosen,setareUSureModal,
-//     setmodifyChosenModal,setproduct)}
-//     areUSeureMessage={areUSeureMessage}
-//     titleButton="he"
+areUSureModal={emptyModal}
+onOk={()=>handleDeleteProduct(chosen,theChosen,setchosen,setareUSureModal,
+    setmodifyChosenModal,setproduct)}
+    areUSeureMessage={areUSeureMessage}
+    titleButton="he"
   //payment
   paymentModal={paymentModal}
   setpaymentModal={(dt)=>setpaymentModal(dt)}

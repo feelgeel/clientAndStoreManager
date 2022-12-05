@@ -4,6 +4,9 @@ import AddProductModal from './AddProductModal';
 import AddQuantity from './AddQuantity';
 import Payment from './Payment';
 import ModifyChosen from './modifyChosen/ModifyChosen';
+import AreUSure from './AreUSure';
+import ScannedProdModel from './ScannedProdModel';
+import Scan from './Scan';
 
 const NewListGlobal = (globalProps) => {
 
@@ -76,6 +79,54 @@ onUpdateTheChosenQuant={(dt)=>globalProps.onUpdateTheChosenQuant(dt)}
 // quantity={globalProps.quantity}
 // modifyManOrderProd={globalProps.modifyManOrderProd}
 // manualOrder={manualOrder}
+/>
+ <Scan
+ scanModal={globalProps.scanModal}
+ setscanModal={(dt)=>globalProps.setscanModal(dt)}
+ setscannedGting={(dt)=>globalProps.setscannedGting(dt)}
+ onScan={()=>globalProps.onScan()}
+//  buttonColor={globalProps.buttonColor}
+ />
+<ScannedProdModel
+// scannedProd={globalProps.scannedProd}
+scannedProdModel={globalProps.scannedProdModel}
+setscannedProdModel={(dt)=>globalProps.setscannedProdModel(dt)}
+setquantity={(dt)=>globalProps.setquantity(dt)}
+setprice={(dt)=>globalProps.setprice(dt)}
+theChosen={globalProps.theChosen}
+onAddScannedProd={(dt)=>globalProps.onAddScannedProd(dt)}
+setbenefit={(dt)=>globalProps.setbenefit(dt)}
+buttonColor={globalProps.buttonColor}
+setstockAlert={(dt)=>globalProps.setstockAlert(dt)}
+manualOrder={globalProps.manualOrder}
+quantity={globalProps.quantity}
+price={globalProps.price}
+benefit={globalProps.benefit}
+stockAlert={globalProps.stockAlert}
+selfServing={globalProps.selfServing}
+clientList={globalProps.clientList}
+sell={globalProps.sell}
+selectedStock={globalProps.selectedStock}
+setselectedStock={(dt)=>globalProps.setselectedStock(dt)}
+scannedgtingResProd={globalProps.scannedgtingResProd}
+scannedgtingResChosen={globalProps.scannedgtingResChosen}
+selectedProd={globalProps.selectedProd}
+setselectedProd={globalProps.setselectedProd}
+listOrder={globalProps.listOrder}
+
+// showPriceScannedProd={showPriceScannedProd}
+// showBenefit={showBenefit}
+// manOrderScanProd={globalProps.manOrderScanProd}
+/>
+<AreUSure
+areUSureModal={globalProps.areUSureModal}
+setareUSureModal={(dt)=>globalProps.setareUSureModal(dt)}
+onOk={()=>globalProps.onOk()}
+Message={globalProps.areUSeureMessage}
+titleButton={globalProps.titleButton}
+theChosen={globalProps.theChosen}
+selfServing={globalProps.selfServing}
+sell={globalProps.sell}
 />
 <Payment
  paymentModal={globalProps.paymentModal}
