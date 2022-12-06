@@ -8,11 +8,12 @@ import C_TextInput from './C_TextInput';
 function Payment({
   paymentModal,
   setpaymentModal,
+  totalPrice,
+  settotalPrice,
   onSavePayment,
 }) {
   console.log("payment",paymentModal)
-  const [remise,setremise]=useState(0)
-  const [versement,setversement]=useState(0)
+ 
 return (
   
 <View style={styles.container}>
@@ -22,7 +23,7 @@ return (
         onRequestClose={() =>setpaymentModal(false)}
       >
         
-      <Text style={{fontSize:30}}>total:10000</Text>
+      <Text style={{fontSize:30}}>total:{totalPrice}</Text>
      <C_TextInput
      placeholder="remise"
      keyboardType="numeric"

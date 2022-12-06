@@ -31,6 +31,9 @@ function Manualordering({navigation}) {
     const[emptyModal,setemptyModal]=useState(false) 
     const[areUSureModal,setareUSureModal]=useState(false) 
     const[quantity,setquantity]=useState(1)
+    const [remise,setremise]=useState(0)
+    const [versement,setversement]=useState(0)
+    const [totalPrice,settotalPrice]=useState(0)
     const[price,setprice]=useState(1)
     const[benefit,setbenefit]=useState(30)
     const[perimationDate,setperimationDate]=useState("")
@@ -56,7 +59,7 @@ function Manualordering({navigation}) {
     const[modifyChosenModal1,setModifyChosenModal1]=useState(false) 
     const[scannedProdModel1,setscannedProdModel1]=useState(false) 
     const[areUSureModal1,setareUSureModal1]=useState(false) 
- console.log('payment modal',paymentModal)
+//  console.log('chosen',totalPrice)
 return (
 <Screen style={styles.container}>
 <Text>manual ordering</Text>
@@ -159,7 +162,7 @@ onAddQuantity={(values)=>handleAddToChosen(
     theChosen,selectedListName,
     quantity,setquantityModal,
     product,setproduct,chosen,setchosen,
-    user,price,benefit,stockAlert,perimationDate,perimationAlert,values)}
+    user,price,benefit,stockAlert,perimationDate,perimationAlert,values,settotalPrice)}
     sell={false}
     manualOrder={true}
     selfServing={false}
@@ -287,6 +290,8 @@ onOk={()=>handleDeleteProduct(chosen,theChosen,setchosen,setareUSureModal,
   //payment
   paymentModal={paymentModal}
   setpaymentModal={(dt)=>setpaymentModal(dt)}
+  totalPrice={totalPrice}
+  settotalPrice={(dt)=>settotalPrice(dt)}
 />
 
 

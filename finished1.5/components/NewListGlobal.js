@@ -10,7 +10,7 @@ import Scan from './Scan';
 
 const NewListGlobal = (globalProps) => {
 
-  console.log('global props',globalProps)
+  // console.log('global props',globalProps)
 return (
  <View>
    <AddProductModal

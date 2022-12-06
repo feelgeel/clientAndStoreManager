@@ -39,7 +39,7 @@ export const handleAddToChosen=async(theChosen,selectedListName,
     quantity,setquantityModal,
     product,setproduct,
     chosen,setchosen,user,price,benefit,stockAlert,perimationDate,
-    perimationAlert,values)=>{
+    perimationAlert,values,settotalPrice)=>{
         let newproduct=[...product];
         let newChosen=[...chosen];
         let newThechosen={...theChosen}
@@ -81,9 +81,15 @@ export const handleAddToChosen=async(theChosen,selectedListName,
 newproduct.splice(index,1)
 setproduct(newproduct)
 newChosen.push(newThechosen);
+let totalPrice=0;
+newChosen.map(dt=>{
+  let newTotalPrice=Number(dt.ByuPrice)*Number(dt.quantity)
+totalPrice=totalPrice+newTotalPrice
+})
+settotalPrice(totalPrice)
 setchosen(newChosen);
 setquantityModal(false)
-console.log(values)
+// console.log("totalPrice",totalPrice)
     }
  {/*                 handleChosenClicked                 */}
  export const handleChosenClicked=(selecteditem,settheChosen,

@@ -10,13 +10,21 @@ import { useFormikContext } from 'formik';
 import { useEffect } from 'react';
 
 const manualOrderValidSchema = Yup.object().shape({
-    quantity: Yup.number().required().label("quantity"),
-    ByuPrice: Yup.number().required().label("ByuPrice"),
-    benefit: Yup.number().required().label("benefit"),
-    perimationDate: Yup.string().required().label("perimationDate"),
-    stockAlert: Yup.number().required().label("stockAlert"),
-    perimationAlert: Yup.number().required().label("perimationAlert"),
+    quantity: Yup.number().label("quantity"),
+    ByuPrice: Yup.number().label("ByuPrice"),
+    benefit: Yup.number().label("benefit"),
+    perimationDate: Yup.string().label("perimationDate"),
+    stockAlert: Yup.number().label("stockAlert"),
+    perimationAlert: Yup.number().label("perimationAlert"),
   })
+// const manualOrderValidSchema = Yup.object().shape({
+//     quantity: Yup.number().required().label("quantity"),
+//     ByuPrice: Yup.number().required().label("ByuPrice"),
+//     benefit: Yup.number().required().label("benefit"),
+//     perimationDate: Yup.string().required().label("perimationDate"),
+//     stockAlert: Yup.number().required().label("stockAlert"),
+//     perimationAlert: Yup.number().required().label("perimationAlert"),
+//   })
 function AddQuantManOrder({onAddQuantity}) {
     const [formProp,setformprop]=useState({})
     const [calcPrice,setcalcPrice]=useState(0)
@@ -35,13 +43,13 @@ function AddQuantManOrder({onAddQuantity}) {
         <ScrollView style={styles.container}>
             <C_Form
                 initialValues={{
-                    quantity: "",
-                    ByuPrice: 0,
-                    benefit: 0,
+                    quantity: 5,
+                    ByuPrice: 25,
+                    benefit: 25,
                     sell_price: 0,
-                    stockAlert: "",
+                    stockAlert: 5,
                     perimationDate: "",
-                    perimationAlert: ""
+                    perimationAlert: 5
                 }}
                 onSubmit={(values) => {
                     //  setquantity(values.quantity)

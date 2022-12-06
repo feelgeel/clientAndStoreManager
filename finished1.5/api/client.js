@@ -5,7 +5,7 @@ import cache from "../utility/cache";
 
 
 const apiClient=create({
-  baseURL:"http://192.168.1.5:9000/api/",
+  baseURL:"http://192.168.1.6:9000/api/",
   
 });
 apiClient.addAsyncRequestTransform(async(request)=>{
