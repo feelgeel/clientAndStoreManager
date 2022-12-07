@@ -34,6 +34,11 @@ function Manualordering({navigation}) {
     const [remise,setremise]=useState(0)
     const [versement,setversement]=useState(0)
     const [totalPrice,settotalPrice]=useState(0)
+    const [payment,setpayment]=useState({
+        totalPrice:0,
+        remise:0,
+        versement:0
+    })
     const[price,setprice]=useState(1)
     const[benefit,setbenefit]=useState(30)
     const[perimationDate,setperimationDate]=useState("")
@@ -290,8 +295,9 @@ onOk={()=>handleDeleteProduct(chosen,theChosen,setchosen,setareUSureModal,
   //payment
   paymentModal={paymentModal}
   setpaymentModal={(dt)=>setpaymentModal(dt)}
-  totalPrice={totalPrice}
-  settotalPrice={(dt)=>settotalPrice(dt)}
+//   totalPrice={totalPrice}
+//   settotalPrice={(dt)=>settotalPrice(dt)}
+  setpayment={(dt)=>setpayment(dt)}
 />
 
 

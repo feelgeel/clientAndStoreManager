@@ -10,10 +10,13 @@ function Payment({
   setpaymentModal,
   totalPrice,
   settotalPrice,
+  payment,
+  setpayment,
   onSavePayment,
 }) {
   console.log("payment",paymentModal)
- 
+  const [remise,setremise]=useState(0)
+  const [versement,setversement]=useState(0)
 return (
   
 <View style={styles.container}>
@@ -23,17 +26,20 @@ return (
         onRequestClose={() =>setpaymentModal(false)}
       >
         
-      <Text style={{fontSize:30}}>total:{totalPrice}</Text>
+      <Text style={{fontSize:30}}>total:{payment.totalPrice}</Text>
      <C_TextInput
      placeholder="remise"
      keyboardType="numeric"
+     onChangeText={(dt)=>setremise(dt)}
      />
-     <Text style={{fontSize:30}}>nouveau solde:9500</Text>
+     <Text style={{fontSize:30}}
+     >nouveau solde:{Number(payment.totalPrice)-Number(remise)}</Text>
      <C_TextInput
      placeholder="versement"
      keyboardType="numeric"
+     onChangeText={(dt)=>setversement(dt)}
      />
-       <Text style={{fontSize:30}}>rest:500</Text>
+       <Text style={{fontSize:30}}>rest:{payment.totalPrice-remise-versement}</Text>
 
            <View style={{flexDirection:"row",justifyContent:"space-evenly"}}>
             <C_Button
