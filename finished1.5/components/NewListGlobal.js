@@ -131,8 +131,9 @@ sell={globalProps.sell}
 <Payment
  paymentModal={globalProps.paymentModal}
 setpaymentModal={(dt)=>globalProps.setpaymentModal(dt)} 
- totalPrice={globalProps.totalPrice}
-  settotalPrice={(dt)=>globalProps.settotalPrice(dt)}
+ payment={globalProps.payment}
+  setpayment={(dt)=>globalProps.setpayment(dt)}
+  onSavePayment={(remise,versement)=>globalProps.onSavePayment(remise,versement)}
 />
  </View>
   );

@@ -4,6 +4,7 @@ import { addManualOrderList } from "../../api/storeManualOrderListApi";
 import { AddManualorderProd, UpdateManualorderProd,
    RemoveManualorderProd } from "../../api/storeManualOrderProductsApi";
 import *as storeMaualorderListAction from "../../redux/storeMaualorderList";
+import *as paymentListAction from "../../redux/paymentRedux";
 import *as stockListAction from "../../redux/StoreStock";
 import {sortBy} from "underscore"
 import { addStock, getStock, getManualorderStock, updateStock,
@@ -11,6 +12,7 @@ import { addStock, getStock, getManualorderStock, updateStock,
 import { getStockAlert, getStockAlertByUser } from "../../api/stockAlertApi";
 import { getGlobalStockByProdId, addGlobalStock, updateGlobalStock } from "../../api/globalStockApi";
 import { getperimationAlertbyUser } from "../../api/perimationAlertApi";
+import { addPayment, getPayments } from "../../api/paymentApi";
 
 {/*                 handleAddproducts                 */}
 export const handleRefresh=async()=>{
@@ -26,6 +28,13 @@ export const handleAddproducts=async(store,categ,Setproduct,chosen)=>{
     })
     Setproduct(finishedprod)
 }
+export const handleSavePayment=async(remise,versement,setpayment,payment)=>{
+  let newPayment={}
+  newPayment.totalPrice=payment.totalPrice
+  newPayment.remise=remise
+  newPayment.versement=versement
+ console.log(newPayment);
+}
 {/*                 handleunselected                 */}
 export const handleUnselected=async(dt,setquantityModal,settheChosen,user,setselectedStock)=>{
   // const {data:stockprod}=await getStock(user.userId,dt.Gting,dt._id)
@@ -39,7 +48,7 @@ export const handleAddToChosen=async(theChosen,selectedListName,
     quantity,setquantityModal,
     product,setproduct,
     chosen,setchosen,user,price,benefit,stockAlert,perimationDate,
-    perimationAlert,values,settotalPrice)=>{
+    perimationAlert,values,setpayment,payment)=>{
         let newproduct=[...product];
         let newChosen=[...chosen];
         let newThechosen={...theChosen}
@@ -86,7 +95,9 @@ newChosen.map(dt=>{
   let newTotalPrice=Number(dt.ByuPrice)*Number(dt.quantity)
 totalPrice=totalPrice+newTotalPrice
 })
-settotalPrice(totalPrice)
+let newPayment=payment;
+newPayment.totalPrice=totalPrice;
+setpayment(newPayment)
 setchosen(newChosen);
 setquantityModal(false)
 // console.log("totalPrice",totalPrice)
@@ -105,7 +116,11 @@ setquantityModal(false)
  {/*                 handleSaveChosen                 */}
  export const handleSaveManualListAndProd=async(chosen,user,setmanualOrderLists,
   manualOrderLists,dispatch,setchosenModal,setchosen,setselectedListName,selectedListName,
-  benefit)=>{
+  benefit,remise,versement,setpayment,payment,setpaymentModal,storeMaualorderList)=>{
+  
+    // return(
+    //   console.log(newpayment)
+    // ) 
     let newmanualOrderlist=[...manualOrderLists]
   let listNameObj={
     listName:moment().format('D/M/YY,h:m:s a'),
@@ -192,6 +207,16 @@ setmanualOrderLists(newmanualOrderlist)
       }
     }
     })
+    let newpayment={
+      listId:storeMaualorderList._id,
+      listType:"manOrder",
+      totalPrice:payment.totalPrice,
+      remise:remise,
+      versement:versement,
+    }
+    const {data:paymentApi}=await addPayment(newpayment);
+    dispatch(paymentListAction.addPayment(paymentApi));
+    setpaymentModal(false)
    setchosenModal(false)
    setchosen([])
   }

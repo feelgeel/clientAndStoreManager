@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View,Modal,Button,Text,FlatList } from 'react-native';
+import { StyleSheet,Text,FlatList } from 'react-native';
 import { useSelector, useDispatch } from "react-redux";
 import *as listNamesAction from '../../redux/listNames';
 import Screen from '../../components/Screen';
@@ -10,7 +10,7 @@ import { handleAddproducts, handleUnselected,handleAddToChosen,
      handleAddScannedProd,
      handleDeleteProduct,
      handleSetListProducts,
-     handleUpdateManualListAndProd,handleGetStock,handleRefresh} from './manualOrderingFunc';
+     handleUpdateManualListAndProd,handleGetStock,handleRefresh,handleSavePayment} from './manualOrderingFunc';
 import { ListItem } from '../../components/lists';
 import AddListManualOrder from '../../components/NewListGlobal';
 // import AddListManualOrder from '../../components/AddListGlobal';
@@ -19,6 +19,7 @@ import C_Button from '../../components/C_Button';
 function Manualordering({navigation}) {
     const dispatch=useDispatch();
     const user=useSelector(state=>state.entities.users.list)
+    const storeMaualorderList=useSelector(state=>state.entities.storeMaualorderList.list)
     const listproducts=useSelector(state=>state.entities.storeMaualorderList.listproducts)
     const theChosenRedux=useSelector(state=>state.entities.storeMaualorderList.theChosen)
     const[scanModal,setscanModal]=useState(false)
@@ -137,7 +138,8 @@ onUnselected={(dt)=>handleUnselected(dt,setquantityModal,settheChosen,user,
     setselectedStock)}
 onSaveChosen={()=>setpaymentModal(true)}
 // onSaveChosen={()=>handleSaveManualListAndProd(chosen,user,setmanualOrderLists,
-//     manualOrderLists,dispatch,setchosenModal,setchosen,setselectedListName,selectedListName,benefit)}
+//     manualOrderLists,dispatch,setchosenModal,setchosen,setselectedListName
+// ,selectedListName,benefit)}
 onSelected={(dt)=>handleChosenClicked(dt,settheChosen,setmodifyChosenModal,
             dispatch,setprice,setquantity,setbenefit,chosen)}
 onDelete={(dt)=>handleDeleteProduct(dt)}
@@ -167,7 +169,8 @@ onAddQuantity={(values)=>handleAddToChosen(
     theChosen,selectedListName,
     quantity,setquantityModal,
     product,setproduct,chosen,setchosen,
-    user,price,benefit,stockAlert,perimationDate,perimationAlert,values,settotalPrice)}
+    user,price,benefit,stockAlert,perimationDate,
+    perimationAlert,values,setpayment,payment)}
     sell={false}
     manualOrder={true}
     selfServing={false}
@@ -295,9 +298,15 @@ onOk={()=>handleDeleteProduct(chosen,theChosen,setchosen,setareUSureModal,
   //payment
   paymentModal={paymentModal}
   setpaymentModal={(dt)=>setpaymentModal(dt)}
-//   totalPrice={totalPrice}
-//   settotalPrice={(dt)=>settotalPrice(dt)}
+  payment={payment}
   setpayment={(dt)=>setpayment(dt)}
+  onSavePayment={(remise,versement)=>
+    handleSaveManualListAndProd(chosen,user,setmanualOrderLists,
+    manualOrderLists,dispatch,setchosenModal,setchosen,setselectedListName
+    ,selectedListName,benefit,remise,
+    versement,setpayment,payment,setpaymentModal,storeMaualorderList)
+//   handleSavePayment(remise,versement,setpayment,payment)
+  }
 />
 
 

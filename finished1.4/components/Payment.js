@@ -8,9 +8,6 @@ import C_TextInput from './C_TextInput';
 function Payment({
   paymentModal,
   setpaymentModal,
-  payment,
-  setpayment,
-  onSavePayment,
 }) {
   console.log("payment",paymentModal)
   const [remise,setremise]=useState(0)
@@ -24,20 +21,17 @@ return (
         onRequestClose={() =>setpaymentModal(false)}
       >
         
-      <Text style={{fontSize:30}}>total:{payment.totalPrice}</Text>
+      <Text style={{fontSize:30}}>total:10000</Text>
      <C_TextInput
      placeholder="remise"
      keyboardType="numeric"
-     onChangeText={(dt)=>setremise(dt)}
      />
-     <Text style={{fontSize:30}}
-     >nouveau solde:{Number(payment.totalPrice)-Number(remise)}</Text>
+     <Text style={{fontSize:30}}>nouveau solde:9500</Text>
      <C_TextInput
      placeholder="versement"
      keyboardType="numeric"
-     onChangeText={(dt)=>setversement(dt)}
      />
-       <Text style={{fontSize:30}}>rest:{payment.totalPrice-remise-versement}</Text>
+       <Text style={{fontSize:30}}>rest:500</Text>
 
            <View style={{flexDirection:"row",justifyContent:"space-evenly"}}>
             <C_Button
@@ -49,11 +43,13 @@ return (
              }}
             />
             <C_Button 
-            title="save"
+            title="hello"
             width="20%"
 
             // color={buttonColor}
-             onPress={()=>onSavePayment(remise,versement)}
+            //  onPress={()=>{
+            //      onOk()
+            //  }}
               />
               </View>
       </Modal>

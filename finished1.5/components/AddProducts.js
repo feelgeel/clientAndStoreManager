@@ -93,10 +93,8 @@ function AddProducts(
     buttonColor,
     }) {
     const dispatch=useDispatch();
-  const storeListnames=useSelector(state=>state.entities.store_listNames.list)
-  const storeproducts=useSelector(state=>state.entities.store_products.list)
+
   const addgting=useSelector(state=>state.entities.addingGting)
-  const addgtingStore=useSelector(state=>state.entities.addingGtingStore)
   let theCategs=addgting.categObj;
     const [unselected,setUnselected]=useState(false);
     const [selected,setSelected]=useState(true);

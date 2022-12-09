@@ -15,9 +15,9 @@ const Stack = createStackNavigator();
 
 const FeedNavigator = () => (
   <Stack.Navigator mode="modal" screenOptions={{ headerShown: false }}>
+    <Stack.Screen name="sell" component={Sell} />
     <Stack.Screen name="manualOrdering" component={Manualordering} />
      <Stack.Screen name="AddGrosseryForm" component={AddGrosseryForm} /> 
-    <Stack.Screen name="sell" component={Sell} />
      {/* <Stack.Screen name="AddStoreWorker" component={AddStoreWorker} /> 
      <Stack.Screen name="listOrdering" component={ListOrderScreen} /> 
      <Stack.Screen name="transaction" component={Transaction} /> 
