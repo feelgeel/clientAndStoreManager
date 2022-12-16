@@ -13,7 +13,7 @@ function C_FormField({name,...otherProps}) {
     getProps=getProps.value;
     const formikProps=useSelector(state=>state.entities.formikProps)
     dispatch(formikPropsActions.changeFormikProps(getProps));
-    // console.log("getFieldProps",listNames)
+    // //console.log("getFieldProps",listNames)
 return (
 <View style={styles.container}>
 <C_TextInput

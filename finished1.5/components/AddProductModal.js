@@ -26,7 +26,7 @@ function AddProductModal({
     buttonColor,
    
 }) {
-    // console.log("addprod modal",product)
+    // console.log("AddProductModal",product)
 return (
 <View style={styles.container}>
 

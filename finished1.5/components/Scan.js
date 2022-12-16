@@ -13,7 +13,7 @@ function Scan({
   const[scanned,setscaned]=useState(false)
 const handleBarCodeScanned=({ type, data })=>{
 
-  console.log(type)
+  // console.log("Scan ",type)
 
 }
 return (

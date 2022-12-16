@@ -33,7 +33,7 @@ export const handleSavePayment=async(remise,versement,setpayment,payment)=>{
   newPayment.totalPrice=payment.totalPrice
   newPayment.remise=remise
   newPayment.versement=versement
- console.log(newPayment);
+ console.log("manorder func handleSavePayment",newPayment);
 }
 {/*                 handleunselected                 */}
 export const handleUnselected=async(dt,setquantityModal,settheChosen,user,setselectedStock)=>{
@@ -143,6 +143,7 @@ setmanualOrderLists(newmanualOrderlist)
      let sellPrice=chosenDt.ByuPrice*(1+chosenDt.benefit/100);
     let newchosen={
       "Gting" : chosenDt.Gting,
+      "brands" : chosenDt.brands,
       "quantity" : chosenDt.quantity,
       "listId" : selectedListName._id,
       "userId" : user.userId,
@@ -163,6 +164,7 @@ setmanualOrderLists(newmanualOrderlist)
     let stock={
       productId:chosenDt.productId,
       userId:user.userId,
+      brands:chosenDt.brands,
       quantity:chosenDt.quantity,
       ByuPrice:chosenDt.ByuPrice,
       sellPrice,
@@ -219,6 +221,7 @@ setmanualOrderLists(newmanualOrderlist)
     setpaymentModal(false)
    setchosenModal(false)
    setchosen([])
+   console.log("manualOrerFunc handleSaveManualListAndProd",chosen);
   }
  {/*                 handleUpdatemanual list and prod*/}
  export const handleUpdateManualListAndProd=async(chosen,user,setmanualOrderLists,

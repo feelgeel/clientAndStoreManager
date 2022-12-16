@@ -65,7 +65,7 @@ function Manualordering({navigation}) {
     const[modifyChosenModal1,setModifyChosenModal1]=useState(false) 
     const[scannedProdModel1,setscannedProdModel1]=useState(false) 
     const[areUSureModal1,setareUSureModal1]=useState(false) 
-//  console.log('chosen',totalPrice)
+ ////console.log('Manualordering ',totalPrice)
 return (
 <Screen style={styles.container}>
 <Text>manual ordering</Text>
@@ -171,11 +171,11 @@ onAddQuantity={(values)=>handleAddToChosen(
     product,setproduct,chosen,setchosen,
     user,price,benefit,stockAlert,perimationDate,
     perimationAlert,values,setpayment,payment)}
-    sell={false}
-    manualOrder={true}
-    selfServing={false}
-    listOrder={false}
-    clientList={false}
+    // sell={false}
+    // manualOrder={true}
+    // selfServing={false}
+    // listOrder={false}
+    // clientList={false}
     setquantity={(dt)=>setquantity(dt)}
     selectedStock={selectedStock}
     quantity={quantity}

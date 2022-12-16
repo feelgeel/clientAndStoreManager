@@ -27,47 +27,53 @@ export const handleAddproducts=async(store,categ,Setproduct,chosen)=>{
     Setproduct(finishedprod)
 }
 {/*                 handleAddASell                 */}
-export const handleAddASell=async(user,setsellModal,setchosen,setproduct)=>{
+export const handleAddASell=async(user,setchosenModal,setchosen,setproduct)=>{
   const {data:userStock}=await getUserStock(user.userId)
-  // console.log(user)
+  console.log("sellFunction getUserStock",userStock)
   setproduct(userStock)
-  setsellModal(true);
+  setchosenModal(true);
   setchosen([]);
 }
 {/*                 handleunselected                 */}
 export const handleUnselected=async(dt,setquantityModal,settheChosen,
   user,setselectedStock,product,setduplication,chosen,selectedStock,
   setscannedgtingResChosen,setscannedgtingResProd)=>{
-  // const {data:stockprod}=await getStock(user.userId,dt.Gting,dt._id)
-  // let newprod=product.filter((m)=>m.productId==dt.productId)
   setselectedStock(dt)
   let newProd=product.filter((m)=>m.productId==selectedStock.productId)
   let newChosen=chosen.filter((m)=>m.productId==selectedStock.productId)
-  setscannedgtingResChosen(newChosen),
-  setscannedgtingResProd(newProd)
+  // setscannedgtingResChosen(newChosen),
+  // setscannedgtingResProd(newProd)
   settheChosen(dt)
   // setduplication(newprod)
   // setselectedStock(newprod[0])
   setquantityModal(true);
-  // console.log(dt)
+  // console.log(newProd)
 }
 {/*                 handleAddToChosen                 */}
-export const handleAddToChosen=async(theChosen,selectedListName,
+export const handleAddToChosen=async(values,theChosen,selectedListName,
     quantity,setquantityModal,
     product,setproduct,chosen,setchosen,user,
-    price,benefit,selectedStock)=>{
+    price,benefit,selectedStock,setpayment,payment)=>{
         let newproduct=[...product];
         let newChosen=[...chosen];
         let newSelectedStock={...selectedStock}
         let index=newproduct.findIndex(dt=>dt._id==selectedStock._id);
         newSelectedStock.stockQuantity=newSelectedStock.quantity
-        newSelectedStock.quantity=quantity
+        newSelectedStock.sellQuantity=values.quantity
           newproduct.splice(index,1)
+          newChosen.push(newSelectedStock);
           setproduct(newproduct)
-        newChosen.push(newSelectedStock);
         setchosen(newChosen);
+        let totalPrice=0;
+newChosen.map(dt=>{
+  let newTotalPrice=Number(dt.sellPrice)*Number(dt.sellQuantity)
+totalPrice=totalPrice+newTotalPrice
+})
+let newPayment=payment;
+newPayment.totalPrice=totalPrice;
+setpayment(newPayment)
         setquantityModal(false);
-        // console.log(newSelectedStock)
+        // console.log("sellFunc handleAddToChosen",newChosen,totalPrice)
 }
  {/*                 handleChosenClicked                 */}
  export const handleChosenClicked=(selecteditem,settheChosen,
@@ -79,20 +85,21 @@ export const handleAddToChosen=async(theChosen,selectedListName,
     // console.log("hello")
   }
  {/*                 handleSaveChosen                 */}
- export const handleSaveManualListAndProd=async(chosen,user,setsellList,
-  sellList,dispatch,setchosenModal,setchosen,setselectedListName,selectedListName,
-  benefit)=>{
-    let NewSellList=[...sellList]
-  let listNameObj={
-    listName:moment().format('D/M/YY,h:m:s a'),
-    timestamp:Date.now(),
-    totalQuantity:0,
-    userId:user.userId,
-    unfinished:0,
-    totalPrice:0,
-    finished:0,
-    status:false, 
-}
+ export const handleSaveManualListAndProd=async(chosen,user,setsellLists,
+  sellLists,dispatch,setchosenModal,setchosen,setselectedListName
+  ,selectedListName,benefit,remise,
+  versement,setpayment,payment,setpaymentModal,storeMaualorderList)=>{
+//     let NewSellList=[...sellLists]
+//   let listNameObj={
+//     listName:moment().format('D/M/YY,h:m:s a'),
+//     timestamp:Date.now(),
+//     totalQuantity:0,
+//     userId:user.userId,
+//     unfinished:0,
+//     totalPrice:0,
+//     finished:0,
+//     status:false, 
+// }
 // const {data:listNameSale}=await addListNameSell(listNameObj)
 // NewSellList.push(listNameSale)
 // setselectedListName(listNameSale)
@@ -100,18 +107,18 @@ export const handleAddToChosen=async(theChosen,selectedListName,
 // dispatch(storeSellListAction.setTheList(listNameSale));
 // setsellList(NewSellList)
 // console.log("st_man_list",st_manual_order_list._id)
-   chosen.map(async(chosenDt)=>{
-     let newChosen={...chosenDt}
-     let sellPrice=chosenDt.price*(1+chosenDt.benefit/100);
-    let newchosen={
-      "Gting" : chosenDt.Gting,
-      "quantity" : chosenDt.quantity,
-      "listId" : selectedListName._id,
-      "userId" : user.userId,
-      "price" : chosenDt.price,
-      "productId" : chosenDt.productId,
-      "timestamp" : Date.now(),
-  }
+  //  chosen.map(async(chosenDt)=>{
+  //    let newChosen={...chosenDt}
+  //    let sellPrice=chosenDt.price*(1+chosenDt.benefit/100);
+  //   let newchosen={
+  //     "Gting" : chosenDt.Gting,
+  //     "quantity" : chosenDt.quantity,
+  //     "listId" : selectedListName._id,
+  //     "userId" : user.userId,
+  //     "price" : chosenDt.price,
+  //     "productId" : chosenDt.productId,
+  //     "timestamp" : Date.now(),
+  // }
     // newchosen.listId=listNameSale._id
     // const {data:st_sell_prod}=await addProductSell(newchosen)
     // let new_st_sell_prod={...st_sell_prod};
@@ -122,59 +129,69 @@ export const handleAddToChosen=async(theChosen,selectedListName,
     // const {data:chosenStock}=await getStockById(user.userId,chosenDt._id)
     // let chosenStockDb=chosenStock[0]
     // let newStockprod={...stockprod[0]}
-    let newQuantStock=Number(chosenDt.stockQuantity)-Number(chosenDt.quantity)
-    newChosen.quantity=newQuantStock
+    // let newQuantStock=Number(chosenDt.stockQuantity)-Number(chosenDt.quantity)
+    // newChosen.quantity=newQuantStock
     // console.log(newQuantStock)
-    const {data:GlobalstockByProdId}=await getGlobalStockByProdId(user.userId,chosenDt.productId)
-    let newGlobalStockByProdId=GlobalstockByProdId[0]  
-    newGlobalStockByProdId.quantity=Number(newGlobalStockByProdId.quantity)-Number(chosenDt.quantity)
-    const {data:updateglobalstock}=await updateGlobalStock(newGlobalStockByProdId._id,newGlobalStockByProdId)
+    // const {data:GlobalstockByProdId}=await getGlobalStockByProdId(user.userId,chosenDt.productId)
+    // let newGlobalStockByProdId=GlobalstockByProdId[0]  
+    // newGlobalStockByProdId.quantity=Number(newGlobalStockByProdId.quantity)-Number(chosenDt.quantity)
+    // const {data:updateglobalstock}=await updateGlobalStock(newGlobalStockByProdId._id,newGlobalStockByProdId)
     // console.log("newChosen",newChosen)
-    if(newQuantStock==0){
-      const {data:deleteStockDb}=await deleteStock(chosenDt._id)
-      // newstockByProdId.quantity=Number(newstockByProdId.quantity)-6
-      // console.log(newstockByProdId)
-      if(newGlobalStockByProdId.quantity==0){
-        const {data:AddstockAlert}=await addStockAlert(chosenDt)
+    // if(newQuantStock==0){
+    //   const {data:deleteStockDb}=await deleteStock(chosenDt._id)
+    //   // newstockByProdId.quantity=Number(newstockByProdId.quantity)-6
+    //   // console.log(newstockByProdId)
+    //   if(newGlobalStockByProdId.quantity==0){
+    //     const {data:AddstockAlert}=await addStockAlert(chosenDt)
 
 
-        // console.log("call stock",updateglobalstock)
-      }
-      else{
-        // console.log("not zero")
-        let stockPerimation=[]
-        let {data:prodDb}=await getStockByProdId(user.userId,chosenDt.productId)
-        prodDb.map(async(dt)=>{
-          let current = moment().startOf('day');
-          let given = moment(dt.perimationDate, "DD-MM-YYYY");
-          let stock=moment.duration(given.diff(current)).asDays();
-          stockPerimation.push({...dt,time:stock,_id:dt._id,priority:false})
-        })
-        stockPerimation=sortBy(stockPerimation,'time')
-         stockPerimation[0].priority=true;
-         stockPerimation.map(async(dt)=>{
-          let {data:updateStockDb}=await updateStock(dt._id,dt)
-          // console.log(dt.priority)
-        })
-        // console.log("call stock",stockPerimation)
-      }
-    }else{
-      const {data:updateglobalstock}=await updateGlobalStock(newGlobalStockByProdId._id,newGlobalStockByProdId[0])      
-      let {data:updateStockDb}=await updateStock(newChosen._id,newChosen)
-      let current = moment().startOf('day');
-      let given = moment(newChosen.perimationDate, "DD-MM-YYYY");
-      let stockperimation=moment.duration(given.diff(current)).asDays();
-      let perimationAlert=newChosen.perimationAlert
-      newChosen.perimationDate=newChosen.perimationAlert
-      if(stockperimation==perimationAlert){
-        let {data:updateStockDb}=await addPerimationAlert(newChosen)
-      }
-      // console.log(stockperimation,perimationAlert)
-    }
-   })
-   setchosenModal(false)
-   setchosen([])
-  //  console.log(newchosen)
+    //     // console.log("call stock",updateglobalstock)
+    //   }
+    //   else{
+    //     // console.log("not zero")
+    //     let stockPerimation=[]
+    //     let {data:prodDb}=await getStockByProdId(user.userId,chosenDt.productId)
+    //     prodDb.map(async(dt)=>{
+    //       let current = moment().startOf('day');
+    //       let given = moment(dt.perimationDate, "DD-MM-YYYY");
+    //       let stock=moment.duration(given.diff(current)).asDays();
+    //       stockPerimation.push({...dt,time:stock,_id:dt._id,priority:false})
+    //     })
+    //     stockPerimation=sortBy(stockPerimation,'time')
+    //      stockPerimation[0].priority=true;
+    //      stockPerimation.map(async(dt)=>{
+    //       let {data:updateStockDb}=await updateStock(dt._id,dt)
+    //       // console.log(dt.priority)
+    //     })
+    //     // console.log("call stock",stockPerimation)
+    //   }
+    // }else{
+    //   const {data:updateglobalstock}=await updateGlobalStock(newGlobalStockByProdId._id,newGlobalStockByProdId[0])      
+    //   let {data:updateStockDb}=await updateStock(newChosen._id,newChosen)
+    //   let current = moment().startOf('day');
+    //   let given = moment(newChosen.perimationDate, "DD-MM-YYYY");
+    //   let stockperimation=moment.duration(given.diff(current)).asDays();
+    //   let perimationAlert=newChosen.perimationAlert
+    //   newChosen.perimationDate=newChosen.perimationAlert
+    //   if(stockperimation==perimationAlert){
+    //     let {data:updateStockDb}=await addPerimationAlert(newChosen)
+    //   }
+    //   // console.log(stockperimation,perimationAlert)
+    // }
+  //  })
+  //  setchosenModal(false)
+  //  setchosen([])
+  let newpayment={
+    listId:listNameSale._id,
+    listType:"manOrder",
+    totalPrice:payment.totalPrice,
+    remise:remise,
+    versement:versement,
+  }
+  const {data:paymentApi}=await addPayment(newpayment);
+  dispatch(paymentListAction.addPayment(paymentApi));
+  setpaymentModal(false)
+   console.log("sellFunc",chosen)
   }
  {/*                 handleUpdatemanual list and prod*/}
  export const handleUpdateManualListAndProd=async(chosen,user,setmanualOrderLists,

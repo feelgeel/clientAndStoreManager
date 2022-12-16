@@ -9,8 +9,8 @@ const sellValidationSchema = Yup.object().shape({
     quantity: Yup.number().required().label("quantity"),
   })
 function FormSell({ onAddQuantity,selectedStock}) {
-    const {values}=useFormikContext()
-    console.log("values",values)
+    // const {values}=useFormikContext()
+    // console.log("values",values)
     return (
         <View style={styles.container}>
             <C_Card

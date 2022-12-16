@@ -3,15 +3,16 @@ import { StyleSheet,Text,FlatList } from 'react-native';
 import { useSelector, useDispatch } from "react-redux";
 import *as listNamesAction from '../../redux/listNames';
 import Screen from '../../components/Screen';
-import { handleAddproducts, handleUnselected,handleAddToChosen,
-     handleSaveManualListAndProd, handleChosenClicked,
-     handleUpdateTheChosenQuant, 
-     handleScannedGting,
-     handleAddScannedProd,
-     handleDeleteProduct,
-     handleSetListProducts,
-     handleUpdateManualListAndProd,handleGetStock,
-     handleRefresh,handleSavePayment} from './manualOrderingFunc';
+import { handleAddproducts, handleAddToChosen,handleUnselected,
+    handleSaveManualListAndProd, handleChosenClicked,
+    handleUpdateTheChosenQuant, 
+    handleScannedGting,
+    handleAddScannedProd,
+    handleDeleteProduct,
+    handleSetListProducts,
+    handleUpdateManualListAndProd,
+    handleGetStock,
+    handleAddASell} from './SellFunc';
 import { ListItem } from '../../components/lists';
 import AddListManualOrder from '../../components/NewListGlobal';
 // import AddListManualOrder from '../../components/AddListGlobal';
@@ -24,40 +25,38 @@ function NewSell({navigation}) {
     const listproducts=useSelector(state=>state.entities.storeMaualorderList.listproducts)
     const theChosenRedux=useSelector(state=>state.entities.storeMaualorderList.theChosen)
     const[scanModal,setscanModal]=useState(false)
-    const[chosenModal,setchosenModal]=useState(false)
+    const[sellModal,setsellModal]=useState(false)
     const[quantityModal,setquantityModal]=useState(false)
-    const[paymentModal,setpaymentModal]=useState(false)
+    const[chosenModal,setchosenModal]=useState(false)
     const[modifyChosenModal,setmodifyChosenModal]=useState(false) 
-    const[modifyproductModal,setmodifyproductModal]=useState(false) 
-    const[scannedProdModel,setscannedProdModel]=useState(false) 
-    const[emptyModal,setemptyModal]=useState(false) 
-    const[areUSureModal,setareUSureModal]=useState(false) 
-    const[quantity,setquantity]=useState(1)
-    const [remise,setremise]=useState(0)
-    const [versement,setversement]=useState(0)
-    const [totalPrice,settotalPrice]=useState(0)
+    const[perimationDate,setperimationDate]=useState("")
+    const[perimationAlert,setperimationAlert]=useState(5)
+    const[paymentModal,setpaymentModal]=useState(false)
     const [payment,setpayment]=useState({
         totalPrice:0,
         remise:0,
         versement:0
     })
+    const[modifyproductModal,setmodifyproductModal]=useState(false) 
+    const[scannedProdModel,setscannedProdModel]=useState(false) 
+    const[areUSureModal,setareUSureModal]=useState(false) 
+    const[quantity,setquantity]=useState(1)
     const[price,setprice]=useState(1)
     const[benefit,setbenefit]=useState(30)
-    const[perimationDate,setperimationDate]=useState("")
-    const[perimationAlert,setperimationAlert]=useState(5)
     const[stockAlert,setstockAlert]=useState(0)
     const[chosen,setchosen]=useState([])
     const[product,setproduct]=useState([])
     const[duplication,setduplication]=useState([])
-    const[sellLists,setsellLists]=useState([])
-    const[selectedStock,setselectedStock]=useState([]) 
-    const[scannedgtingResChosen,setscannedgtingResChosen]=useState([]) 
-    const[scannedgtingResProd,setscannedgtingResProd]=useState([]) 
     const[scannedProd,setscannedProd]=useState({})
-    const[selectedProd,setselectedProd]=useState({})
+    const[sellLists,setsellLists]=useState({})
     const[theChosen,settheChosen]=useState({})
     const[selectedListName,setselectedListName]=useState({})
-    const [scannedGting, setscannedGting] = useState("6130760003769");
+    const[selectedStock,setselectedStock]=useState({})
+    const[selectedProd,setselectedProd]=useState({})
+    const[scannedgtingResProd,setscannedgtingResProd]=useState([])
+    const[scannedgtingResChosen,setscannedgtingResChosen]=useState([])
+    const [scannedGting, setscannedGting] = useState("6130433000200");
+    
     const [areUSeureMessage, setareUSeureMessage] = useState("");
     //modify manual List
     const[scanModal1,setscanModal1]=useState(false)
@@ -66,16 +65,16 @@ function NewSell({navigation}) {
     const[modifyChosenModal1,setModifyChosenModal1]=useState(false) 
     const[scannedProdModel1,setscannedProdModel1]=useState(false) 
     const[areUSureModal1,setareUSureModal1]=useState(false) 
-//  console.log('chosen',totalPrice)
+//  console.log('NewSell ',chosen)
 return (
 <Screen style={styles.container}>
-<Text>sell</Text>
+<Text>new sell</Text>
 {/* <Button
 title="scan"
 onPress={()=>setscanModal(true)} /> */}
-<C_Button
+<C_Button 
 title="choose"
-onPress={()=>{setchosenModal(true);setchosen([]);setproduct([])}} />
+onPress={()=>{handleAddASell(user,setchosenModal,setchosen,setproduct)}} />
 <C_Button
 title="exit sell mode"
 onPress={()=>{
@@ -135,8 +134,9 @@ sell={true}
 refresh={false}
 setchosenModal={(dt)=>setchosenModal(dt)}
 onAddProduct={(store,categ)=>handleAddproducts(store,categ,setproduct,chosen)}
-onUnselected={(dt)=>handleUnselected(dt,setquantityModal,settheChosen,user,
-    setselectedStock)}
+onUnselected={(dt)=>handleUnselected(dt,setquantityModal,settheChosen,
+    user,setselectedStock,product,setduplication,chosen,selectedStock,
+    setscannedgtingResChosen,setscannedgtingResProd)}
 onSaveChosen={()=>setpaymentModal(true)}
 // onSaveChosen={()=>handleSaveManualListAndProd(chosen,user,setmanualOrderLists,
 //     manualOrderLists,dispatch,setchosenModal,setchosen,setselectedListName
@@ -166,17 +166,15 @@ buttonColor="#dc3545"
 
 quantityModal={quantityModal}
 setquantityModal={(dt)=>setquantityModal(dt)}
-onAddQuantity={(values)=>handleAddToChosen(
-    theChosen,selectedListName,
+onAddQuantity={(values)=>handleAddToChosen(values,theChosen,selectedListName,
     quantity,setquantityModal,
-    product,setproduct,chosen,setchosen,
-    user,price,benefit,stockAlert,perimationDate,
-    perimationAlert,values,setpayment,payment)}
-    sell={false}
-    manualOrder={true}
-    selfServing={false}
-    listOrder={false}
-    clientList={false}
+    product,setproduct,chosen,setchosen,user,
+    price,benefit,selectedStock,setpayment,payment)}
+    // sell={false}
+    // manualOrder={true}
+    // selfServing={false}
+    // listOrder={false}
+    // clientList={false}
     setquantity={(dt)=>setquantity(dt)}
     selectedStock={selectedStock}
     quantity={quantity}
@@ -291,7 +289,7 @@ titleButton="he"
 //sell exist 
     areUSeureMessage={areUSeureMessage}
 // areUSureModal,onOk,areUSeureMessage
-areUSureModal={emptyModal}
+// areUSureModal={emptyModal}
 onOk={()=>handleDeleteProduct(chosen,theChosen,setchosen,setareUSureModal,
     setmodifyChosenModal,setproduct)}
     areUSeureMessage={areUSeureMessage}

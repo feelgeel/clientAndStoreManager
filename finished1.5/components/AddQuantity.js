@@ -36,7 +36,7 @@ function AddQuantity({
 }) {
   // const formRef = useRef();
   // const dt=useFormikContext()
-  console.log("formik val",manualOrder)
+  // console.log("addQuantity formik val",manualOrder)
   // let minQuant=selectedStock.quantity?selectedStock.quantity:10000000
   const sellValidationSchema = Yup.object().shape({
     quantity: Yup.number().min(0).required().label("quantity"),

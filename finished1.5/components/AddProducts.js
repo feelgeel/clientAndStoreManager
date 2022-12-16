@@ -183,11 +183,11 @@ backgroundColor={colors.secondary}
         // let clientStockquantity=clientStock?"||quantity:"+item.quantity:"";
         let clientStockByuPrice=clientStock?"||byuPrice:"+item.ByuPrice:"";
         let clientStockstockAlert=clientStock?"||stockAlert:"+item.stockAlert:"";
-        // console.log("item",item)
+        // console.log("addproducts unselected",item)
         return (
             <C_Card
             image={{ uri: item.image_front_url||"https://unsplash.com/photos/JpTY4gUviJM" }}
-            title={"brand: "+item.brands+"|| Gting : "+item.Gting+
+            title={"brands: "+item.brands+"|| Gting : "+item.Gting+
             // "|| quantity : "+item.quantity+
                 // clientStockquantity+
                 clientStockByuPrice+
@@ -225,10 +225,13 @@ backgroundColor={colors.secondary}
     renderItem={({ item }) => 
     {
         let sellPrice=Number(item.ByuPrice)*(1+(Number(item.benefit)/100))
+      
         let clientStockByuPrice=clientStock?"||byuPrice:"+item.ByuPrice:"";
         // let clientStockstockAlert=clientStock?"||stockAlert:"+item.stockAlert:"";
         let sellSellPrice=sell?" ||sellprice:"+item.sellPrice:"";
-        let sellTotalprice=sell?" ||totalPrice:"+Number(item.sellPrice)*Number(item.quantity):"";
+        let sellQuant=sell?" ||sellQuant:"+item.sellQuantity:"";
+        let sellTotalprice=sell?" ||totalPrice:"+Number(item.sellPrice)*Number(item.sellQuantity):"";
+        let sellmanOrderTotalprice=manualOrder?" ||totalPrice:"+Number(item.sellPrice)*Number(item.quantity):"";
         let clientStockstockAlert=clientStock?" ||stockAlert:"+item.stockAlert:"";
         let selfServingByuPrice=selfServing?" ||byuPrice:"+item.ByuPrice:"";
         let selfServingstockAlert=selfServing?" ||stockAlert:"+item.stockAlert:"";
@@ -239,15 +242,14 @@ backgroundColor={colors.secondary}
         let perimationAlert=manualOrder?" ||perimationAlert:"+item.perimationAlert:"";
         let perimationDate=manualOrder?" ||perimationDate:"+item.perimationDate:"";
         // let priority=manualOrder?" ||priority:"+item.priority:"";
-        // console.log("sell",item)
+        console.log("AddProducts selected",item)
         return (
             <C_Card
             image={{ uri: item.image_front_url||"https://unsplash.com/photos/JpTY4gUviJM" }}
             title= {"brand: "+item.brands+
-            " || quantity:"+
-            item.quantity+"|| Gting : "+
+            sellQuant+"|| Gting : "+
             item.Gting+manOrderByuPrice+
-            manOrderTheBenefit+manOrderSellPrice+manOrderStockAlert+
+            manOrderTheBenefit+manOrderSellPrice+manOrderStockAlert+sellmanOrderTotalprice+
             selfServingByuPrice+selfServingstockAlert+clientStockByuPrice+
             clientStockstockAlert+sellSellPrice+sellTotalprice+perimationAlert+
             perimationDate}

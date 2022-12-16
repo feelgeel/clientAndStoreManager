@@ -42,7 +42,7 @@ function AddListGlobal(
 // }
 ) {
   // console.log("addlist global",emptyModal)
-  console.log("addlist global",globalProps)
+  // console.log("addlist global",globalProps)
 return (
 <View style={styles.container}>
 {/*  add product*/}

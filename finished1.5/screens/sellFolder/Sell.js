@@ -14,7 +14,8 @@ import { handleAddproducts, handleAddToChosen,handleUnselected,
      handleGetStock,
      handleAddASell} from './SellFunc';
 import { ListItem } from '../../components/lists';
-import AddListManualOrder from '../../components/AddListGlobal';
+import AddListManualOrder from '../../components/NewListGlobal';
+// import AddListManualOrder from '../../components/AddListGlobal';
 import ModifyListManualOrder from '../../components/AddListGlobal';
 import C_Button from '../../components/C_Button';
 function Sell({navigation}) {

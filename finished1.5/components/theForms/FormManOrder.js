@@ -52,9 +52,13 @@ function AddQuantManOrder({onAddQuantity}) {
                     perimationAlert: 5
                 }}
                 onSubmit={(values) => {
+                    let newVal={...values}
                     //  setquantity(values.quantity)
-                    onAddQuantity(values)
-                    //  console.log(values)
+                    if(newVal.sell_price==0){
+                        newVal.sell_price=Number(newVal.ByuPrice)*(1+(Number(newVal.benefit)/100))
+                    }
+                    onAddQuantity(newVal)
+                     console.log("formManOrder AddQuantManOrder",newVal)
                 }}
                 validationSchema={manualOrderValidSchema}
             >

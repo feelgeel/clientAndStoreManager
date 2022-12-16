@@ -12,7 +12,7 @@ function Payment({
   setpayment,
   onSavePayment,
 }) {
-  console.log("payment",paymentModal)
+  // console.log("Payment",paymentModal)
   const [remise,setremise]=useState(0)
   const [versement,setversement]=useState(0)
 return (
@@ -46,6 +46,7 @@ return (
             width="20%"
              onPress={()=>{
               setpaymentModal(false)
+              
              }}
             />
             <C_Button 
@@ -53,7 +54,12 @@ return (
             width="20%"
 
             // color={buttonColor}
-             onPress={()=>onSavePayment(remise,versement)}
+             onPress={()=>{
+              onSavePayment(remise,versement)
+              setversement(0)
+              setremise(0)
+            }
+            }
               />
               </View>
       </Modal>

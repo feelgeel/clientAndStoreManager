@@ -10,7 +10,7 @@ const listOrderValidSchema = Yup.object().shape({
   })
 function FormClient({setquantity,onAddQuantity}) {
   const {values}=useFormikContext()
-  console.log("values",values)
+  // console.log("FormClient values",values)
 return (
 <View style={styles.container}>
 <C_Form

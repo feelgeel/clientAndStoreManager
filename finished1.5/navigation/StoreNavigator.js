@@ -8,6 +8,7 @@ import Manualordering from "../screens/manualOrderingfolder/Manualordering";
 // import StoreModeScreens from "../screens/StoreModeScreens";
 // import AddStoreWorker from "../screens/AddWorker/AddStoreWorker";
 import AddGrosseryForm from "../components/AddGrosseryForm";
+import NewSell from "../screens/sellFolder/NewSell";
 
 
 
@@ -15,7 +16,7 @@ const Stack = createStackNavigator();
 
 const FeedNavigator = () => (
   <Stack.Navigator mode="modal" screenOptions={{ headerShown: false }}>
-    <Stack.Screen name="sell" component={Sell} />
+    <Stack.Screen name="sell" component={NewSell} />
     <Stack.Screen name="manualOrdering" component={Manualordering} />
      <Stack.Screen name="AddGrosseryForm" component={AddGrosseryForm} /> 
      {/* <Stack.Screen name="AddStoreWorker" component={AddStoreWorker} /> 

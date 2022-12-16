@@ -2,7 +2,7 @@
 import React, {useContext, useEffect, useState } from 'react';
 import { StyleSheet,View,TextInput } from 'react-native';
 import { useSelector, useDispatch } from "react-redux";
-import *as userAction from "./finished1.4/redux/users";
+import *as userAction from "./finished1.5/redux/users";
 import { NavigationContainer} from "@react-navigation/native";
 import AuthNavigator from './finished1.4/navigation/AuthNavigator';
 import navigationTheme from './finished1.4/navigation/navigationTheme';
@@ -14,7 +14,7 @@ import Payment from './finished1.5/components/Payment';
 
 export default function Index() {
 const [paymentModfal,setpaymentModfal]=useState(true)
-    // const dispatch=useDispatch();
+    const dispatch=useDispatch();
     // const user=useSelector(state=>state.entities.users.list)
   const savedtoken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTgxODI2ZmZjZGJhODE5NjRmZmJhYjciLCJlbWFpbCI6ImNpc2NvQGdtYWlsLmNvbSIsInVzZXJOYW1lIjoiY2lzY2RhYmVzdCIsImNhc2giOjAsImlhdCI6MTYzNTg3NzQ4N30.BSy4caxsfYcnwt6hDw__KN38UO1uxy6fZd8YYz5jUv0"
 //   const savedUSer=
@@ -37,13 +37,13 @@ const [paymentModfal,setpaymentModfal]=useState(true)
 }
 
 
-    // const tempLogin=async(token,user)=>{
-    //   dispatch(userAction.userloggedIn({...user,token}))
-    // }
-    // const [category,setcategory]=useState()
-    // useEffect(()=>{
-    //   tempLogin(savedtoken,savedUSer)
-    // },[])
+    const tempLogin=async(token,user)=>{
+      dispatch(userAction.userloggedIn({...user,token}))
+    }
+    const [category,setcategory]=useState()
+    useEffect(()=>{
+      tempLogin(savedtoken,savedUSer)
+    },[])
     // const categories=[
     //   {label:"milk",_id:1},
     //   {label:"sugar",_id:2},
